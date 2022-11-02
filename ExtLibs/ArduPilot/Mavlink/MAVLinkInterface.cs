@@ -3383,10 +3383,7 @@ Mission Planner waits for 2 valid heartbeat packets before connecting");
                         loc.lat = ((wp.x / 1.0e7));
                         loc.lng = ((wp.y / 1.0e7));
 
-                        if (loc.id == (ushort) MAV_CMD.DO_DIGICAM_CONTROL ||
-                            loc.id == (ushort) MAV_CMD.DO_DIGICAM_CONFIGURE ||
-                            loc.id == (ushort) MAV_CMD.ATTITUDE_TIME ||
-                            loc.id == (ushort) MAV_CMD.DO_GIMBAL_MANAGER_PITCHYAW)
+                        if (!Locationwp.isLocationCommand(loc.id))
                         {
                             loc.lat = wp.x;
                             loc.lng = wp.y;
@@ -3851,10 +3848,7 @@ Mission Planner waits for 2 valid heartbeat packets before connecting");
                     frame = (byte) frame
                 };
 
-                if (loc.id == (ushort) MAV_CMD.DO_DIGICAM_CONTROL || 
-                    loc.id == (ushort) MAV_CMD.DO_DIGICAM_CONFIGURE || 
-                    loc.id == (ushort) MAV_CMD.ATTITUDE_TIME ||
-                    loc.id == (ushort) MAV_CMD.DO_GIMBAL_MANAGER_PITCHYAW)
+                if (!Locationwp.isLocationCommand(loc.id))
                 {
                     req.y = (int) (loc.lng);
                     req.x = (int) (loc.lat);
@@ -5673,10 +5667,15 @@ Mission Planner waits for 2 valid heartbeat packets before connecting");
             req.target_component = compid;
             req.target_system = sysid;
 
-            // use both methods
+            // use *all three* methods
+            doCommand(MAVLink.MAV_CMD.REQUEST_MESSAGE,
+                (float)MAVLink.MAVLINK_MSG_ID.AUTOPILOT_VERSION,
+                0, 0, 0, 0, 0, 0, false);
+
+	    // MAV_CMD.REQUEST_AUTOPILOT_CAPABILITIES is deprecated
             doCommand(MAV_CMD.REQUEST_AUTOPILOT_CAPABILITIES, 0, 0, 0, 0, 0, 0, 0, false);
 
-            // request point
+	    // AUTOPILOT_VERSION_REQUEST is deprecated
             generatePacket((byte) MAVLINK_MSG_ID.AUTOPILOT_VERSION_REQUEST, req);
 
             if (!responcerequired)
