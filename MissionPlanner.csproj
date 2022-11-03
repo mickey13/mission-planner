@@ -871,6 +871,12 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Log\MavlinkLogBase.cs" />
+    <Compile Include="MainAFT.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainAFT.Designer.cs">
+      <DependentUpon>MainAFT.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainV2.cs">
       <SubType>Form</SubType>
     </Compile>
