@@ -318,6 +318,9 @@
     <EmbeddedResource Include="Log\MavlinkLog.uk.resx">
       <DependentUpon>MavlinkLog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MainAFT.resx">
+      <DependentUpon>MainAFT.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Radio\Sikradio.uk.resx">
       <DependentUpon>Sikradio.cs</DependentUpon>
     </EmbeddedResource>
