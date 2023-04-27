@@ -27,6 +27,9 @@ namespace MissionPlanner.ArduPilot.Mavlink
         /// Identifies Skipped entry from List command
         const byte kDirentSkip = (byte) 'S';
 
+        /// max read/write size we will use - low to keep some radios happy
+        const byte rwSize = 80;
+
         private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private readonly byte _compid;
         private readonly MAVLinkInterface _mavint;
@@ -38,11 +41,16 @@ namespace MissionPlanner.ArduPilot.Mavlink
         /// incremented anytime its not a retransmit
         private uint16_t seq_no = 0;
 
+        static Dictionary<(int, int), object> locker = new Dictionary<(int, int), object>();
+
         public MAVFtp(MAVLinkInterface mavint, byte sysid, byte compid)
         {
             _mavint = mavint;
             _sysid = sysid;
             _compid = compid;
+
+            if (!locker.ContainsKey((sysid, compid)))
+                locker[(sysid, compid)] = new object();
         }
 
         public enum errno
@@ -542,7 +550,7 @@ namespace MissionPlanner.ArduPilot.Mavlink
             kRspNak
         };
 
-        public MemoryStream GetFile(string file, CancellationTokenSource cancel, bool burst = true, byte readsize = 239)
+        public MemoryStream GetFile(string file, CancellationTokenSource cancel, bool burst = true, byte readsize = rwSize)
         {
             log.InfoFormat("GetFile {0}-{1} {2}", _sysid, _compid, file);
             Progress?.Invoke("Opening file " + file, -1);
@@ -676,7 +684,7 @@ namespace MissionPlanner.ArduPilot.Mavlink
             return ans;
         }
 
-        public MemoryStream kCmdBurstReadFile(string file, int size, CancellationTokenSource cancel, byte readsize = 239)
+        public MemoryStream kCmdBurstReadFile(string file, int size, CancellationTokenSource cancel, byte readsize = rwSize)
         {
             RetryTimeout timeout = new RetryTimeout();
             fileTransferProtocol.target_system = _sysid;
@@ -729,7 +737,26 @@ namespace MissionPlanner.ArduPilot.Mavlink
                     }
 
                     if (errorcode == FTPErrorCode.kErrEOF)
-                        timeout.Complete = true;
+                    {
+                        if (chunkSortedList.Sum(a => a.Value - a.Key) >= size)
+                        {
+                            timeout.Complete = true;
+                        }
+                        else 
+                        {
+                            var missing = FindMissing(chunkSortedList);
+                            log.InfoFormat("Missing Part {0}", missing);
+                            //switch to part read
+                            payload.opcode = FTPOpcode.kCmdReadFile;
+                            payload.offset = missing;
+                            seq_no = (ushort)(ftphead.seq_number + 1);
+                            payload.seq_number = seq_no;
+                            fileTransferProtocol.payload = payload;
+                            timeout.RetriesCurrent = 0;
+
+                            _mavint.sendPacket(fileTransferProtocol, _sysid, _compid);
+                        }                            
+                    }
                     return true;
                 }
 
@@ -741,16 +768,17 @@ namespace MissionPlanner.ArduPilot.Mavlink
                     return true;
                 // reject bad packets
                 if (ftphead.offset > size || ftphead.size > size || ftphead.offset + ftphead.size > size ||
-                    answer.Length == 0 && ftphead.offset > 0 && size < 239)
+                    answer.Length == 0 && ftphead.offset > 0 && size < readsize)
                     return true;
-                // we have lost data - use retry after timeout
+                if (ftphead.size < readsize)
+                {
+                    // reset the file size because it was a short send from the source
+                    size = (int)(ftphead.offset + ftphead.size);
+                }
+                // we have lost data
                 if (answer.Position != ftphead.offset)
                 {
-                    seq_no = (ushort)(ftphead.seq_number + 1);
-                    payload.seq_number = seq_no;
-                    fileTransferProtocol.payload = payload;
-                    timeout.RetriesCurrent = 0;
-                    return true;
+    
                 }
 
                 // got a valid segment, so reset retrys
@@ -758,6 +786,10 @@ namespace MissionPlanner.ArduPilot.Mavlink
                 timeout.ResetTimeout();
 
                 chunkSortedList[ftphead.offset] = ftphead.offset + ftphead.size;
+
+                var currentsize = chunkSortedList.Sum(a => a.Value - a.Key);
+
+                log.Info($"got data {file} at {ftphead.offset} got {currentsize} of {size}");
 
                 answer.Seek(ftphead.offset, SeekOrigin.Begin);
                 answer.Write(ftphead.data, 0, ftphead.size);
@@ -770,11 +802,27 @@ namespace MissionPlanner.ArduPilot.Mavlink
                 fileTransferProtocol.payload = payload;
                 // ignore the burst read first response
                 if (ftphead.size > 0)
-                    Progress?.Invoke(file, (int)((float)payload.offset / size * 100.0));
-                if (ftphead.offset + ftphead.size >= size)
+                    Progress?.Invoke(file, (int)((float)currentsize / size * 100.0));
+                if (currentsize >= size)
                 {
                     log.InfoFormat("Done {0} {1} ", ftphead.burst_complete, ftphead.offset + ftphead.size);
                     timeout.Complete = true;
+                    return true;
+                }
+                // we see the end, but didnt exit above on valid size, get missing parts || we are in single read mode
+                if (ftphead.offset + ftphead.size >= size || payload.opcode == FTPOpcode.kCmdReadFile)
+                {
+                    var missing = FindMissing(chunkSortedList);
+                    log.InfoFormat("Missing Part {0}", missing);
+                    //switch to part read
+                    payload.opcode = FTPOpcode.kCmdReadFile;
+                    payload.offset = missing;
+                    seq_no = (ushort)(ftphead.seq_number + 1);
+                    payload.seq_number = seq_no;
+                    fileTransferProtocol.payload = payload;
+                    timeout.RetriesCurrent = 0;
+
+                    _mavint.sendPacket(fileTransferProtocol, _sysid, _compid);
                     return true;
                 }
 
@@ -805,6 +853,25 @@ namespace MissionPlanner.ArduPilot.Mavlink
             if (ex != null)
                 throw ex;
             return answer;
+        }
+
+        private uint FindMissing(SortedList<uint, uint> chunkSortedList)
+        {
+            var currentpoint = 0u;
+            foreach(var chunk in chunkSortedList)
+            {
+                if(chunk.Key == currentpoint) 
+                {
+                    // update the current offset
+                    currentpoint = chunk.Value;
+                }   
+                else
+                {
+                    // something is missing
+                    return currentpoint;
+                }
+            }
+            return uint.MaxValue;
         }
 
         public bool kCmdCalcFileCRC32(string file, ref uint crc32, CancellationTokenSource cancel)
@@ -1152,7 +1219,9 @@ namespace MissionPlanner.ArduPilot.Mavlink
             Progress?.Invoke(dir + " Listing", 0);
             Exception ex = null;
             var timeout = new RetryTimeout(5);
-            var sub = _mavint.SubscribeToPacketType(MAVLink.MAVLINK_MSG_ID.FILE_TRANSFER_PROTOCOL,
+            lock (locker[(_sysid, _compid)])
+            {
+                var sub = _mavint.SubscribeToPacketType(MAVLink.MAVLINK_MSG_ID.FILE_TRANSFER_PROTOCOL,
                 message =>
                 {
                     if (cancel != null && cancel.IsCancellationRequested)
@@ -1279,8 +1348,9 @@ namespace MissionPlanner.ArduPilot.Mavlink
 
                 _mavint.sendPacket(fileTransferProtocol, _sysid, _compid);
             };
-            var ans = timeout.DoWork();
-            _mavint.UnSubscribeToPacketType(sub);
+                var ans = timeout.DoWork();
+                _mavint.UnSubscribeToPacketType(sub);
+            }
             Progress?.Invoke(dir + " Ready", 100);
             if (ex != null)
                 throw ex;
@@ -1386,7 +1456,7 @@ namespace MissionPlanner.ArduPilot.Mavlink
             return ans;
         }
 
-        public MemoryStream kCmdReadFile(string file, int size, CancellationTokenSource cancel, byte readsize = 239)
+        public MemoryStream kCmdReadFile(string file, int size, CancellationTokenSource cancel, byte readsize = rwSize)
         {
             RetryTimeout timeout = new RetryTimeout();
             var payload = new FTPPayloadHeader()
@@ -2007,7 +2077,7 @@ namespace MissionPlanner.ArduPilot.Mavlink
 
                     // send next
                     payload.offset += (uint) payload.data.Length;
-                    payload.data = data.Skip((int) payload.offset - (int) destoffset).Take(239).ToArray();
+                    payload.data = data.Skip((int) payload.offset - (int) destoffset).Take(rwSize).ToArray();
                     bytes_read = payload.data.Length;
                     payload.size = (uint8_t) bytes_read;
                     payload.seq_number = seq_no++;
@@ -2020,7 +2090,7 @@ namespace MissionPlanner.ArduPilot.Mavlink
                 }, _sysid, _compid);
                 // fill buffer
                 payload.offset = destoffset;
-                payload.data = data.Skip((int) payload.offset - (int) destoffset).Take(239).ToArray();
+                payload.data = data.Skip((int) payload.offset - (int) destoffset).Take(rwSize).ToArray();
                 bytes_read = payload.data.Length;
                 payload.size = (uint8_t) bytes_read;
                 //  package it
@@ -2138,7 +2208,7 @@ namespace MissionPlanner.ArduPilot.Mavlink
                 }, _sysid, _compid);
                 // fill buffer
                 payload.offset = (uint32_t) stream.Position;
-                payload.data = new byte[239];
+                payload.data = new byte[rwSize];
                 bytes_read = stream.Read(payload.data, 0, payload.data.Length);
                 Array.Resize(ref payload.data, bytes_read);
                 payload.size = (uint8_t) bytes_read;

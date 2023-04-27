@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using ClipperLib;
 using log4net;
 using MissionPlanner.Comms;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace MissionPlanner.Utilities
 {
@@ -27,20 +29,21 @@ namespace MissionPlanner.Utilities
 
             new ConnectionInfo("Mavlink sitl port", false, 5760, ProtocolType.Tcp, ConnectionFormat.MAVLink,
                 Direction.Outbound, "127.0.0.1"),
-
+                      
             new ConnectionInfo("Video udp 5000 h264", true, 5000, ProtocolType.Udp, ConnectionFormat.Video,
                 Direction.Inbound,
-                "udpsrc port=5000 buffer-size=90000 ! application/x-rtp ! decodebin3 ! queue max-size-buffers=1 leaky=2 ! videoconvert ! video/x-raw,format=BGRA ! appsink name=outsink sync=false"),
+                "udpsrc port=5000 buffer-size=90000 ! application/x-rtp,media=(string)video,clock-rate=(int)90000,encoding-name=(string)H264 ! decodebin3 ! queue max-size-buffers=1 leaky=2 ! videoconvert ! video/x-raw,format=BGRA ! appsink name=outsink sync=false"),
             new ConnectionInfo("Video udp 5100 h264", true, 5100, ProtocolType.Udp, ConnectionFormat.Video,
                 Direction.Inbound,
-                "udpsrc port=5100 buffer-size=90000 ! application/x-rtp ! decodebin3 ! queue max-size-buffers=1 leaky=2 ! videoconvert ! video/x-raw,format=BGRA ! appsink name=outsink sync=false"),
+                "udpsrc port=5100 buffer-size=90000 ! application/x-rtp,media=(string)video,clock-rate=(int)90000,encoding-name=(string)H264 ! decodebin3 ! queue max-size-buffers=1 leaky=2 ! videoconvert ! video/x-raw,format=BGRA ! appsink name=outsink sync=false"),
+            // "C:\ProgramData\Mission Planner\gstreamer\1.0\x86_64\bin\gst-launch-1.0.exe" videotestsrc pattern=ball  is-live=true ! video/x-raw,width=640,height=480 ! clockoverlay ! x264enc ! rtph264pay ! udpsink host=127.0.0.1 port=5600
             new ConnectionInfo("Video udp 5600 h264", true, 5600, ProtocolType.Udp, ConnectionFormat.Video,
                 Direction.Inbound,
-                "udpsrc port=5600 buffer-size=90000 ! application/x-rtp ! decodebin3 ! queue max-size-buffers=1 leaky=2 ! videoconvert ! video/x-raw,format=BGRA ! appsink name=outsink sync=false"),
+                "udpsrc port=5600 buffer-size=90000 ! application/x-rtp,media=(string)video,clock-rate=(int)90000,encoding-name=(string)H264 ! decodebin3 ! queue max-size-buffers=1 leaky=2 ! videoconvert ! video/x-raw,format=BGRA ! appsink name=outsink sync=false"),
 
             new ConnectionInfo("Video udp 5601 h265", true, 5601, ProtocolType.Udp, ConnectionFormat.Video,
                 Direction.Inbound,
-                "udpsrc port=5601 buffer-size=90000 ! application/x-rtp ! decodebin3 ! queue max-size-buffers=1 leaky=2 ! videoconvert ! video/x-raw,format=BGRA ! appsink name=outsink sync=false"),
+                "udpsrc port=5601 buffer-size=90000 ! application/x-rtp,media=(string)video,clock-rate=(int)90000,encoding-name=(string)H265 ! decodebin3 ! queue max-size-buffers=1 leaky=2 ! videoconvert ! video/x-raw,format=BGRA ! appsink name=outsink sync=false"),
 
             new ConnectionInfo("SkyViper", false, 554, ProtocolType.Tcp, ConnectionFormat.Video, Direction.Outbound,
                 "rtspsrc location=rtsp://192.168.99.1/media/stream2 debug=false buffer-mode=1 latency=100 ntp-time-source=3 ! application/x-rtp ! decodebin3 ! queue max-size-buffers=1 leaky=2 ! videoconvert ! video/x-raw,format=BGRA ! appsink name=outsink sync=false"),
@@ -397,8 +400,11 @@ namespace MissionPlanner.Utilities
             public string Label;
             public bool Enabled = true;
             public int Port;
+            [JsonConverter(typeof(StringEnumConverter))]
             public ProtocolType Protocol;
+            [JsonConverter(typeof(StringEnumConverter))]
             public ConnectionFormat Format;
+            [JsonConverter(typeof(StringEnumConverter))]
             public Direction Direction;
             public string ConfigString;
 

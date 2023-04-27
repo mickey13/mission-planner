@@ -180,7 +180,9 @@ namespace MissionPlanner.GCSViews
             Battery_Reset,
             ADSB_Out_Ident,
             Scripting_cmd_stop_and_restart,
-            Scripting_cmd_stop
+            Scripting_cmd_stop,
+            HighLatency_Enable,
+            HighLatency_Disable
         }
 
         private Dictionary<int, string> NIC_table = new Dictionary<int, string>()
@@ -567,17 +569,6 @@ namespace MissionPlanner.GCSViews
 
         public void CheckBatteryShow()
         {
-            // ensure battery display is on - also set in hud if current is updated
-            if (MainV2.comPort.MAV.param.ContainsKey("BATT_MONITOR") &&
-                (float) MainV2.comPort.MAV.param["BATT_MONITOR"] != 0)
-            {
-                hud1.batteryon = true;
-            }
-            else
-            {
-                hud1.batteryon = false;
-            }
-
             //Check if we want to display calculated battery cell voltage
             hud1.displayCellVoltage = Settings.Instance.GetBoolean("HUD_showbatterycell", false);
             hud1.batterycellcount = Settings.Instance.GetInt32("HUD_batterycellcount", 0);
@@ -1710,6 +1701,18 @@ namespace MissionPlanner.GCSViews
                         ((Control) sender).Enabled = true;
                         return;
                     }
+                    if (CMB_action.Text == actions.HighLatency_Enable.ToString())
+                    {
+                        MainV2.comPort.doHighLatency(true);
+                        ((Control)sender).Enabled = true;
+                        return;
+                    }
+                    if (CMB_action.Text == actions.HighLatency_Disable.ToString())
+                    {
+                        MainV2.comPort.doHighLatency(false);
+                        ((Control)sender).Enabled = true;
+                        return;
+                    }
 
                     if (CMB_action.Text == actions.Battery_Reset.ToString())
                     {
@@ -2574,8 +2577,6 @@ namespace MissionPlanner.GCSViews
         {
             POI.POIModified += POI_POIModified;
 
-            tfr.GotTFRs += tfr_GotTFRs;
-
             if (!Settings.Instance.ContainsKey("ShowNoFly") || Settings.Instance.GetBoolean("ShowNoFly"))
                 NoFly.NoFly.NoFlyEvent += NoFly_NoFlyEvent;
 
@@ -3168,6 +3169,15 @@ namespace MissionPlanner.GCSViews
         private void hud1_vibeclick(object sender, EventArgs e)
         {
             Vibration frm = new Vibration();
+            frm.RestoreStartupLocation();
+            frm.FormClosed += (a, e2) => frm.SaveStartupLocation();
+            frm.TopMost = true;
+            frm.Show();
+        }
+
+        private void hud1_prearmclick(object sender, EventArgs e)
+        {
+            PrearmStatus frm = new PrearmStatus();
             frm.RestoreStartupLocation();
             frm.FormClosed += (a, e2) => frm.SaveStartupLocation();
             frm.TopMost = true;
@@ -4589,7 +4599,7 @@ namespace MissionPlanner.GCSViews
             {
                 latitude = (int) (MouseDownStart.Lat * 1e7),
                 longitude = (int) (MouseDownStart.Lng * 1e7),
-                altitude = (int) alt.alt,
+                altitude = (int) alt.alt * 1000, // in mm
                 target_system = MainV2.comPort.MAV.sysid
             };
 
@@ -4656,10 +4666,10 @@ namespace MissionPlanner.GCSViews
                             "Are you sure?", CustomMessageBox.MessageBoxButtons.OKCancel) ==
                         CustomMessageBox.DialogResult.OK)
                     {
-                        MainV2.comPort.doCommand((byte) MainV2.comPort.sysidcurrent,
+                        MainV2.comPort.doCommandInt((byte) MainV2.comPort.sysidcurrent,
                             (byte) MainV2.comPort.compidcurrent,
-                            MAVLink.MAV_CMD.DO_SET_HOME, 0, 0, 0, 0, (float) MouseDownStart.Lat,
-                            (float) MouseDownStart.Lng, (float) alt.alt);
+                            MAVLink.MAV_CMD.DO_SET_HOME, 0, 0, 0, 0, (int)(MouseDownStart.Lat * 1e7),
+                            (int)(MouseDownStart.Lng * 1e7), (float)(alt.alt));
                     }
 
                     await MainV2.comPort.getHomePositionAsync((byte) MainV2.comPort.sysidcurrent,
@@ -5034,28 +5044,6 @@ namespace MissionPlanner.GCSViews
             }
         }
 
-        void tfr_GotTFRs(object sender, EventArgs e)
-        {
-            BeginInvoke((Action) delegate
-            {
-                foreach (var item in tfr.tfrs)
-                {
-                    List<List<PointLatLng>> points = item.GetPaths();
-
-                    foreach (var list in points)
-                    {
-                        GMapPolygon poly = new GMapPolygon(list, item.NAME);
-
-                        poly.Fill = new SolidBrush(Color.FromArgb(30, Color.Blue));
-
-                        tfrpolygons.Polygons.Add(poly);
-                    }
-                }
-
-                tfrpolygons.IsVisibile = MainV2.ShowTFR;
-            });
-        }
-
         private void ZedGraphTimer_Tick(object sender, EventArgs e)
         {
             try
@@ -5160,8 +5148,8 @@ namespace MissionPlanner.GCSViews
 
         private void updateBindingSource()
         {
-            //  run at 20 hz.
-            if (lastscreenupdate.AddMilliseconds(50) < DateTime.Now)
+            //  run at 10 hz.
+            if (lastscreenupdate.AddMilliseconds(100) < DateTime.Now)
             {
                 lock (updateBindingSourcelock)
                 {
@@ -6181,6 +6169,36 @@ namespace MissionPlanner.GCSViews
         {
             tabControlactions.Multiline = !tabControlactions.Multiline;
             Settings.Instance["tabControlactions_Multiline"] = tabControlactions.Multiline.ToString();
+        }
+
+        private void jumpToTagToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string tag_str = "";
+            if (InputBox.Show("Jump to Tag", "Tag Id:", ref tag_str) != DialogResult.OK)
+            {
+                return;
+            }
+
+            UInt16 tag;
+            if (!UInt16.TryParse(tag_str, out tag) || tag < 0 || tag > 0xFFFF)
+            {
+                CustomMessageBox.Show("Invalid Tag. Must be a number from 0 to 65535");
+                // NOTE: This is recursive to automatically re-pop up the dialog box
+                // on input error for as many times as you try to enter an invalid number.
+                jumpToTagToolStripMenuItem_Click(null, null);
+                return;
+            }
+
+            try {
+                if (!MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_JUMP_TAG, tag, 0, 0, 0, 0, 0, 0))
+                {
+                    CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
+                }
+            }
+            catch (Exception ex)
+            {
+                CustomMessageBox.Show(Strings.CommandFailed + ex.ToString(), Strings.ERROR);
+            }
         }
     }
 }

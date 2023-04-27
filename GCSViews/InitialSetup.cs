@@ -136,9 +136,9 @@ namespace MissionPlanner.GCSViews
                 }
             }
 
-            AddBackstageViewPage(typeof(ConfigSecure), "Secure",
+            AddBackstageViewPage(typeof(ConfigSecureAP), "Secure",
                 isDisConnected);
-
+         
 
             var mand = AddBackstageViewPage(typeof(ConfigMandatory), rm.GetString("backstageViewPagemand.Text"), isConnected && gotAllParams);
 
@@ -204,6 +204,9 @@ namespace MissionPlanner.GCSViews
             {
                 AddBackstageViewPage(typeof(ConfigSerialInjectGPS), "RTK/GPS Inject", true, opt);
             }
+
+            AddBackstageViewPage(typeof(ConfigCubeID), "CubeID Update",
+    isConnected, opt);
 
             if (MainV2.DisplayConfiguration.displaySikRadio)
             {
