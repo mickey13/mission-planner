@@ -23,5 +23,10 @@ namespace MissionPlanner
             base.OnLoad(e);
             Program.Splash?.Close();
         }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
