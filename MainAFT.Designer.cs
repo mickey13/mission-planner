@@ -138,7 +138,7 @@ namespace MissionPlanner
             // MainAFT
             // 
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.Controls.Add(this.airLabel);
             this.Controls.Add(this.customLabel);
