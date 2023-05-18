@@ -33,19 +33,19 @@ namespace MissionPlanner
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainAFT));
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.button5 = new System.Windows.Forms.Button();
+            this.airButton = new System.Windows.Forms.Button();
+            this.customButton = new System.Windows.Forms.Button();
+            this.groundButton = new System.Windows.Forms.Button();
+            this.line2 = new System.Windows.Forms.PictureBox();
+            this.line1 = new System.Windows.Forms.PictureBox();
+            this.toggleButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.groundLabel = new System.Windows.Forms.Label();
+            this.customLabel = new System.Windows.Forms.Label();
+            this.airLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.line2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.line1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -57,94 +57,106 @@ namespace MissionPlanner
             // 
             resources.ApplyResources(this.pictureBox1, "pictureBox1");
             this.pictureBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.pictureBox1.Image = global::MissionPlanner.Properties.Resources.AFT_logo_black;
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.TabStop = false;
             // 
-            // button2
+            // airButton
             // 
-            this.button2.BackColor = System.Drawing.SystemColors.Control;
-            this.button2.FlatAppearance.BorderSize = 0;
-            resources.ApplyResources(this.button2, "button2");
-            this.button2.Name = "button2";
-            this.button2.UseVisualStyleBackColor = false;
+            this.airButton.BackColor = System.Drawing.SystemColors.Control;
+            this.airButton.FlatAppearance.BorderSize = 0;
+            resources.ApplyResources(this.airButton, "airButton");
+            this.airButton.Image = global::MissionPlanner.Properties.Resources.Quad_lt_blue__2_;
+            this.airButton.Name = "airButton";
+            this.airButton.UseVisualStyleBackColor = false;
+            this.airButton.Click += new System.EventHandler(this.airButton_Click);
             // 
-            // button3
+            // customButton
             // 
-            this.button3.BackColor = System.Drawing.SystemColors.Control;
-            this.button3.FlatAppearance.BorderSize = 0;
-            resources.ApplyResources(this.button3, "button3");
-            this.button3.Name = "button3";
-            this.button3.UseVisualStyleBackColor = false;
+            this.customButton.BackColor = System.Drawing.SystemColors.Control;
+            this.customButton.FlatAppearance.BorderSize = 0;
+            resources.ApplyResources(this.customButton, "customButton");
+            this.customButton.Image = global::MissionPlanner.Properties.Resources.caution_sign;
+            this.customButton.Name = "customButton";
+            this.customButton.UseVisualStyleBackColor = false;
+            this.customButton.Click += new System.EventHandler(this.customButton_Click);
             // 
-            // button1
+            // groundButton
             // 
-            this.button1.BackColor = System.Drawing.SystemColors.Control;
-            this.button1.FlatAppearance.BorderSize = 0;
-            resources.ApplyResources(this.button1, "button1");
-            this.button1.Name = "button1";
-            this.button1.UseVisualStyleBackColor = false;
+            this.groundButton.BackColor = System.Drawing.SystemColors.Control;
+            this.groundButton.FlatAppearance.BorderSize = 0;
+            resources.ApplyResources(this.groundButton, "groundButton");
+            this.groundButton.Image = global::MissionPlanner.Properties.Resources.moon_rover1;
+            this.groundButton.Name = "groundButton";
+            this.groundButton.UseVisualStyleBackColor = false;
+            this.groundButton.Click += new System.EventHandler(this.groundButton_Click);
             // 
-            // pictureBox2
+            // line2
             // 
-            resources.ApplyResources(this.pictureBox2, "pictureBox2");
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.TabStop = false;
+            this.line2.Image = global::MissionPlanner.Properties.Resources.line_black;
+            resources.ApplyResources(this.line2, "line2");
+            this.line2.Name = "line2";
+            this.line2.TabStop = false;
             // 
-            // pictureBox3
+            // line1
             // 
-            resources.ApplyResources(this.pictureBox3, "pictureBox3");
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.TabStop = false;
+            this.line1.Image = global::MissionPlanner.Properties.Resources.line_black;
+            resources.ApplyResources(this.line1, "line1");
+            this.line1.Name = "line1";
+            this.line1.TabStop = false;
             // 
-            // button5
+            // toggleButton
             // 
-            this.button5.BackColor = System.Drawing.SystemColors.Control;
-            this.button5.FlatAppearance.BorderSize = 0;
-            resources.ApplyResources(this.button5, "button5");
-            this.button5.Name = "button5";
-            this.button5.UseVisualStyleBackColor = false;
+            this.toggleButton.BackColor = System.Drawing.SystemColors.Control;
+            this.toggleButton.FlatAppearance.BorderSize = 0;
+            resources.ApplyResources(this.toggleButton, "toggleButton");
+            this.toggleButton.Image = global::MissionPlanner.Properties.Resources.tog_img_for_light_mode;
+            this.toggleButton.Name = "toggleButton";
+            this.toggleButton.UseVisualStyleBackColor = false;
+            this.toggleButton.Click += new System.EventHandler(this.toggleButton_Click);
             // 
             // label2
             // 
             resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
             // 
-            // label3
+            // groundLabel
             // 
-            resources.ApplyResources(this.label3, "label3");
-            this.label3.Name = "label3";
+            resources.ApplyResources(this.groundLabel, "groundLabel");
+            this.groundLabel.Name = "groundLabel";
             // 
-            // label4
+            // customLabel
             // 
-            resources.ApplyResources(this.label4, "label4");
-            this.label4.Name = "label4";
+            resources.ApplyResources(this.customLabel, "customLabel");
+            this.customLabel.Name = "customLabel";
             // 
-            // label5
+            // airLabel
             // 
-            resources.ApplyResources(this.label5, "label5");
-            this.label5.Name = "label5";
+            resources.ApplyResources(this.airLabel, "airLabel");
+            this.airLabel.Name = "airLabel";
             // 
             // MainAFT
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
+            this.BackColor = System.Drawing.SystemColors.Control;
+            this.Controls.Add(this.airLabel);
+            this.Controls.Add(this.customLabel);
+            this.Controls.Add(this.groundLabel);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.pictureBox3);
-            this.Controls.Add(this.pictureBox2);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.toggleButton);
+            this.Controls.Add(this.line1);
+            this.Controls.Add(this.line2);
+            this.Controls.Add(this.customButton);
+            this.Controls.Add(this.airButton);
+            this.Controls.Add(this.groundButton);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label1);
             this.KeyPreview = true;
             this.Name = "MainAFT";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.line2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.line1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -154,15 +166,15 @@ namespace MissionPlanner
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button1;
-        private PictureBox pictureBox2;
-        private PictureBox pictureBox3;
-        private Button button5;
+        private System.Windows.Forms.Button airButton;
+        private System.Windows.Forms.Button customButton;
+        private System.Windows.Forms.Button groundButton;
+        private PictureBox line2;
+        private PictureBox line1;
+        private Button toggleButton;
         private Label label2;
-        private Label label3;
-        private Label label4;
-        private Label label5;
+        private Label groundLabel;
+        private Label customLabel;
+        private Label airLabel;
     }
 }

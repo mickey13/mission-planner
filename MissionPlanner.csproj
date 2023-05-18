@@ -74,6 +74,9 @@
     <EmbeddedResource Remove="SikRadio\**" />
     <EmbeddedResource Remove="Updater\**" />
     <EmbeddedResource Remove="wix\**" />
+    <EmbeddedResource Include="AFTAir.resx">
+      <DependentUpon>AFTAir.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Antenna\TrackerUI.uk.resx">
       <DependentUpon>TrackerUI.cs</DependentUpon>
     </EmbeddedResource>
@@ -145,6 +148,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Vibration.uk.resx">
       <DependentUpon>Vibration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AFTGround.resx">
+      <DependentUpon>AFTGround.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigAccelerometerCalibration.uk.resx">
       <DependentUpon>ConfigAccelerometerCalibration.cs</DependentUpon>
@@ -789,6 +795,18 @@
     </Compile>
     <Compile Include="Controls\FollowMe.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AFTGround.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AFTGround.Designer.cs">
+      <DependentUpon>AFTGround.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AFTAir.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AFTAir.Designer.cs">
+      <DependentUpon>AFTAir.cs</DependentUpon>
     </Compile>
     <Compile Include="GCSViews\ConfigurationView\ConfigADSB.cs">
       <SubType>UserControl</SubType>
@@ -4862,6 +4880,15 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\moon-rover.png" />
+    <None Include="Resources\tog_img_for_light_mode.png" />
+    <None Include="Resources\tog_img_for_dark_mode.png" />
+    <None Include="Resources\AFT_logo_black.png" />
+    <None Include="Resources\AFT_logo_white.png" />
+    <None Include="Resources\line_black.png" />
+    <None Include="Resources\line_white.png" />
+    <None Include="Resources\moon-rover1.png" />
+    <None Include="Resources\Quad_lt_blue %282%29.png" />
+    <None Include="Resources\caution_sign.png" />
     <Content Include="rotmat.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
