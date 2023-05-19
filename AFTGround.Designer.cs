@@ -29,15 +29,34 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AFTGround));
+            this.groundToggleButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
+            // 
+            // groundToggleButton
+            // 
+            this.groundToggleButton.BackColor = System.Drawing.SystemColors.Control;
+            this.groundToggleButton.FlatAppearance.BorderSize = 0;
+            this.groundToggleButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groundToggleButton.Image = global::MissionPlanner.Properties.Resources.tog_img_for_light_mode;
+            this.groundToggleButton.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.groundToggleButton.Location = new System.Drawing.Point(1284, 63);
+            this.groundToggleButton.Margin = new System.Windows.Forms.Padding(2);
+            this.groundToggleButton.Name = "groundToggleButton";
+            this.groundToggleButton.Size = new System.Drawing.Size(50, 50);
+            this.groundToggleButton.TabIndex = 15;
+            this.groundToggleButton.Text = "v";
+            this.groundToggleButton.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.groundToggleButton.UseVisualStyleBackColor = false;
+            this.groundToggleButton.Click += new System.EventHandler(this.toggleButton_Click);
             // 
             // AFTGround
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(707, 496);
+            this.ClientSize = new System.Drawing.Size(1424, 881);
+            this.Controls.Add(this.groundToggleButton);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "AFTGround";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Mission Planner - AFT Ground Interface";
@@ -47,5 +66,7 @@
         }
 
         #endregion
+
+        private System.Windows.Forms.Button groundToggleButton;
     }
 }

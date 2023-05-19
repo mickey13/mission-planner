@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Org.BouncyCastle.Asn1.X509.Qualified;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static MissionPlanner.Swarm.Sequence.LayoutEditor;
 
 namespace MissionPlanner
 {
@@ -24,47 +26,25 @@ namespace MissionPlanner
             Program.Splash?.Close();
         }
 
-        public bool ToggleColorMode(List<Button> buttons = null, List<Label> labels = null, List<PictureBox> pictureBoxes = null)
+        //public bool ToggleColorMode(List<Button> buttons = null, List<Label> labels = null, List<PictureBox> pictureBoxes = null)
+        public bool ToggleColorMode(Form form)
         {
             // If in light mode
-            if (BackColor == System.Drawing.SystemColors.Control)
+            if (form.BackColor == System.Drawing.SystemColors.Control)
             {
                 // Toggle background color
-                BackColor = System.Drawing.SystemColors.ControlText;
+                form.BackColor = System.Drawing.SystemColors.ControlText;
 
-                // If toggling buttons
-                if (buttons != null)
+                foreach (Control c in form.Controls)
                 {
-                    foreach (var button in buttons)
+                    if (c is Button || c is Label)
                     {
-                        if (button != null)
-                        {
-                            button.BackColor = System.Drawing.SystemColors.ControlText;
-                            button.ForeColor = System.Drawing.SystemColors.Control;
-                        }
+                        c.BackColor = System.Drawing.SystemColors.ControlText;
+                        c.ForeColor = System.Drawing.SystemColors.Control;
                     }
-                }
-                // If toggling labels
-                if (labels != null)
-                {
-                    foreach (var label in labels)
+                    else
                     {
-                        if (label != null)
-                        {
-                            label.BackColor = System.Drawing.SystemColors.ControlText;
-                            label.ForeColor = System.Drawing.SystemColors.Control;
-                        }
-                    }
-                }
-                // If toggling pictures
-                if (pictureBoxes != null)
-                {
-                    foreach (var pictureBox in pictureBoxes)
-                    {
-                        if (pictureBox != null)
-                        {
-                            pictureBox.BackColor = System.Drawing.SystemColors.ControlText;
-                        }
+                        c.BackColor = System.Drawing.SystemColors.ControlText;
                     }
                 }
                 return true;
@@ -73,41 +53,18 @@ namespace MissionPlanner
             else
             {
                 // Toggle background color
-                BackColor = System.Drawing.SystemColors.Control;
+                form.BackColor = System.Drawing.SystemColors.Control;
 
-                // If toggling buttons
-                if (buttons != null)
+                foreach (Control c in form.Controls)
                 {
-                    foreach (var button in buttons)
+                    if (c is Button || c is Label)
                     {
-                        if (button != null)
-                        {
-                            button.BackColor = System.Drawing.SystemColors.Control;
-                            button.ForeColor = System.Drawing.SystemColors.ControlText;
-                        }
+                        c.BackColor = System.Drawing.SystemColors.Control;
+                        c.ForeColor = System.Drawing.SystemColors.ControlText;
                     }
-                }
-                // If toggling labels
-                if (labels != null)
-                {
-                    foreach (var label in labels)
+                    else
                     {
-                        if (label != null)
-                        {
-                            label.BackColor = System.Drawing.SystemColors.Control;
-                            label.ForeColor = System.Drawing.SystemColors.ControlText;
-                        }
-                    }
-                }
-                // If toggling pictures
-                if (pictureBoxes != null)
-                {
-                    foreach (var pictureBox in pictureBoxes)
-                    {
-                        if (pictureBox != null)
-                        {
-                            pictureBox.BackColor = System.Drawing.SystemColors.Control;
-                        }
+                        c.BackColor = System.Drawing.SystemColors.Control;
                     }
                 }
                 return false;
@@ -116,13 +73,8 @@ namespace MissionPlanner
 
         private void toggleButton_Click(object sender, EventArgs e)
         {
-            // Lists holding all components of MainAFT form
-            List<Button> buttonList = new List<Button> { groundButton, airButton, customButton, toggleButton };
-            List<Label> labelList = new List<Label> { groundLabel, airLabel, customLabel, label1, label2 };
-            List<PictureBox> pictureBoxList = new List<PictureBox> { pictureBox1, line1, line2 };
-
             // Toggle between light and dark mode
-            if (ToggleColorMode(buttonList, labelList, pictureBoxList))
+            if (ToggleColorMode(this))
             {
                 toggleButton.Image = MissionPlanner.Properties.Resources.tog_img_for_dark_mode;
                 pictureBox1.Image = MissionPlanner.Properties.Resources.AFT_logo_white;
@@ -142,6 +94,22 @@ namespace MissionPlanner
         private void groundButton_Click(object sender, EventArgs e)
         {
             AFTGround aftGround = new AFTGround();
+
+            // Syncing color mode
+            aftGround.BackColor = this.BackColor;
+            foreach(Control c in aftGround.Controls)
+            {
+                if (c is Button || c is Label)
+                {
+                    c.BackColor = groundButton.BackColor;
+                    c.ForeColor = groundButton.ForeColor;
+                }
+                else
+                {
+                    c.BackColor = groundButton.BackColor;
+                }
+            }
+
             aftGround.Show();
         }
 
@@ -155,6 +123,11 @@ namespace MissionPlanner
         {
             MainV2 mainV2 = new MainV2();
             mainV2.Show();
+        }
+
+        private void MainAFT_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

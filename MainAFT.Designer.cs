@@ -154,6 +154,7 @@ namespace MissionPlanner
             this.Controls.Add(this.label1);
             this.KeyPreview = true;
             this.Name = "MainAFT";
+            this.Load += new System.EventHandler(this.MainAFT_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.line2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.line1)).EndInit();
