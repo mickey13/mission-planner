@@ -112,104 +112,6 @@ namespace MissionPlanner
                 }
                 return false;
             }
-                /*// Toggling buttons
-                foreach (var button in buttons)
-                {
-                    if (button != null)
-                    {
-                        // If in light mode
-                        if (button.BackColor == System.Drawing.SystemColors.Control)
-                        {
-                            button.BackColor = System.Drawing.SystemColors.ControlText;
-                            button.ForeColor = System.Drawing.SystemColors.Control;
-                        }
-                        // If in dark mode
-                        else
-                        {
-                            button.BackColor = System.Drawing.SystemColors.Control;
-                            button.ForeColor = System.Drawing.SystemColors.ControlText;
-                        }
-                    }
-                }
-                // Toggling labels
-                foreach (var label in labels)
-                {
-                    if (label != null)
-                    {
-                        // If in light mode
-                        if (label.BackColor == System.Drawing.SystemColors.Control)
-                        {
-                            label.BackColor = System.Drawing.SystemColors.ControlText;
-                            label.ForeColor = System.Drawing.SystemColors.Control;
-                        }
-                        // If in dark mode
-                        else
-                        {
-                            label.BackColor = System.Drawing.SystemColors.Control;
-                            label.ForeColor = System.Drawing.SystemColors.ControlText;
-                        }
-                    }
-                }
-                // Toggling pictures
-                foreach (var pictureBox in pictureBoxes)
-                {
-                    if (pictureBox != null)
-                    {
-                        // If in light mode
-                        if (pictureBox.BackColor == System.Drawing.SystemColors.Control)
-                        {
-                            pictureBox.BackColor = System.Drawing.SystemColors.ControlText;
-                        }
-                        // If in dark mode
-                        else
-                        {
-                            pictureBox.BackColor = System.Drawing.SystemColors.Control;
-                        }
-                    }
-                }*/
-            
-            /*// If toggling a label
-            if (labels != null)
-            {
-                foreach (var label in labels)
-                {
-                    if (label != null)
-                    {
-                        // If in light mode
-                        if (label.BackColor == System.Drawing.SystemColors.Control)
-                        {
-                            label.BackColor = System.Drawing.SystemColors.ControlText;
-                            label.ForeColor = System.Drawing.SystemColors.Control;
-                        }
-                        // If in dark mode
-                        else
-                        {
-                            label.BackColor = System.Drawing.SystemColors.Control;
-                            label.ForeColor = System.Drawing.SystemColors.ControlText;
-                        }
-                    }
-                }
-            }
-            // If toggling a picture
-            if (pictureBoxes != null)
-            {
-                foreach (var pictureBox in pictureBoxes)
-                {
-                    if (pictureBox != null)
-                    {
-                        // If in light mode
-                        if (pictureBox.BackColor == System.Drawing.SystemColors.Control)
-                        {
-                            pictureBox.BackColor = System.Drawing.SystemColors.ControlText;
-                        }
-                        // If in dark mode
-                        else
-                        {
-                            pictureBox.BackColor = System.Drawing.SystemColors.Control;
-                        }
-                    }
-                }
-            }*/
         }
 
         private void toggleButton_Click(object sender, EventArgs e)
@@ -220,9 +122,6 @@ namespace MissionPlanner
             List<PictureBox> pictureBoxList = new List<PictureBox> { pictureBox1, line1, line2 };
 
             // Toggle between light and dark mode
-            // ToggleColorMode(buttonList, labelList, pictureBoxList);
-
-            // Toggle images
             if (ToggleColorMode(buttonList, labelList, pictureBoxList))
             {
                 toggleButton.Image = MissionPlanner.Properties.Resources.tog_img_for_dark_mode;

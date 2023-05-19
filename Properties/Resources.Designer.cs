@@ -133,6 +133,16 @@ namespace MissionPlanner.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap AFT_logo_white1 {
+            get {
+                object obj = ResourceManager.GetObject("AFT_logo_white1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap airspeed {
             get {
                 object obj = ResourceManager.GetObject("airspeed", resourceCulture);
