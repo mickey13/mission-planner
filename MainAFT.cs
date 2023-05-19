@@ -24,7 +24,7 @@ namespace MissionPlanner
             Program.Splash?.Close();
         }
 
-        private void toggleButton_Click(object sender, EventArgs e)
+        public bool ToggleColorMode(List<Button> buttons = null, List<Label> labels = null, List<PictureBox> pictureBoxes = null)
         {
             // If in light mode
             if (BackColor == System.Drawing.SystemColors.Control)
@@ -32,36 +32,42 @@ namespace MissionPlanner
                 // Toggle background color
                 BackColor = System.Drawing.SystemColors.ControlText;
 
-                // Toggle colors of AFT Ground button and label
-                groundButton.BackColor = System.Drawing.SystemColors.ControlText;
-                groundLabel.BackColor = System.Drawing.SystemColors.ControlText;
-                groundLabel.ForeColor = System.Drawing.SystemColors.Control;
-
-                // Toggle colors of AFT Air button and label
-                airButton.BackColor = System.Drawing.SystemColors.ControlText;
-                airLabel.BackColor = System.Drawing.SystemColors.ControlText;
-                airLabel.ForeColor = System.Drawing.SystemColors.Control;
-
-                // Toggle colors of Custom button and label
-                customButton.BackColor = System.Drawing.SystemColors.ControlText;
-                customLabel.BackColor = System.Drawing.SystemColors.ControlText;
-                customLabel.ForeColor = System.Drawing.SystemColors.Control;
-
-                // Toggle colors and image of toggleButton
-                toggleButton.BackColor = System.Drawing.SystemColors.ControlText;
-                toggleButton.Image = MissionPlanner.Properties.Resources.tog_img_for_dark_mode;
-
-                // Toggle colors and image of AFT Logo
-                pictureBox1.BackColor = System.Drawing.SystemColors.ControlText;
-                pictureBox1.Image = MissionPlanner.Properties.Resources.AFT_logo_white;
-
-                // Toggle color of text and lines
-                label1.BackColor = System.Drawing.SystemColors.ControlText;
-                label1.ForeColor = System.Drawing.SystemColors.Control;
-                label2.BackColor = System.Drawing.SystemColors.ControlText;
-                label2.ForeColor = System.Drawing.SystemColors.Control;
-                line1.Image = MissionPlanner.Properties.Resources.line_white;
-                line2.Image = MissionPlanner.Properties.Resources.line_white;
+                // If toggling buttons
+                if (buttons != null)
+                {
+                    foreach (var button in buttons)
+                    {
+                        if (button != null)
+                        {
+                            button.BackColor = System.Drawing.SystemColors.ControlText;
+                            button.ForeColor = System.Drawing.SystemColors.Control;
+                        }
+                    }
+                }
+                // If toggling labels
+                if (labels != null)
+                {
+                    foreach (var label in labels)
+                    {
+                        if (label != null)
+                        {
+                            label.BackColor = System.Drawing.SystemColors.ControlText;
+                            label.ForeColor = System.Drawing.SystemColors.Control;
+                        }
+                    }
+                }
+                // If toggling pictures
+                if (pictureBoxes != null)
+                {
+                    foreach (var pictureBox in pictureBoxes)
+                    {
+                        if (pictureBox != null)
+                        {
+                            pictureBox.BackColor = System.Drawing.SystemColors.ControlText;
+                        }
+                    }
+                }
+                return true;
             }
             // If in dark mode
             else
@@ -69,34 +75,166 @@ namespace MissionPlanner
                 // Toggle background color
                 BackColor = System.Drawing.SystemColors.Control;
 
-                // Toggle colors of AFT Ground button and label
-                groundButton.BackColor = System.Drawing.SystemColors.Control;
-                groundLabel.BackColor = System.Drawing.SystemColors.Control;
-                groundLabel.ForeColor = System.Drawing.SystemColors.ControlText;
+                // If toggling buttons
+                if (buttons != null)
+                {
+                    foreach (var button in buttons)
+                    {
+                        if (button != null)
+                        {
+                            button.BackColor = System.Drawing.SystemColors.Control;
+                            button.ForeColor = System.Drawing.SystemColors.ControlText;
+                        }
+                    }
+                }
+                // If toggling labels
+                if (labels != null)
+                {
+                    foreach (var label in labels)
+                    {
+                        if (label != null)
+                        {
+                            label.BackColor = System.Drawing.SystemColors.Control;
+                            label.ForeColor = System.Drawing.SystemColors.ControlText;
+                        }
+                    }
+                }
+                // If toggling pictures
+                if (pictureBoxes != null)
+                {
+                    foreach (var pictureBox in pictureBoxes)
+                    {
+                        if (pictureBox != null)
+                        {
+                            pictureBox.BackColor = System.Drawing.SystemColors.Control;
+                        }
+                    }
+                }
+                return false;
+            }
+                /*// Toggling buttons
+                foreach (var button in buttons)
+                {
+                    if (button != null)
+                    {
+                        // If in light mode
+                        if (button.BackColor == System.Drawing.SystemColors.Control)
+                        {
+                            button.BackColor = System.Drawing.SystemColors.ControlText;
+                            button.ForeColor = System.Drawing.SystemColors.Control;
+                        }
+                        // If in dark mode
+                        else
+                        {
+                            button.BackColor = System.Drawing.SystemColors.Control;
+                            button.ForeColor = System.Drawing.SystemColors.ControlText;
+                        }
+                    }
+                }
+                // Toggling labels
+                foreach (var label in labels)
+                {
+                    if (label != null)
+                    {
+                        // If in light mode
+                        if (label.BackColor == System.Drawing.SystemColors.Control)
+                        {
+                            label.BackColor = System.Drawing.SystemColors.ControlText;
+                            label.ForeColor = System.Drawing.SystemColors.Control;
+                        }
+                        // If in dark mode
+                        else
+                        {
+                            label.BackColor = System.Drawing.SystemColors.Control;
+                            label.ForeColor = System.Drawing.SystemColors.ControlText;
+                        }
+                    }
+                }
+                // Toggling pictures
+                foreach (var pictureBox in pictureBoxes)
+                {
+                    if (pictureBox != null)
+                    {
+                        // If in light mode
+                        if (pictureBox.BackColor == System.Drawing.SystemColors.Control)
+                        {
+                            pictureBox.BackColor = System.Drawing.SystemColors.ControlText;
+                        }
+                        // If in dark mode
+                        else
+                        {
+                            pictureBox.BackColor = System.Drawing.SystemColors.Control;
+                        }
+                    }
+                }*/
+            
+            /*// If toggling a label
+            if (labels != null)
+            {
+                foreach (var label in labels)
+                {
+                    if (label != null)
+                    {
+                        // If in light mode
+                        if (label.BackColor == System.Drawing.SystemColors.Control)
+                        {
+                            label.BackColor = System.Drawing.SystemColors.ControlText;
+                            label.ForeColor = System.Drawing.SystemColors.Control;
+                        }
+                        // If in dark mode
+                        else
+                        {
+                            label.BackColor = System.Drawing.SystemColors.Control;
+                            label.ForeColor = System.Drawing.SystemColors.ControlText;
+                        }
+                    }
+                }
+            }
+            // If toggling a picture
+            if (pictureBoxes != null)
+            {
+                foreach (var pictureBox in pictureBoxes)
+                {
+                    if (pictureBox != null)
+                    {
+                        // If in light mode
+                        if (pictureBox.BackColor == System.Drawing.SystemColors.Control)
+                        {
+                            pictureBox.BackColor = System.Drawing.SystemColors.ControlText;
+                        }
+                        // If in dark mode
+                        else
+                        {
+                            pictureBox.BackColor = System.Drawing.SystemColors.Control;
+                        }
+                    }
+                }
+            }*/
+        }
 
-                // Toggle colors of AFT Air button and label
-                airButton.BackColor = System.Drawing.SystemColors.Control;
-                airLabel.BackColor = System.Drawing.SystemColors.Control;
-                airLabel.ForeColor = System.Drawing.SystemColors.ControlText;
+        private void toggleButton_Click(object sender, EventArgs e)
+        {
+            // Lists holding all components of MainAFT form
+            List<Button> buttonList = new List<Button> { groundButton, airButton, customButton, toggleButton };
+            List<Label> labelList = new List<Label> { groundLabel, airLabel, customLabel, label1, label2 };
+            List<PictureBox> pictureBoxList = new List<PictureBox> { pictureBox1, line1, line2 };
 
-                // Toggle colors of Custom button and label
-                customButton.BackColor = System.Drawing.SystemColors.Control;
-                customLabel.BackColor = System.Drawing.SystemColors.Control;
-                customLabel.ForeColor = System.Drawing.SystemColors.ControlText;
+            // Toggle between light and dark mode
+            // ToggleColorMode(buttonList, labelList, pictureBoxList);
 
-                // Toggle colors and image of toggleButton
-                toggleButton.BackColor = System.Drawing.SystemColors.Control;
+            // Toggle images
+            if (ToggleColorMode(buttonList, labelList, pictureBoxList))
+            {
+                toggleButton.Image = MissionPlanner.Properties.Resources.tog_img_for_dark_mode;
+                pictureBox1.Image = MissionPlanner.Properties.Resources.AFT_logo_white;
+                line1.Image = MissionPlanner.Properties.Resources.line_white;
+                line2.Image = MissionPlanner.Properties.Resources.line_white;
+            }
+            // If in dark mode
+            else
+            {
                 toggleButton.Image = MissionPlanner.Properties.Resources.tog_img_for_light_mode;
-
-                // Toggle colors and image of AFT Logo
-                pictureBox1.BackColor = System.Drawing.SystemColors.Control;
                 pictureBox1.Image = MissionPlanner.Properties.Resources.AFT_logo_black;
-
-                // Toggle color of text and lines
-                label1.BackColor = System.Drawing.SystemColors.Control;
-                label1.ForeColor = System.Drawing.SystemColors.ControlText;
-                label2.BackColor = System.Drawing.SystemColors.Control;
-                label2.ForeColor = System.Drawing.SystemColors.ControlText;
                 line1.Image = MissionPlanner.Properties.Resources.line_black;
                 line2.Image = MissionPlanner.Properties.Resources.line_black;
             }
