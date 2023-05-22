@@ -12,6 +12,8 @@ namespace MissionPlanner
 {
     public partial class AFTAir : Form
     {
+        MainAFT MainAFT = new MainAFT();
+
         public AFTAir()
         {
             InitializeComponent();
@@ -24,7 +26,16 @@ namespace MissionPlanner
 
         private void airToggleButton_Click(object sender, EventArgs e)
         {
-
+            // Toggle between light and dark mode
+            if (MainAFT.ToggleColorMode(this))
+            {
+                airToggleButton.Image = MainAFT.togPicDark;
+            }
+            // If in dark mode
+            else
+            {
+                airToggleButton.Image = MainAFT.togPicLight;
+            }
         }
     }
 }
