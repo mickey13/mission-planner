@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MissionPlanner;
 
 namespace MissionPlanner
 {
@@ -23,9 +22,9 @@ namespace MissionPlanner
 
         }
 
-        private void toggleButton_Click(object sender, EventArgs e)
+        private void groundToggleButton_Click(object sender, EventArgs e)
         {
-            
+
         }
     }
 }

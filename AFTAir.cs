@@ -16,5 +16,15 @@ namespace MissionPlanner
         {
             InitializeComponent();
         }
+
+        private void AFTAir_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void airToggleButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

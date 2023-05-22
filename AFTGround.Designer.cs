@@ -44,16 +44,15 @@
             this.groundToggleButton.Name = "groundToggleButton";
             this.groundToggleButton.Size = new System.Drawing.Size(50, 50);
             this.groundToggleButton.TabIndex = 15;
-            this.groundToggleButton.Text = "v";
             this.groundToggleButton.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.groundToggleButton.UseVisualStyleBackColor = false;
-            this.groundToggleButton.Click += new System.EventHandler(this.toggleButton_Click);
+            this.groundToggleButton.Click += new System.EventHandler(this.groundToggleButton_Click);
             // 
             // AFTGround
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1424, 881);
+            this.ClientSize = new System.Drawing.Size(1424, 985);
             this.Controls.Add(this.groundToggleButton);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -67,6 +66,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Button groundToggleButton;
+        internal System.Windows.Forms.Button groundToggleButton;
     }
 }

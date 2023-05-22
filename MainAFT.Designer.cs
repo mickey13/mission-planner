@@ -172,7 +172,7 @@ namespace MissionPlanner
         private System.Windows.Forms.Button groundButton;
         private PictureBox line2;
         private PictureBox line1;
-        private Button toggleButton;
+        internal Button toggleButton;
         private Label label2;
         private Label groundLabel;
         private Label customLabel;
