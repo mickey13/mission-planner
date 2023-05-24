@@ -1,4 +1,6 @@
 ﻿using BrightIdeasSoftware;
+using IronPython.Runtime;
+using org.mariuszgromada.math.mxparser.mathcollection;
 using Org.BouncyCastle.Asn1.X509.Qualified;
 using System;
 using System.Collections.Generic;
@@ -10,6 +12,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static MissionPlanner.MainAFT;
 using static MissionPlanner.Swarm.Sequence.LayoutEditor;
 
 namespace MissionPlanner
@@ -27,6 +30,10 @@ namespace MissionPlanner
         public Color lightColor = System.Drawing.SystemColors.Control;
         public Color darkColor = System.Drawing.SystemColors.ControlText;
 
+        // Declaring lower-level forms
+        private static AFTGround aftGround = null;
+        private static AFTAir aftAir = null;
+
         public MainAFT()
         {
             InitializeComponent();
@@ -39,6 +46,7 @@ namespace MissionPlanner
             Program.Splash?.Close();
         }
 
+        // Toggle a form between light and dark mode
         public bool ToggleColorMode(Form form)
         {
             if (form.BackColor == lightColor) // If in light mode
@@ -81,7 +89,8 @@ namespace MissionPlanner
             }
         }
 
-        public void SyncColorModes(Form form)
+        // Sync a lower-level form's color mode with MainAFT
+        private void SyncColorModes(Form form)
         {
             form.BackColor = this.BackColor;
             foreach (Control c in form.Controls)
@@ -98,6 +107,17 @@ namespace MissionPlanner
             }
         }
 
+        private void InstantiateForm(Form form)
+        {
+            if (form == aftGround & (aftGround == null || aftGround.IsDisposed))
+            {
+                aftGround = new AFTGround();
+            }
+            else if (form == aftAir & (aftAir == null || aftAir.IsDisposed))
+            {
+                aftAir = new AFTAir();
+            }
+        }
         private void toggleButton_Click(object sender, EventArgs e)
         {
 
@@ -116,13 +136,19 @@ namespace MissionPlanner
                 line1.Image = lineLight;
                 line2.Image = lineLight;
             }
+            // Sync lower-level form color mode with MainAFT
+            InstantiateForm(aftGround);
+            SyncColorModes(aftGround);
+            aftGround.groundToggleButton.Image = toggleButton.Image;
+
+            InstantiateForm(aftAir);
+            SyncColorModes(aftAir);
+            aftAir.airToggleButton.Image = toggleButton.Image;
         }
 
         private void groundButton_Click(object sender, EventArgs e)
         {
-            AFTGround aftGround = new AFTGround();
-
-            // Sync lower-level form color mode with MainAFT
+            InstantiateForm(aftGround);
             SyncColorModes(aftGround);
             aftGround.groundToggleButton.Image = toggleButton.Image;
 
@@ -131,9 +157,7 @@ namespace MissionPlanner
 
         private void airButton_Click(object sender, EventArgs e)
         {
-            AFTAir aftAir = new AFTAir();
-
-            // Sync lower-level form color mode with MainAFT
+            InstantiateForm(aftAir);
             SyncColorModes(aftAir);
             aftAir.airToggleButton.Image = toggleButton.Image;
 
