@@ -60,6 +60,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Mission Planner - AFT Ground Interface";
             this.Load += new System.EventHandler(this.groundForm_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.groundForm_FormClosing);
             this.ResumeLayout(false);
 
         }

@@ -525,9 +525,6 @@
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>96, 96</value>
   </data>
-  <data name="$this.AutoScroll" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>1424, 985</value>
   </data>
@@ -1359,7 +1356,7 @@
     <value>2, 2, 2, 2</value>
   </data>
   <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>635, 413</value>
+    <value>630, 397</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterScreen</value>

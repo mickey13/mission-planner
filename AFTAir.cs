@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static MissionPlanner.AFTStateMachine;
+using static MissionPlanner.AFTStateMachine.ApplicationState;
 
 namespace MissionPlanner
 {
@@ -24,18 +26,50 @@ namespace MissionPlanner
 
         }
 
+        void OpenNextForm(States next_state)
+        {
+
+            ApplicationState.nextState = next_state;
+
+            this.DialogResult = DialogResult.OK;
+            this.Hide();
+        }
+
         private void airToggleButton_Click(object sender, EventArgs e)
         {
             // Toggle between light and dark mode
-            if (MainAFT.ToggleColorMode(this))
+            if (MainAFT.ToggleColorMode(this)) // If in light mode
             {
-                airToggleButton.Image = MainAFT.togPicDark;
+                airToggleButton.Image = togPicDark;
+
+                // Toggle aftMain images
+                aftMain.toggleButton.Image = togPicDark;
+                aftMain.pictureBox1.Image = aftLogoDark;
+                aftMain.line1.Image = lineDark;
+                aftMain.line2.Image = lineDark;
             }
-            // If in dark mode
-            else
+            else // If in dark mode
             {
-                airToggleButton.Image = MainAFT.togPicLight;
+                airToggleButton.Image = togPicLight;
+
+                // Toggle aftMain images
+                aftMain.toggleButton.Image = togPicLight;
+                aftMain.pictureBox1.Image = aftLogoLight;
+                aftMain.line1.Image = lineLight;
+                aftMain.line2.Image = lineLight;
             }
+
+            // Sync color modes across forms
+            MainAFT.SyncColorModes(aftMain, this);
+            aftMain.toggleButton.Image = airToggleButton.Image;
+
+            MainAFT.SyncColorModes(aftGround, this);
+            aftGround.groundToggleButton.Image = airToggleButton.Image;
+        }
+
+        private void AFTAir_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            OpenNextForm(States.AFTMAIN);
         }
     }
 }

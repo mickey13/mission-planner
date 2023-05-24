@@ -60,6 +60,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Mission Planner - AFT Air Interface";
             this.Load += new System.EventHandler(this.AFTAir_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AFTAir_FormClosing);
             this.ResumeLayout(false);
 
         }
