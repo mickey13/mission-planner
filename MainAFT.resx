@@ -117,11 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="label1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="label1.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 24px</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -159,6 +162,9 @@
   <metadata name="pictureBox1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="pictureBox1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
+  </data>
   <data name="pictureBox1.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
   </data>
@@ -191,6 +197,9 @@
   </data>
   <data name="&gt;&gt;pictureBox1.ZOrder" xml:space="preserve">
     <value>10</value>
+  </data>
+  <data name="airButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
   </data>
   <data name="airButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -225,6 +234,9 @@
   <data name="&gt;&gt;airButton.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
+  <data name="customButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
+  </data>
   <data name="customButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
   </data>
@@ -257,6 +269,9 @@
   </data>
   <data name="&gt;&gt;customButton.ZOrder" xml:space="preserve">
     <value>7</value>
+  </data>
+  <data name="groundButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
   </data>
   <data name="groundButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -294,6 +309,9 @@
   <data name="&gt;&gt;groundButton.ZOrder" xml:space="preserve">
     <value>9</value>
   </data>
+  <data name="line2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
+  </data>
   <data name="line2.Location" type="System.Drawing.Point, System.Drawing">
     <value>1041, 788</value>
   </data>
@@ -317,6 +335,9 @@
   </data>
   <data name="&gt;&gt;line2.ZOrder" xml:space="preserve">
     <value>6</value>
+  </data>
+  <data name="line1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
   </data>
   <data name="line1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -344,6 +365,9 @@
   </data>
   <data name="&gt;&gt;line1.ZOrder" xml:space="preserve">
     <value>5</value>
+  </data>
+  <data name="toggleButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
   </data>
   <data name="toggleButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -377,6 +401,9 @@
   </data>
   <data name="&gt;&gt;toggleButton.ZOrder" xml:space="preserve">
     <value>4</value>
+  </data>
+  <data name="label2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -414,6 +441,9 @@
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="groundLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
+  </data>
   <data name="groundLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -446,6 +476,9 @@
   </data>
   <data name="&gt;&gt;groundLabel.ZOrder" xml:space="preserve">
     <value>2</value>
+  </data>
+  <data name="customLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
   </data>
   <data name="customLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -482,6 +515,9 @@
   </data>
   <data name="&gt;&gt;customLabel.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="airLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
   </data>
   <data name="airLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1363,9 +1399,6 @@
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterScreen</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Mission Planner - AFT Interface</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MainAFT</value>
