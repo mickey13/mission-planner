@@ -165,17 +165,17 @@ namespace MissionPlanner
 
         #endregion
 
-        internal System.Windows.Forms.Label label1;
-        internal System.Windows.Forms.PictureBox pictureBox1;
-        internal System.Windows.Forms.Button airButton;
-        internal System.Windows.Forms.Button customButton;
-        internal System.Windows.Forms.Button groundButton;
-        internal PictureBox line2;
-        internal PictureBox line1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button airButton;
+        private System.Windows.Forms.Button customButton;
+        private System.Windows.Forms.Button groundButton;
+        private PictureBox line2;
+        private PictureBox line1;
         internal Button toggleButton;
-        internal Label label2;
-        internal Label groundLabel;
-        internal Label customLabel;
-        internal Label airLabel;
+        private Label label2;
+        private Label groundLabel;
+        private Label customLabel;
+        private Label airLabel;
     }
 }

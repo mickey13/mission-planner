@@ -452,8 +452,8 @@ namespace MissionPlanner
             try
             {
                 Thread.CurrentThread.Name = "Base Thread";
-                Console.WriteLine("Application.Run(new AFTStateMachine())");
-                Application.Run(new AFTStateMachine());
+                Console.WriteLine("Application.Run(new MainAFT())");
+                Application.Run(new MainAFT());
             }
             catch (Exception ex)
             {
