@@ -77,6 +77,18 @@
     <EmbeddedResource Include="AFTAir.resx">
       <DependentUpon>AFTAir.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AFTMDIContainer.resx">
+      <DependentUpon>AFTMDIContainer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AFTNewMission.resx">
+      <DependentUpon>AFTNewMission.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AFTSettingsAlt.resx">
+      <DependentUpon>AFTSettingsAlt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AFTSettingsCam.resx">
+      <DependentUpon>AFTSettingsCam.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Antenna\TrackerUI.uk.resx">
       <DependentUpon>TrackerUI.cs</DependentUpon>
     </EmbeddedResource>
@@ -680,7 +692,46 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AFTMDIContainer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AFTMDIContainer.Designer.cs">
+      <DependentUpon>AFTMDIContainer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AFTNewMission.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AFTNewMission.Designer.cs">
+      <DependentUpon>AFTNewMission.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AFTSettingsAlt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AFTSettingsAlt.Designer.cs">
+      <DependentUpon>AFTSettingsAlt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AFTSettingsBat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AFTSettingsBat.Designer.cs">
+      <DependentUpon>AFTSettingsBat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AFTSettingsCam.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AFTSettingsCam.Designer.cs">
+      <DependentUpon>AFTSettingsCam.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AFTSettingsGrid.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AFTSettingsGrid.Designer.cs">
+      <DependentUpon>AFTSettingsGrid.cs</DependentUpon>
+    </Compile>
     <Compile Include="Antenna\TrackerGeneric.cs" />
+    <Compile Include="Button_WOC.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Common.cs" />
     <Compile Include="Controls\DroneCANSubscriber.cs">
       <SubType>UserControl</SubType>
@@ -4889,6 +4940,21 @@
     <None Include="Resources\moon-rover1.png" />
     <None Include="Resources\Quad_lt_blue %282%29.png" />
     <None Include="Resources\caution_sign.png" />
+    <None Include="Resources\vert_line_long.png" />
+    <None Include="Resources\circle_hollow.png" />
+    <None Include="Resources\camera_white.png" />
+    <None Include="Resources\altitude_white.png" />
+    <None Include="Resources\orientation_white.png" />
+    <None Include="Resources\speed_white.png" />
+    <None Include="Resources\battery_icon.png" />
+    <None Include="Resources\grid_icon.png" />
+    <None Include="Resources\settings_horiz_bar.png" />
+    <None Include="Resources\altitude_black.png" />
+    <None Include="Resources\arrow_back.png" />
+    <None Include="Resources\arrow_next.png" />
+    <None Include="Resources\aft_header_logo_small.png" />
+    <None Include="Resources\vert_line.png" />
+    <None Include="Resources\cam_set_vert_line.png" />
     <Content Include="rotmat.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
