@@ -34,7 +34,6 @@
             // 
             // airToggleButton
             // 
-            this.airToggleButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.airToggleButton.BackColor = System.Drawing.SystemColors.Control;
             this.airToggleButton.FlatAppearance.BorderSize = 0;
             this.airToggleButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -58,9 +57,8 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "AFTAir";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Air";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Mission Planner - AFT Air Interface";
             this.Load += new System.EventHandler(this.AFTAir_Load);
             this.ResumeLayout(false);
 

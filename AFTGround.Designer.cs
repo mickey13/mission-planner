@@ -34,7 +34,6 @@
             // 
             // groundToggleButton
             // 
-            this.groundToggleButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.groundToggleButton.BackColor = System.Drawing.SystemColors.Control;
             this.groundToggleButton.FlatAppearance.BorderSize = 0;
             this.groundToggleButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -58,9 +57,8 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "AFTGround";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Ground";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Mission Planner - AFT Ground Interface";
             this.Load += new System.EventHandler(this.groundForm_Load);
             this.ResumeLayout(false);
 

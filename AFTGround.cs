@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Accord.Statistics.Kernels;
+using netDxf;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,13 +9,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static MissionPlanner.AFTMDIContainer;
-using static MissionPlanner.MainAFT;
 
 namespace MissionPlanner
 {
     public partial class AFTGround : Form
     {
+        MainAFT MainAFT = new MainAFT();
+
         public AFTGround()
         {
             InitializeComponent();
@@ -27,31 +29,15 @@ namespace MissionPlanner
         private void groundToggleButton_Click(object sender, EventArgs e)
         {
             // Toggle between light and dark mode
-            if (MainAFT.ToggleColorMode(this)) // If in light mode
+            if (MainAFT.ToggleColorMode(this))
             {
-                groundToggleButton.Image = togPicDark;
-
-                // Toggle aftMain images
-                aftMain.toggleButton.Image = togPicDark;
-                aftMain.pictureBox1.Image = aftLogoDark;
-                aftMain.line1.Image = lineDark;
-                aftMain.line2.Image = lineDark;
+                groundToggleButton.Image = MainAFT.togPicDark;
             }
-            else // If in dark mode
+            // If in dark mode
+            else
             {
-                groundToggleButton.Image = togPicLight;
-
-                // Toggle aftMain images
-                aftMain.toggleButton.Image = togPicLight;
-                aftMain.pictureBox1.Image = aftLogoLight;
-                aftMain.line1.Image = lineLight;
-                aftMain.line2.Image = lineLight;
+                groundToggleButton.Image = MainAFT.togPicLight;
             }
-
-            // Sync color modes across forms
-            MainAFT.SyncColorsAndInitialize(new List<Form> { aftMain, aftAir }, this, aftMain.MdiParent);
-            aftMain.toggleButton.Image = groundToggleButton.Image;
-            aftAir.airToggleButton.Image = groundToggleButton.Image;
         }
     }
 }

@@ -77,9 +77,6 @@
     <EmbeddedResource Include="AFTAir.resx">
       <DependentUpon>AFTAir.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AFTMDIContainer.resx">
-      <DependentUpon>AFTMDIContainer.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Antenna\TrackerUI.uk.resx">
       <DependentUpon>TrackerUI.cs</DependentUpon>
     </EmbeddedResource>
@@ -683,12 +680,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AFTMDIContainer.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AFTMDIContainer.Designer.cs">
-      <DependentUpon>AFTMDIContainer.cs</DependentUpon>
-    </Compile>
     <Compile Include="Antenna\TrackerGeneric.cs" />
     <Compile Include="Common.cs" />
     <Compile Include="Controls\DroneCANSubscriber.cs">
