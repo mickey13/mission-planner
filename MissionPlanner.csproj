@@ -77,6 +77,9 @@
     <EmbeddedResource Include="AFTAir.resx">
       <DependentUpon>AFTAir.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AFTLoadingScreen.resx">
+      <DependentUpon>AFTLoadingScreen.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AFTMDIContainer.resx">
       <DependentUpon>AFTMDIContainer.cs</DependentUpon>
     </EmbeddedResource>
@@ -88,6 +91,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AFTSettingsCam.resx">
       <DependentUpon>AFTSettingsCam.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AFTSettingsOri.resx">
+      <DependentUpon>AFTSettingsOri.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AFTWarning.resx">
+      <DependentUpon>AFTWarning.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Antenna\TrackerUI.uk.resx">
       <DependentUpon>TrackerUI.cs</DependentUpon>
@@ -645,6 +654,9 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Web.WebView2">
+      <Version>1.0.1823.32</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.Win32.Registry" Version="4.7.0" />
     <PackageReference Include="MP.DotSpatial.Data">
       <Version>4.0.0</Version>
@@ -692,6 +704,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AFTLoadingScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AFTLoadingScreen.Designer.cs">
+      <DependentUpon>AFTLoadingScreen.cs</DependentUpon>
+    </Compile>
     <Compile Include="AFTMDIContainer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -727,6 +745,24 @@
     </Compile>
     <Compile Include="AFTSettingsGrid.Designer.cs">
       <DependentUpon>AFTSettingsGrid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AFTSettingsOri.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AFTSettingsOri.Designer.cs">
+      <DependentUpon>AFTSettingsOri.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AFTSettingsSpeed.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AFTSettingsSpeed.Designer.cs">
+      <DependentUpon>AFTSettingsSpeed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AFTWarning.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AFTWarning.Designer.cs">
+      <DependentUpon>AFTWarning.cs</DependentUpon>
     </Compile>
     <Compile Include="Antenna\TrackerGeneric.cs" />
     <Compile Include="Button_WOC.cs">
@@ -4955,6 +4991,19 @@
     <None Include="Resources\aft_header_logo_small.png" />
     <None Include="Resources\vert_line.png" />
     <None Include="Resources\cam_set_vert_line.png" />
+    <None Include="Resources\orientation_black.png" />
+    <None Include="Resources\orientation_vert_line.png" />
+    <None Include="Resources\caution_sign_large.png" />
+    <None Include="Resources\loading_bar_trans_2.gif" />
+    <None Include="Resources\menu_icon.png" />
+    <None Include="Resources\aft_header_logo.png" />
+    <None Include="Resources\yellow_circle.png" />
+    <None Include="Resources\white_house.png" />
+    <None Include="Resources\satellite_dish.png" />
+    <None Include="Resources\battery.png" />
+    <None Include="Resources\fly.png" />
+    <None Include="Resources\line_black_long.png" />
+    <None Include="Resources\compass.png" />
     <Content Include="rotmat.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

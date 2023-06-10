@@ -12,47 +12,34 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static MissionPlanner.MainAFT;
 using static MissionPlanner.Swarm.Sequence.LayoutEditor;
+using static MissionPlanner.AFTMDIContainer;
+using Accord.Statistics.Kernels;
+using netDxf;
 
 namespace MissionPlanner
 {
     public partial class MainAFT : Form
     {
-        // Pictures and colors for color modes
-        public Bitmap aftLogoLight = MissionPlanner.Properties.Resources.AFT_logo_black;
-        public Bitmap aftLogoDark = MissionPlanner.Properties.Resources.AFT_logo_white;
-        public Bitmap togPicLight = MissionPlanner.Properties.Resources.tog_img_for_light_mode;
-        public Bitmap togPicDark = MissionPlanner.Properties.Resources.tog_img_for_dark_mode;
-        public Bitmap lineLight = MissionPlanner.Properties.Resources.line_black;
-        public Bitmap lineDark = MissionPlanner.Properties.Resources.line_white;
-
-        public Color lightColor = System.Drawing.SystemColors.Control;
-        public Color darkColor = System.Drawing.SystemColors.ControlText;
-
-        // Declaring lower-level forms
-        private static AFTGround aftGround = null;
-        private static AFTAir aftAir = null;
-
         public MainAFT()
         {
             InitializeComponent();
-            Program.Splash?.Refresh();
         }
 
-        protected override void OnLoad(EventArgs e)
+        private void MainAFT_Load(object sender, EventArgs e)
         {
-            base.OnLoad(e);
-            Program.Splash?.Close();
+
         }
 
         // Toggle a form between light and dark mode
-        public bool ToggleColorMode(Form form)
+        public static bool ToggleColorMode(Form form)
         {
-            if (form.BackColor == lightColor) // If in light mode
+            // If in light mode
+            if (form.BackColor == lightColor)
             {
-                // Toggle background color
+                // Toggle back and foreground color
                 form.BackColor = darkColor;
+                form.ForeColor = lightColor;
 
                 foreach (Control c in form.Controls)
                 {
@@ -68,10 +55,12 @@ namespace MissionPlanner
                 }
                 return true;
             }
-            else // If in dark mode
+            // If in dark mode
+            else
             {
-                // Toggle background color
+                // Toggle back and foreground color
                 form.BackColor = lightColor;
+                form.ForeColor = darkColor;
 
                 foreach (Control c in form.Controls)
                 {
@@ -89,35 +78,36 @@ namespace MissionPlanner
             }
         }
 
-        // Sync a lower-level form's color mode with MainAFT
-        private void SyncColorModes(Form form)
+        // Sync color modes across forms
+        public static void SyncColorsAndInitialize(List<Form> formsToSync, Form formToSyncWith, Form parent)
         {
-            form.BackColor = this.BackColor;
-            foreach (Control c in form.Controls)
+            if (formsToSync != null && formToSyncWith != null)
             {
-                if (c is Button || c is Label)
+                foreach (Form form in formsToSync)
                 {
-                    c.BackColor = groundButton.BackColor;
-                    c.ForeColor = groundButton.ForeColor;
-                }
-                else
-                {
-                    c.BackColor = groundButton.BackColor;
+                    // If form is null or disposed, re-initialize it
+                    Form newForm = AFTMDIContainer.InitializeForm(form, parent);
+
+                    if (newForm != null)
+                    {
+                        newForm.BackColor = formToSyncWith.BackColor;
+                        foreach (Control c in newForm.Controls)
+                        {
+                            if (c is Button || c is Label)
+                            {
+                                c.BackColor = formToSyncWith.BackColor;
+                                c.ForeColor = formToSyncWith.ForeColor;
+                            }
+                            else
+                            {
+                                c.BackColor = formToSyncWith.BackColor;
+                            }
+                        }
+                    }
                 }
             }
         }
 
-        private void InstantiateForm(Form form)
-        {
-            if (form == aftGround & (aftGround == null || aftGround.IsDisposed))
-            {
-                aftGround = new AFTGround();
-            }
-            else if (form == aftAir & (aftAir == null || aftAir.IsDisposed))
-            {
-                aftAir = new AFTAir();
-            }
-        }
         private void toggleButton_Click(object sender, EventArgs e)
         {
 
@@ -136,29 +126,20 @@ namespace MissionPlanner
                 line1.Image = lineLight;
                 line2.Image = lineLight;
             }
-            // Sync lower-level form color mode with MainAFT
-            InstantiateForm(aftGround);
-            SyncColorModes(aftGround);
-            aftGround.groundToggleButton.Image = toggleButton.Image;
 
-            InstantiateForm(aftAir);
-            SyncColorModes(aftAir);
+            SyncColorsAndInitialize(new List<Form> { aftAir }, this, this.MdiParent);
             aftAir.airToggleButton.Image = toggleButton.Image;
         }
 
         private void groundButton_Click(object sender, EventArgs e)
         {
-            InstantiateForm(aftGround);
-            SyncColorModes(aftGround);
-            aftGround.groundToggleButton.Image = toggleButton.Image;
-
+            InitializeForm(aftGround, this.MdiParent);
             aftGround.Show();
         }
 
         private void airButton_Click(object sender, EventArgs e)
         {
-            InstantiateForm(aftAir);
-            SyncColorModes(aftAir);
+            SyncColorsAndInitialize(new List<Form> { aftAir }, this, this.MdiParent);
             aftAir.airToggleButton.Image = toggleButton.Image;
 
             aftAir.Show();
@@ -166,13 +147,11 @@ namespace MissionPlanner
 
         private void customButton_Click(object sender, EventArgs e)
         {
-            MainV2 mainV2 = new MainV2();
-            mainV2.Show();
-        }
+            AFTWarning warning = new AFTWarning();
+            SyncColorsAndInitialize(new List<Form> { warning }, this, this.MdiParent);
+            warning.label1.ForeColor = Color.Red;
 
-        private void MainAFT_Load(object sender, EventArgs e)
-        {
-
+            warning.ShowDialog();
         }
     }
 }

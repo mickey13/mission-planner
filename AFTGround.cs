@@ -1,6 +1,4 @@
-﻿using Accord.Statistics.Kernels;
-using netDxf;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,16 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static MissionPlanner.AFTMDIContainer;
+using static MissionPlanner.MainAFT;
 
 namespace MissionPlanner
 {
     public partial class AFTGround : Form
     {
-        MainAFT MainAFT = new MainAFT();
-
         public AFTGround()
         {
             InitializeComponent();
+
+            sideMenuPanel.Dock = DockStyle.None;
+            sideMenuPanel.SendToBack();
         }
 
         private void groundForm_Load(object sender, EventArgs e)
@@ -26,18 +27,24 @@ namespace MissionPlanner
 
         }
 
-        private void groundToggleButton_Click(object sender, EventArgs e)
+        private void menuButton_Click(object sender, EventArgs e)
         {
-            // Toggle between light and dark mode
-            if (MainAFT.ToggleColorMode(this))
+            if (this.Controls.GetChildIndex(sideMenuPanel) == 0)
             {
-                groundToggleButton.Image = MainAFT.togPicDark;
+                sideMenuPanel.Dock = DockStyle.None;
+                sideMenuPanel.SendToBack();
             }
-            // If in dark mode
             else
             {
-                groundToggleButton.Image = MainAFT.togPicLight;
+                sideMenuPanel.Dock = DockStyle.Left;
+                this.Controls.SetChildIndex(sideMenuPanel, 0);
             }
+        }
+
+        private void btnNewMission_Click(object sender, EventArgs e)
+        {
+            AFTNewMission aftNewMission = new AFTNewMission();
+            aftNewMission.ShowDialog();
         }
     }
 }

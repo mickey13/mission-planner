@@ -63,9 +63,9 @@ namespace MissionPlanner
             // 
             // airButton
             // 
+            resources.ApplyResources(this.airButton, "airButton");
             this.airButton.BackColor = System.Drawing.SystemColors.Control;
             this.airButton.FlatAppearance.BorderSize = 0;
-            resources.ApplyResources(this.airButton, "airButton");
             this.airButton.Image = global::MissionPlanner.Properties.Resources.Quad_lt_blue__2_;
             this.airButton.Name = "airButton";
             this.airButton.UseVisualStyleBackColor = false;
@@ -73,9 +73,9 @@ namespace MissionPlanner
             // 
             // customButton
             // 
+            resources.ApplyResources(this.customButton, "customButton");
             this.customButton.BackColor = System.Drawing.SystemColors.Control;
             this.customButton.FlatAppearance.BorderSize = 0;
-            resources.ApplyResources(this.customButton, "customButton");
             this.customButton.Image = global::MissionPlanner.Properties.Resources.caution_sign;
             this.customButton.Name = "customButton";
             this.customButton.UseVisualStyleBackColor = false;
@@ -83,9 +83,9 @@ namespace MissionPlanner
             // 
             // groundButton
             // 
+            resources.ApplyResources(this.groundButton, "groundButton");
             this.groundButton.BackColor = System.Drawing.SystemColors.Control;
             this.groundButton.FlatAppearance.BorderSize = 0;
-            resources.ApplyResources(this.groundButton, "groundButton");
             this.groundButton.Image = global::MissionPlanner.Properties.Resources.moon_rover1;
             this.groundButton.Name = "groundButton";
             this.groundButton.UseVisualStyleBackColor = false;
@@ -93,23 +93,23 @@ namespace MissionPlanner
             // 
             // line2
             // 
-            this.line2.Image = global::MissionPlanner.Properties.Resources.line_black;
             resources.ApplyResources(this.line2, "line2");
+            this.line2.Image = global::MissionPlanner.Properties.Resources.line_black;
             this.line2.Name = "line2";
             this.line2.TabStop = false;
             // 
             // line1
             // 
-            this.line1.Image = global::MissionPlanner.Properties.Resources.line_black;
             resources.ApplyResources(this.line1, "line1");
+            this.line1.Image = global::MissionPlanner.Properties.Resources.line_black;
             this.line1.Name = "line1";
             this.line1.TabStop = false;
             // 
             // toggleButton
             // 
+            resources.ApplyResources(this.toggleButton, "toggleButton");
             this.toggleButton.BackColor = System.Drawing.SystemColors.Control;
             this.toggleButton.FlatAppearance.BorderSize = 0;
-            resources.ApplyResources(this.toggleButton, "toggleButton");
             this.toggleButton.Image = global::MissionPlanner.Properties.Resources.tog_img_for_light_mode;
             this.toggleButton.Name = "toggleButton";
             this.toggleButton.UseVisualStyleBackColor = false;
@@ -154,6 +154,7 @@ namespace MissionPlanner
             this.Controls.Add(this.label1);
             this.KeyPreview = true;
             this.Name = "MainAFT";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.MainAFT_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.line2)).EndInit();
@@ -165,17 +166,17 @@ namespace MissionPlanner
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button airButton;
-        private System.Windows.Forms.Button customButton;
-        private System.Windows.Forms.Button groundButton;
-        private PictureBox line2;
-        private PictureBox line1;
+        internal System.Windows.Forms.Label label1;
+        internal System.Windows.Forms.PictureBox pictureBox1;
+        internal System.Windows.Forms.Button airButton;
+        internal System.Windows.Forms.Button customButton;
+        internal System.Windows.Forms.Button groundButton;
+        internal PictureBox line2;
+        internal PictureBox line1;
         internal Button toggleButton;
-        private Label label2;
-        private Label groundLabel;
-        private Label customLabel;
-        private Label airLabel;
+        internal Label label2;
+        internal Label groundLabel;
+        internal Label customLabel;
+        internal Label airLabel;
     }
 }
