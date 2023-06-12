@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static MissionPlanner.AFTMDIContainer;
+using static MissionPlanner.AFTSettingsCam;
 
 namespace MissionPlanner
 {
@@ -14,8 +16,6 @@ namespace MissionPlanner
     {
         public static AFTSettingsCam aftSetCam = null;
 
-        public static Bitmap emptyButton = MissionPlanner.Properties.Resources.circle_hollow;
-        public static Bitmap filledButton = MissionPlanner.Properties.Resources.circle_hollow;
         public AFTNewMission()
         {
             InitializeComponent();
@@ -23,40 +23,21 @@ namespace MissionPlanner
 
         private void btnNewMission_Click(object sender, EventArgs e)
         {
-            if (btnNewMission.Image == emptyButton)
-            {
-                btnNewMission.Image = filledButton;
-                btnLoadMission.Image = emptyButton;
-            }
-            else
-            {
-                btnNewMission.Image = emptyButton;
-            }
+            ToggleSelection(this, btnNewMission);
         }
 
         private void btnLoadMission_Click(object sender, EventArgs e)
         {
-            if (btnLoadMission.Image == emptyButton)
-            {
-                btnLoadMission.Image = filledButton;
-                btnNewMission.Image = emptyButton;
-            }
-            else
-            {
-                btnLoadMission.Image = emptyButton;
-            }
+            ToggleSelection(this, btnLoadMission);
         }
 
         private void btnContinue_Click(object sender, EventArgs e)
         {
             if (btnNewMission.Image == filledButton)
             {
-                if (aftSetCam == null)
-                {
-                    aftSetCam = new AFTSettingsCam();
-                }
                 this.Dispose();
-                aftSetCam.ShowDialog();
+                //aftMain.MdiParent.Hide();
+                ShowCamSettings();
             }
             else if (btnLoadMission.Image == filledButton)
             {

@@ -29,19 +29,9 @@ namespace MissionPlanner
         public static Color lightColor = System.Drawing.SystemColors.Control;
         public static Color darkColor = System.Drawing.SystemColors.ControlText;
 
-        public AFTMDIContainer()
-        {
-            InitializeComponent();
-        }
-
-        private void AFTMDIContainer_Load(object sender, EventArgs e)
-        {
-            InitializeForm(aftMain, this);
-            InitializeForm(aftGround, this);
-            InitializeForm(aftAir, this);
-
-            aftMain.Show();
-        }
+        // Pictures for button selections
+        public static Bitmap emptyButton = MissionPlanner.Properties.Resources.circle_hollow;
+        public static Bitmap filledButton = MissionPlanner.Properties.Resources.circle_selected;
 
         public static Form InitializeForm(Form child, Form parent)
         {
@@ -81,6 +71,55 @@ namespace MissionPlanner
                 return child;
             }
             return null;
+        }
+
+        public static void ToggleSelection(Form form, Button btn)
+        {
+            // List to hold all buttons in given form
+            List<Button> btnList = new List<Button>();
+
+            // If not selected
+            if (btn.Image == emptyButton)
+            {
+                btn.Image = filledButton;
+
+                // Add each control to btnList if it is a button
+                foreach (Control control in form.Controls)
+                {
+                    if (control is Button)
+                    {
+                        btnList.Add(control as Button);
+                    }
+                }
+
+                // Change selection status of all other selected buttons
+                foreach (Button button in btnList)
+                {
+                    if ((button != btn) && (button.Image == filledButton))
+                    {
+                        button.Image = emptyButton;
+                    }
+                }
+            }
+            // If selected
+            else
+            {
+                btn.Image = emptyButton;
+            }
+        }
+
+        public AFTMDIContainer()
+        {
+            InitializeComponent();
+        }
+
+        private void AFTMDIContainer_Load(object sender, EventArgs e)
+        {
+            InitializeForm(aftMain, this);
+            InitializeForm(aftGround, this);
+            InitializeForm(aftAir, this);
+
+            aftMain.Show();
         }
     }
 }

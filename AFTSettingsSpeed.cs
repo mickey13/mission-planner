@@ -21,43 +21,43 @@ namespace MissionPlanner
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            this.Dispose();
+            //this.Dispose();
             ShowOriSettings();
         }
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            this.Dispose();
+            //this.Dispose();
             ShowBatSettings();
         }
 
         private void btnCamera_Click(object sender, EventArgs e)
         {
-            this.Dispose();
+            //this.Dispose();
             ShowCamSettings();
         }
 
         private void btnAltitude_Click(object sender, EventArgs e)
         {
-            this.Dispose();
+            //this.Dispose();
             ShowAltSettings();
         }
 
         private void btnOrientation_Click(object sender, EventArgs e)
         {
-            this.Dispose();
+            //this.Dispose();
             ShowOriSettings();
         }
 
         private void btnBattery_Click(object sender, EventArgs e)
         {
-            this.Dispose();
+            //this.Dispose();
             ShowBatSettings();
         }
 
         private void btnGrid_Click(object sender, EventArgs e)
         {
-            this.Dispose();
+            //this.Dispose();
             ShowGridSettings();
         }
     }

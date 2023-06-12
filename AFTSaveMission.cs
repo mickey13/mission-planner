@@ -7,63 +7,62 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static MissionPlanner.AFTMDIContainer;
 using static MissionPlanner.AFTSettingsCam;
 
 namespace MissionPlanner
 {
-    public partial class AFTSettingsGrid : Form
+    public partial class AFTSaveMission : Form
     {
-        public AFTSettingsGrid()
+        public AFTSaveMission()
         {
             InitializeComponent();
         }
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            //this.Dispose();
-            ShowBatSettings();
-        }
-
-        private void btnNext_Click(object sender, EventArgs e)
-        {
-            //this.Dispose();
-            ShowSaveScreen();
+            this.Dispose();
+            ShowGridSettings();
         }
 
         private void btnCamera_Click(object sender, EventArgs e)
         {
-            //this.Dispose();
+            this.Dispose();
             ShowCamSettings();
         }
 
         private void btnAltitude_Click(object sender, EventArgs e)
         {
-            //this.Dispose();
+            this.Dispose();
             ShowAltSettings();
         }
 
         private void btnOrientation_Click(object sender, EventArgs e)
         {
-            //this.Dispose();
+            this.Dispose();
             ShowOriSettings();
         }
 
         private void btnSpeed_Click(object sender, EventArgs e)
         {
-            //this.Dispose();
+            this.Dispose();
             ShowSpeedSettings();
         }
 
         private void btnBattery_Click(object sender, EventArgs e)
         {
-            //this.Dispose();
+            this.Dispose();
             ShowBatSettings();
         }
 
-        private void btnSegment_Click(object sender, EventArgs e)
+        private void btnGrid_Click(object sender, EventArgs e)
         {
-            ToggleSelection(this, btnSegment);
+            this.Dispose();
+            ShowGridSettings();
+        }
+
+        private void btnSaveMission_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

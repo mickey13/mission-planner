@@ -1,6 +1,6 @@
 ﻿namespace MissionPlanner
 {
-    partial class AFTSettingsSpeed
+    partial class AFTSaveMission
     {
         /// <summary>
         /// Required designer variable.
@@ -29,9 +29,7 @@
         private void InitializeComponent()
         {
             this.btnBack = new System.Windows.Forms.Button();
-            this.btnNext = new System.Windows.Forms.Button();
             this.pnlSettings = new System.Windows.Forms.Panel();
-            this.picHorizBar = new System.Windows.Forms.PictureBox();
             this.btnGrid = new System.Windows.Forms.Button();
             this.btnBattery = new System.Windows.Forms.Button();
             this.btnSpeed = new System.Windows.Forms.Button();
@@ -43,20 +41,17 @@
             this.vertLine3 = new System.Windows.Forms.PictureBox();
             this.vertLine2 = new System.Windows.Forms.PictureBox();
             this.vertLine1 = new System.Windows.Forms.PictureBox();
-            this.btnAdvanced = new ePOSOne.btnProduct.Button_WOC();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.picIcon = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.btnSaveMission = new System.Windows.Forms.Button();
+            this.btnAdvanced = new ePOSOne.btnProduct.Button_WOC();
             this.pnlSettings.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picHorizBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vertLine5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vertLine4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vertLine3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vertLine2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vertLine1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picIcon)).BeginInit();
             this.SuspendLayout();
             // 
             // btnBack
@@ -69,32 +64,15 @@
             this.btnBack.Location = new System.Drawing.Point(48, 409);
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(105, 31);
-            this.btnBack.TabIndex = 10;
+            this.btnBack.TabIndex = 22;
             this.btnBack.Text = "BACK";
             this.btnBack.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnBack.UseVisualStyleBackColor = true;
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
-            // btnNext
-            // 
-            this.btnNext.FlatAppearance.BorderSize = 0;
-            this.btnNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.btnNext.Image = global::MissionPlanner.Properties.Resources.arrow_next;
-            this.btnNext.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnNext.Location = new System.Drawing.Point(1029, 409);
-            this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(105, 31);
-            this.btnNext.TabIndex = 9;
-            this.btnNext.Text = "NEXT";
-            this.btnNext.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnNext.UseVisualStyleBackColor = true;
-            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
-            // 
             // pnlSettings
             // 
             this.pnlSettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));
-            this.pnlSettings.Controls.Add(this.picHorizBar);
             this.pnlSettings.Controls.Add(this.btnGrid);
             this.pnlSettings.Controls.Add(this.btnBattery);
             this.pnlSettings.Controls.Add(this.btnSpeed);
@@ -113,16 +91,7 @@
             this.pnlSettings.Location = new System.Drawing.Point(0, 0);
             this.pnlSettings.Name = "pnlSettings";
             this.pnlSettings.Size = new System.Drawing.Size(1182, 85);
-            this.pnlSettings.TabIndex = 8;
-            // 
-            // picHorizBar
-            // 
-            this.picHorizBar.Image = global::MissionPlanner.Properties.Resources.settings_horiz_bar;
-            this.picHorizBar.Location = new System.Drawing.Point(387, 70);
-            this.picHorizBar.Name = "picHorizBar";
-            this.picHorizBar.Size = new System.Drawing.Size(44, 3);
-            this.picHorizBar.TabIndex = 34;
-            this.picHorizBar.TabStop = false;
+            this.pnlSettings.TabIndex = 20;
             // 
             // btnGrid
             // 
@@ -173,6 +142,7 @@
             this.btnSpeed.Text = "Speed";
             this.btnSpeed.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnSpeed.UseVisualStyleBackColor = true;
+            this.btnSpeed.Click += new System.EventHandler(this.btnSpeed_Click);
             // 
             // btnOrientation
             // 
@@ -275,24 +245,6 @@
             this.vertLine1.TabIndex = 23;
             this.vertLine1.TabStop = false;
             // 
-            // btnAdvanced
-            // 
-            this.btnAdvanced.BorderColor = System.Drawing.Color.Transparent;
-            this.btnAdvanced.ButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
-            this.btnAdvanced.FlatAppearance.BorderSize = 0;
-            this.btnAdvanced.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAdvanced.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.btnAdvanced.Location = new System.Drawing.Point(920, 22);
-            this.btnAdvanced.Name = "btnAdvanced";
-            this.btnAdvanced.OnHoverBorderColor = System.Drawing.Color.Transparent;
-            this.btnAdvanced.OnHoverButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
-            this.btnAdvanced.OnHoverTextColor = System.Drawing.SystemColors.ControlText;
-            this.btnAdvanced.Size = new System.Drawing.Size(91, 23);
-            this.btnAdvanced.TabIndex = 2;
-            this.btnAdvanced.Text = "Advanced";
-            this.btnAdvanced.TextColor = System.Drawing.SystemColors.ControlText;
-            this.btnAdvanced.UseVisualStyleBackColor = true;
-            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::MissionPlanner.Properties.Resources.aft_header_logo_small;
@@ -313,60 +265,67 @@
             this.lblTitle.Text = "Mission Settings";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // picIcon
+            // btnSaveMission
             // 
-            this.picIcon.Image = global::MissionPlanner.Properties.Resources.speed_menu_icon;
-            this.picIcon.Location = new System.Drawing.Point(71, 97);
-            this.picIcon.Name = "picIcon";
-            this.picIcon.Size = new System.Drawing.Size(54, 31);
-            this.picIcon.TabIndex = 11;
-            this.picIcon.TabStop = false;
+            this.btnSaveMission.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
+            this.btnSaveMission.FlatAppearance.BorderSize = 0;
+            this.btnSaveMission.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSaveMission.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.btnSaveMission.Image = global::MissionPlanner.Properties.Resources.save_icon;
+            this.btnSaveMission.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSaveMission.Location = new System.Drawing.Point(501, 251);
+            this.btnSaveMission.Name = "btnSaveMission";
+            this.btnSaveMission.Size = new System.Drawing.Size(180, 40);
+            this.btnSaveMission.TabIndex = 23;
+            this.btnSaveMission.Text = "Save Mission";
+            this.btnSaveMission.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSaveMission.UseVisualStyleBackColor = false;
+            this.btnSaveMission.Click += new System.EventHandler(this.btnSaveMission_Click);
             // 
-            // label1
+            // btnAdvanced
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(71, 137);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(79, 25);
-            this.label1.TabIndex = 12;
-            this.label1.Text = "SPEED";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAdvanced.BorderColor = System.Drawing.Color.Transparent;
+            this.btnAdvanced.ButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
+            this.btnAdvanced.FlatAppearance.BorderSize = 0;
+            this.btnAdvanced.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAdvanced.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.btnAdvanced.Location = new System.Drawing.Point(920, 22);
+            this.btnAdvanced.Name = "btnAdvanced";
+            this.btnAdvanced.OnHoverBorderColor = System.Drawing.Color.Transparent;
+            this.btnAdvanced.OnHoverButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
+            this.btnAdvanced.OnHoverTextColor = System.Drawing.SystemColors.ControlText;
+            this.btnAdvanced.Size = new System.Drawing.Size(91, 23);
+            this.btnAdvanced.TabIndex = 2;
+            this.btnAdvanced.Text = "Advanced";
+            this.btnAdvanced.TextColor = System.Drawing.SystemColors.ControlText;
+            this.btnAdvanced.UseVisualStyleBackColor = true;
             // 
-            // AFTSettingsSpeed
+            // AFTSaveMission
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1182, 464);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.picIcon);
+            this.Controls.Add(this.btnSaveMission);
             this.Controls.Add(this.btnBack);
-            this.Controls.Add(this.btnNext);
             this.Controls.Add(this.pnlSettings);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "AFTSettingsSpeed";
+            this.Name = "AFTSaveMission";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AFTSettingsSpeed";
+            this.Text = "AFTSaveMission";
             this.pnlSettings.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.picHorizBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vertLine5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vertLine4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vertLine3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vertLine2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vertLine1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picIcon)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
         private System.Windows.Forms.Button btnBack;
-        private System.Windows.Forms.Button btnNext;
         private System.Windows.Forms.Panel pnlSettings;
-        private System.Windows.Forms.PictureBox picHorizBar;
         private System.Windows.Forms.Button btnGrid;
         private System.Windows.Forms.Button btnBattery;
         private System.Windows.Forms.Button btnSpeed;
@@ -381,7 +340,6 @@
         private ePOSOne.btnProduct.Button_WOC btnAdvanced;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label lblTitle;
-        private System.Windows.Forms.PictureBox picIcon;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnSaveMission;
     }
 }

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static MissionPlanner.AFTNewMission;
+using static MissionPlanner.AFTMDIContainer;
 using static MissionPlanner.AFTSettingsCam;
 
 namespace MissionPlanner
@@ -21,44 +21,63 @@ namespace MissionPlanner
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            this.Dispose();
+            //this.Dispose();
             ShowAltSettings();
+            //this.Hide();
         }
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            this.Dispose();
+            //this.Dispose();
             ShowSpeedSettings();
+            //this.Hide();
         }
 
         private void btnCamera_Click(object sender, EventArgs e)
         {
-            this.Dispose();
+            //this.Dispose();
             ShowCamSettings();
+            //this.Hide();
         }
 
         private void btnAltitude_Click(object sender, EventArgs e)
         {
-            this.Dispose();
+            //this.Dispose();
             ShowAltSettings();
         }
 
         private void btnSpeed_Click(object sender, EventArgs e)
         {
-            this.Dispose();
+            //this.Dispose();
             ShowSpeedSettings();
         }
 
         private void btnBattery_Click(object sender, EventArgs e)
         {
-            this.Dispose();
+            //this.Dispose();
             ShowBatSettings();
         }
 
         private void btnGrid_Click(object sender, EventArgs e)
         {
-            this.Dispose();
+            //this.Dispose();
             ShowGridSettings();
+        }
+
+        // Selecting fixed direction
+        private void btnFxdDir_Click(object sender, EventArgs e)
+        {
+            ToggleSelection(this, btnFxdDir);
+        }
+
+        private void btnTgtPtOri_Click(object sender, EventArgs e)
+        {
+            ToggleSelection(this, btnTgtPtOri);
+        }
+
+        private void btnSglDir_Click(object sender, EventArgs e)
+        {
+            ToggleSelection(this, btnSglDir);
         }
     }
 }

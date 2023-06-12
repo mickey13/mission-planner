@@ -43,9 +43,12 @@
             this.vertLine3 = new System.Windows.Forms.PictureBox();
             this.vertLine2 = new System.Windows.Forms.PictureBox();
             this.vertLine1 = new System.Windows.Forms.PictureBox();
+            this.btnAdvanced = new ePOSOne.btnProduct.Button_WOC();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.btnAdvanced = new ePOSOne.btnProduct.Button_WOC();
+            this.picIcon = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.btnSegment = new System.Windows.Forms.Button();
             this.pnlSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picHorizBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vertLine5)).BeginInit();
@@ -54,6 +57,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.vertLine2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vertLine1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picIcon)).BeginInit();
             this.SuspendLayout();
             // 
             // btnBack
@@ -272,6 +276,24 @@
             this.vertLine1.TabIndex = 23;
             this.vertLine1.TabStop = false;
             // 
+            // btnAdvanced
+            // 
+            this.btnAdvanced.BorderColor = System.Drawing.Color.Transparent;
+            this.btnAdvanced.ButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
+            this.btnAdvanced.FlatAppearance.BorderSize = 0;
+            this.btnAdvanced.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAdvanced.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.btnAdvanced.Location = new System.Drawing.Point(920, 22);
+            this.btnAdvanced.Name = "btnAdvanced";
+            this.btnAdvanced.OnHoverBorderColor = System.Drawing.Color.Transparent;
+            this.btnAdvanced.OnHoverButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
+            this.btnAdvanced.OnHoverTextColor = System.Drawing.SystemColors.ControlText;
+            this.btnAdvanced.Size = new System.Drawing.Size(91, 23);
+            this.btnAdvanced.TabIndex = 2;
+            this.btnAdvanced.Text = "Advanced";
+            this.btnAdvanced.TextColor = System.Drawing.SystemColors.ControlText;
+            this.btnAdvanced.UseVisualStyleBackColor = true;
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::MissionPlanner.Properties.Resources.aft_header_logo_small;
@@ -292,35 +314,56 @@
             this.lblTitle.Text = "Mission Settings";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // btnAdvanced
+            // picIcon
             // 
-            this.btnAdvanced.BorderColor = System.Drawing.Color.Transparent;
-            this.btnAdvanced.ButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
-            this.btnAdvanced.FlatAppearance.BorderSize = 0;
-            this.btnAdvanced.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAdvanced.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.btnAdvanced.Location = new System.Drawing.Point(920, 22);
-            this.btnAdvanced.Name = "btnAdvanced";
-            this.btnAdvanced.OnHoverBorderColor = System.Drawing.Color.Transparent;
-            this.btnAdvanced.OnHoverButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
-            this.btnAdvanced.OnHoverTextColor = System.Drawing.SystemColors.ControlText;
-            this.btnAdvanced.Size = new System.Drawing.Size(91, 23);
-            this.btnAdvanced.TabIndex = 2;
-            this.btnAdvanced.Text = "Advanced";
-            this.btnAdvanced.TextColor = System.Drawing.SystemColors.ControlText;
-            this.btnAdvanced.UseVisualStyleBackColor = true;
+            this.picIcon.Image = global::MissionPlanner.Properties.Resources.grid_menu_icon;
+            this.picIcon.Location = new System.Drawing.Point(71, 97);
+            this.picIcon.Name = "picIcon";
+            this.picIcon.Size = new System.Drawing.Size(38, 28);
+            this.picIcon.TabIndex = 17;
+            this.picIcon.TabStop = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(71, 137);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(59, 25);
+            this.label1.TabIndex = 18;
+            this.label1.Text = "GRID";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // btnSegment
+            // 
+            this.btnSegment.FlatAppearance.BorderSize = 0;
+            this.btnSegment.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSegment.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.btnSegment.Image = global::MissionPlanner.Properties.Resources.circle_hollow;
+            this.btnSegment.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSegment.Location = new System.Drawing.Point(298, 250);
+            this.btnSegment.Name = "btnSegment";
+            this.btnSegment.Size = new System.Drawing.Size(278, 30);
+            this.btnSegment.TabIndex = 19;
+            this.btnSegment.Text = "SPLIT INTO SEGMENTS";
+            this.btnSegment.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSegment.UseVisualStyleBackColor = true;
+            this.btnSegment.Click += new System.EventHandler(this.btnSegment_Click);
             // 
             // AFTSettingsGrid
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1182, 464);
+            this.Controls.Add(this.btnSegment);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.picIcon);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.btnNext);
             this.Controls.Add(this.pnlSettings);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "AFTSettingsGrid";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AFTSettingsGrid";
             this.pnlSettings.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picHorizBar)).EndInit();
@@ -330,7 +373,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.vertLine2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vertLine1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picIcon)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -354,5 +399,8 @@
         private ePOSOne.btnProduct.Button_WOC btnAdvanced;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.PictureBox picIcon;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnSegment;
     }
 }

@@ -50,6 +50,9 @@
             this.picIcon = new System.Windows.Forms.PictureBox();
             this.picVertLine = new System.Windows.Forms.PictureBox();
             this.picVertLine2 = new System.Windows.Forms.PictureBox();
+            this.btnFxdDir = new System.Windows.Forms.Button();
+            this.btnTgtPtOri = new System.Windows.Forms.Button();
+            this.btnSglDir = new System.Windows.Forms.Button();
             this.pnlSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picHorizBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vertLine5)).BeginInit();
@@ -355,11 +358,62 @@
             this.picVertLine2.TabIndex = 11;
             this.picVertLine2.TabStop = false;
             // 
+            // btnFxdDir
+            // 
+            this.btnFxdDir.FlatAppearance.BorderSize = 0;
+            this.btnFxdDir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFxdDir.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.btnFxdDir.Image = global::MissionPlanner.Properties.Resources.circle_hollow;
+            this.btnFxdDir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnFxdDir.Location = new System.Drawing.Point(88, 275);
+            this.btnFxdDir.Name = "btnFxdDir";
+            this.btnFxdDir.Size = new System.Drawing.Size(172, 33);
+            this.btnFxdDir.TabIndex = 12;
+            this.btnFxdDir.Text = "Fixed Direction";
+            this.btnFxdDir.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnFxdDir.UseVisualStyleBackColor = true;
+            this.btnFxdDir.Click += new System.EventHandler(this.btnFxdDir_Click);
+            // 
+            // btnTgtPtOri
+            // 
+            this.btnTgtPtOri.FlatAppearance.BorderSize = 0;
+            this.btnTgtPtOri.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTgtPtOri.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.btnTgtPtOri.Image = global::MissionPlanner.Properties.Resources.circle_hollow;
+            this.btnTgtPtOri.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnTgtPtOri.Location = new System.Drawing.Point(421, 275);
+            this.btnTgtPtOri.Name = "btnTgtPtOri";
+            this.btnTgtPtOri.Size = new System.Drawing.Size(269, 33);
+            this.btnTgtPtOri.TabIndex = 13;
+            this.btnTgtPtOri.Text = "Targeted Point Orientation";
+            this.btnTgtPtOri.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnTgtPtOri.UseVisualStyleBackColor = true;
+            this.btnTgtPtOri.Click += new System.EventHandler(this.btnTgtPtOri_Click);
+            // 
+            // btnSglDir
+            // 
+            this.btnSglDir.BackColor = System.Drawing.Color.Transparent;
+            this.btnSglDir.FlatAppearance.BorderSize = 0;
+            this.btnSglDir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSglDir.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.btnSglDir.Image = global::MissionPlanner.Properties.Resources.circle_hollow;
+            this.btnSglDir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSglDir.Location = new System.Drawing.Point(852, 245);
+            this.btnSglDir.Name = "btnSglDir";
+            this.btnSglDir.Size = new System.Drawing.Size(242, 93);
+            this.btnSglDir.TabIndex = 14;
+            this.btnSglDir.Text = "Always flying the direction the drone is facing";
+            this.btnSglDir.UseVisualStyleBackColor = false;
+            this.btnSglDir.Click += new System.EventHandler(this.btnSglDir_Click);
+            // 
             // AFTSettingsOri
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1182, 464);
+            this.Controls.Add(this.btnSglDir);
+            this.Controls.Add(this.btnTgtPtOri);
+            this.Controls.Add(this.btnFxdDir);
             this.Controls.Add(this.picVertLine2);
             this.Controls.Add(this.picVertLine);
             this.Controls.Add(this.label1);
@@ -369,7 +423,7 @@
             this.Controls.Add(this.pnlSettings);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "AFTSettingsOri";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AFTSettingsOri";
             this.pnlSettings.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picHorizBar)).EndInit();
@@ -411,5 +465,8 @@
         private System.Windows.Forms.PictureBox picIcon;
         private System.Windows.Forms.PictureBox picVertLine;
         private System.Windows.Forms.PictureBox picVertLine2;
+        private System.Windows.Forms.Button btnFxdDir;
+        private System.Windows.Forms.Button btnTgtPtOri;
+        private System.Windows.Forms.Button btnSglDir;
     }
 }

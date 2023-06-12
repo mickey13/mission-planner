@@ -41,11 +41,13 @@
             this.vertLine3 = new System.Windows.Forms.PictureBox();
             this.vertLine2 = new System.Windows.Forms.PictureBox();
             this.vertLine1 = new System.Windows.Forms.PictureBox();
-            this.btnAdvanced = new ePOSOne.btnProduct.Button_WOC();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblTitle = new System.Windows.Forms.Label();
             this.btnNext = new System.Windows.Forms.Button();
             this.vertLine = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.picIcon = new System.Windows.Forms.PictureBox();
+            this.btnAdvanced = new ePOSOne.btnProduct.Button_WOC();
             this.pnlSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picHorizBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vertLine5)).BeginInit();
@@ -55,6 +57,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.vertLine1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vertLine)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picIcon)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlSettings
@@ -241,24 +244,6 @@
             this.vertLine1.TabIndex = 23;
             this.vertLine1.TabStop = false;
             // 
-            // btnAdvanced
-            // 
-            this.btnAdvanced.BorderColor = System.Drawing.Color.Transparent;
-            this.btnAdvanced.ButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
-            this.btnAdvanced.FlatAppearance.BorderSize = 0;
-            this.btnAdvanced.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAdvanced.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.btnAdvanced.Location = new System.Drawing.Point(920, 22);
-            this.btnAdvanced.Name = "btnAdvanced";
-            this.btnAdvanced.OnHoverBorderColor = System.Drawing.Color.Transparent;
-            this.btnAdvanced.OnHoverButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
-            this.btnAdvanced.OnHoverTextColor = System.Drawing.SystemColors.ControlText;
-            this.btnAdvanced.Size = new System.Drawing.Size(91, 23);
-            this.btnAdvanced.TabIndex = 2;
-            this.btnAdvanced.Text = "Advanced";
-            this.btnAdvanced.TextColor = System.Drawing.SystemColors.ControlText;
-            this.btnAdvanced.UseVisualStyleBackColor = true;
-            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::MissionPlanner.Properties.Resources.aft_header_logo_small;
@@ -304,18 +289,57 @@
             this.vertLine.TabIndex = 2;
             this.vertLine.TabStop = false;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(67, 137);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(211, 25);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "CAMERA DETECTED";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // picIcon
+            // 
+            this.picIcon.Image = global::MissionPlanner.Properties.Resources.camera_menu_icon;
+            this.picIcon.Location = new System.Drawing.Point(71, 97);
+            this.picIcon.Name = "picIcon";
+            this.picIcon.Size = new System.Drawing.Size(40, 40);
+            this.picIcon.TabIndex = 4;
+            this.picIcon.TabStop = false;
+            // 
+            // btnAdvanced
+            // 
+            this.btnAdvanced.BorderColor = System.Drawing.Color.Transparent;
+            this.btnAdvanced.ButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
+            this.btnAdvanced.FlatAppearance.BorderSize = 0;
+            this.btnAdvanced.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAdvanced.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.btnAdvanced.Location = new System.Drawing.Point(920, 22);
+            this.btnAdvanced.Name = "btnAdvanced";
+            this.btnAdvanced.OnHoverBorderColor = System.Drawing.Color.Transparent;
+            this.btnAdvanced.OnHoverButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
+            this.btnAdvanced.OnHoverTextColor = System.Drawing.SystemColors.ControlText;
+            this.btnAdvanced.Size = new System.Drawing.Size(91, 23);
+            this.btnAdvanced.TabIndex = 2;
+            this.btnAdvanced.Text = "Advanced";
+            this.btnAdvanced.TextColor = System.Drawing.SystemColors.ControlText;
+            this.btnAdvanced.UseVisualStyleBackColor = true;
+            // 
             // AFTSettingsCam
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1182, 464);
-            this.ControlBox = false;
+            this.Controls.Add(this.picIcon);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.vertLine);
             this.Controls.Add(this.btnNext);
             this.Controls.Add(this.pnlSettings);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "AFTSettingsCam";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AFTMissionSettings";
             this.pnlSettings.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picHorizBar)).EndInit();
@@ -326,7 +350,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.vertLine1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vertLine)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picIcon)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -350,5 +376,7 @@
         private System.Windows.Forms.PictureBox picHorizBar;
         private System.Windows.Forms.Button btnNext;
         private System.Windows.Forms.PictureBox vertLine;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.PictureBox picIcon;
     }
 }

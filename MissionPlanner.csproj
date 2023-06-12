@@ -86,14 +86,26 @@
     <EmbeddedResource Include="AFTNewMission.resx">
       <DependentUpon>AFTNewMission.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AFTSaveMission.resx">
+      <DependentUpon>AFTSaveMission.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AFTSettingsAlt.resx">
       <DependentUpon>AFTSettingsAlt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AFTSettingsBat.resx">
+      <DependentUpon>AFTSettingsBat.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AFTSettingsCam.resx">
       <DependentUpon>AFTSettingsCam.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AFTSettingsGrid.resx">
+      <DependentUpon>AFTSettingsGrid.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AFTSettingsOri.resx">
       <DependentUpon>AFTSettingsOri.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AFTSettingsSpeed.resx">
+      <DependentUpon>AFTSettingsSpeed.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AFTWarning.resx">
       <DependentUpon>AFTWarning.cs</DependentUpon>
@@ -721,6 +733,12 @@
     </Compile>
     <Compile Include="AFTNewMission.Designer.cs">
       <DependentUpon>AFTNewMission.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AFTSaveMission.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AFTSaveMission.Designer.cs">
+      <DependentUpon>AFTSaveMission.cs</DependentUpon>
     </Compile>
     <Compile Include="AFTSettingsAlt.cs">
       <SubType>Form</SubType>
@@ -5004,6 +5022,12 @@
     <None Include="Resources\fly.png" />
     <None Include="Resources\line_black_long.png" />
     <None Include="Resources\compass.png" />
+    <None Include="Resources\circle_selected.png" />
+    <None Include="Resources\battery_menu_icon.png" />
+    <None Include="Resources\camera_menu_icon.png" />
+    <None Include="Resources\speed_menu_icon.png" />
+    <None Include="Resources\grid_menu_icon.png" />
+    <None Include="Resources\save_icon.png" />
     <Content Include="rotmat.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

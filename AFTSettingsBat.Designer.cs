@@ -46,6 +46,9 @@
             this.btnAdvanced = new ePOSOne.btnProduct.Button_WOC();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblTitle = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.picIcon = new System.Windows.Forms.PictureBox();
+            this.btnNumFlights = new System.Windows.Forms.Button();
             this.pnlSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picHorizBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vertLine5)).BeginInit();
@@ -54,6 +57,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.vertLine2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vertLine1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picIcon)).BeginInit();
             this.SuspendLayout();
             // 
             // btnBack
@@ -310,17 +314,56 @@
             this.lblTitle.Text = "Mission Settings";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.label1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label1.Location = new System.Drawing.Point(71, 137);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(104, 25);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "BATTERY";
+            // 
+            // picIcon
+            // 
+            this.picIcon.Image = global::MissionPlanner.Properties.Resources.battery_menu_icon;
+            this.picIcon.Location = new System.Drawing.Point(71, 97);
+            this.picIcon.Name = "picIcon";
+            this.picIcon.Size = new System.Drawing.Size(33, 26);
+            this.picIcon.TabIndex = 15;
+            this.picIcon.TabStop = false;
+            // 
+            // btnNumFlights
+            // 
+            this.btnNumFlights.FlatAppearance.BorderSize = 0;
+            this.btnNumFlights.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNumFlights.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.btnNumFlights.Image = global::MissionPlanner.Properties.Resources.circle_hollow;
+            this.btnNumFlights.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnNumFlights.Location = new System.Drawing.Point(298, 250);
+            this.btnNumFlights.Name = "btnNumFlights";
+            this.btnNumFlights.Size = new System.Drawing.Size(627, 30);
+            this.btnNumFlights.TabIndex = 16;
+            this.btnNumFlights.Text = "CHOOSE AMOUNT OF FLIGHTS BASED ON BATTERY LIMITS";
+            this.btnNumFlights.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnNumFlights.UseVisualStyleBackColor = true;
+            this.btnNumFlights.Click += new System.EventHandler(this.btnNumFlights_Click);
+            // 
             // AFTSettingsBat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1182, 464);
+            this.Controls.Add(this.btnNumFlights);
+            this.Controls.Add(this.picIcon);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.btnNext);
             this.Controls.Add(this.pnlSettings);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "AFTSettingsBat";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AFTSettingsBat";
             this.pnlSettings.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picHorizBar)).EndInit();
@@ -330,7 +373,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.vertLine2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vertLine1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picIcon)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -354,5 +399,8 @@
         private ePOSOne.btnProduct.Button_WOC btnAdvanced;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.PictureBox picIcon;
+        private System.Windows.Forms.Button btnNumFlights;
     }
 }

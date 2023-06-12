@@ -8,16 +8,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static MissionPlanner.AFTNewMission;
+using static MissionPlanner.AFTMDIContainer;
 
 namespace MissionPlanner
 {
     public partial class AFTSettingsCam : Form
     {
+        // Declaring forms
         public static AFTSettingsAlt aftSetAlt = null;
         public static AFTSettingsOri aftSetOri = null;
         public static AFTSettingsSpeed aftSetSpeed = null;
         public static AFTSettingsBat aftSetBat = null;
         public static AFTSettingsGrid aftSetGrid = null;
+        public static AFTSaveMission aftSaveMission = null;
 
         public AFTSettingsCam()
         {
@@ -30,7 +33,8 @@ namespace MissionPlanner
             {
                 aftSetCam = new AFTSettingsCam();
             }
-            aftSetCam.ShowDialog();
+            aftSetCam.Show();
+            aftSetCam.BringToFront();
         }
 
         public static void ShowAltSettings()
@@ -39,7 +43,8 @@ namespace MissionPlanner
             {
                 aftSetAlt = new AFTSettingsAlt();
             }
-            aftSetAlt.ShowDialog();
+            aftSetAlt.Show();
+            aftSetAlt.BringToFront();
         }
 
         public static void ShowOriSettings()
@@ -48,7 +53,8 @@ namespace MissionPlanner
             {
                 aftSetOri = new AFTSettingsOri();
             }
-            aftSetOri.ShowDialog();
+            aftSetOri.Show();
+            aftSetOri.BringToFront();
         }
 
         public static void ShowSpeedSettings()
@@ -57,7 +63,8 @@ namespace MissionPlanner
             {
                 aftSetSpeed = new AFTSettingsSpeed();
             }
-            aftSetSpeed.ShowDialog();
+            aftSetSpeed.Show();
+            aftSetSpeed.BringToFront();
         }
 
         public static void ShowBatSettings()
@@ -66,7 +73,8 @@ namespace MissionPlanner
             {
                 aftSetBat = new AFTSettingsBat();
             }
-            aftSetBat.ShowDialog();
+            aftSetBat.Show();
+            aftSetBat.BringToFront();
         }
 
         public static void ShowGridSettings()
@@ -75,43 +83,53 @@ namespace MissionPlanner
             {
                 aftSetGrid = new AFTSettingsGrid();
             }
-            aftSetGrid.ShowDialog();
+            aftSetGrid.Show();
+            aftSetGrid.BringToFront();
+        }
+
+        public static void ShowSaveScreen()
+        {
+            if ((aftSaveMission == null) || aftSaveMission.IsDisposed)
+            {
+                aftSaveMission = new AFTSaveMission();
+            }
+            aftSaveMission.Show();
+            aftSaveMission.BringToFront();
         }
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            this.Dispose();
             ShowAltSettings();
         }
 
         private void btnAltitude_Click(object sender, EventArgs e)
         {
-            this.Dispose();
             ShowAltSettings();
+            //this.Hide();
         }
 
         private void btnOrientation_Click(object sender, EventArgs e)
         {
-            this.Dispose();
             ShowOriSettings();
+            //this.Hide();
         }
 
         private void btnSpeed_Click(object sender, EventArgs e)
         {
-            this.Dispose();
             ShowSpeedSettings();
+            //this.Hide();
         }
 
         private void btnBattery_Click(object sender, EventArgs e)
         {
-            this.Dispose();
             ShowBatSettings();
+            //this.Hide();
         }
 
         private void btnGrid_Click(object sender, EventArgs e)
         {
-            this.Dispose();
             ShowGridSettings();
+            //this.Hide();
         }
     }
 }
