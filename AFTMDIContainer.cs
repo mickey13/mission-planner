@@ -73,39 +73,58 @@ namespace MissionPlanner
             return null;
         }
 
-        public static void ToggleSelection(Form form, Button btn)
+        public static void ToggleSelection(Button btn, Form form = null)
         {
-            // List to hold all buttons in given form
-            List<Button> btnList = new List<Button>();
-
-            // If not selected
-            if (btn.Image == emptyButton)
+            // If multiple buttons on form
+            if (form != null)
             {
-                btn.Image = filledButton;
+                // List to hold all buttons in given form
+                List<Button> btnList = new List<Button>();
 
-                // Add each control to btnList if it is a button
-                foreach (Control control in form.Controls)
+                // If not selected
+                if (btn.Image == emptyButton)
                 {
-                    if (control is Button)
+                    btn.Image = filledButton;
+
+                    // Add each control to btnList if it is a button
+                    foreach (Control control in form.Controls)
                     {
-                        btnList.Add(control as Button);
+                        if (control is Button)
+                        {
+                            btnList.Add(control as Button);
+                        }
+                    }
+
+                    // Change selection status of all other selected buttons
+                    foreach (Button button in btnList)
+                    {
+                        if ((button != btn) && (button.Image == filledButton))
+                        {
+                            button.Image = emptyButton;
+                        }
                     }
                 }
-
-                // Change selection status of all other selected buttons
-                foreach (Button button in btnList)
+                // If selected
+                else
                 {
-                    if ((button != btn) && (button.Image == filledButton))
-                    {
-                        button.Image = emptyButton;
-                    }
+                    btn.Image = emptyButton;
                 }
             }
-            // If selected
+            // If single button on form
             else
             {
-                btn.Image = emptyButton;
+                // If not selected
+                if (btn.Image == emptyButton)
+                {
+                    btn.Image = filledButton;
+                }
+                // If selected
+                else
+                {
+                    btn.Image = emptyButton;
+                }
             }
+            
         }
 
         public AFTMDIContainer()

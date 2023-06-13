@@ -293,6 +293,7 @@
             this.btnAdvanced.Text = "Advanced";
             this.btnAdvanced.TextColor = System.Drawing.SystemColors.ControlText;
             this.btnAdvanced.UseVisualStyleBackColor = true;
+            this.btnAdvanced.Click += new System.EventHandler(this.btnAdvanced_Click);
             // 
             // pictureBox1
             // 

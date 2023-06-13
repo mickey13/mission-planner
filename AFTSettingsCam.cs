@@ -14,13 +14,23 @@ namespace MissionPlanner
 {
     public partial class AFTSettingsCam : Form
     {
-        // Declaring forms
+        // Declaring forms (different "more options" for each form are the same form type for placeholders)
         public static AFTSettingsAlt aftSetAlt = null;
         public static AFTSettingsOri aftSetOri = null;
         public static AFTSettingsSpeed aftSetSpeed = null;
         public static AFTSettingsBat aftSetBat = null;
         public static AFTSettingsGrid aftSetGrid = null;
+
+        public static AFTSettingsAdv aftSetAdv = null;
+        public static AFTSettingsMore aftSetMoreCam = null;
+        public static AFTSettingsMore aftSetMoreAlt = null;
+        public static AFTSettingsMore aftSetMoreOri = null;
+        public static AFTSettingsMore aftSetMoreSpeed = null;
+        public static AFTSettingsMore aftSetMoreBat = null;
+        public static AFTSettingsMore aftSetMoreGrid = null;
+
         public static AFTSaveMission aftSaveMission = null;
+        public static AFTSaveMissionAs aftSaveMissionAs = null;
 
         public AFTSettingsCam()
         {
@@ -87,6 +97,16 @@ namespace MissionPlanner
             aftSetGrid.BringToFront();
         }
 
+        public static void ShowAdvSettings()
+        {
+            if ((aftSetAdv == null) || aftSetAdv.IsDisposed)
+            {
+                aftSetAdv = new AFTSettingsAdv();
+            }
+            aftSetAdv.Show();
+            aftSetAdv.BringToFront();
+        }
+
         public static void ShowSaveScreen()
         {
             if ((aftSaveMission == null) || aftSaveMission.IsDisposed)
@@ -130,6 +150,11 @@ namespace MissionPlanner
         {
             ShowGridSettings();
             //this.Hide();
+        }
+
+        private void btnAdvanced_Click(object sender, EventArgs e)
+        {
+            ShowAdvSettings();
         }
     }
 }

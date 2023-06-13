@@ -67,17 +67,22 @@ namespace MissionPlanner
         // Selecting fixed direction
         private void btnFxdDir_Click(object sender, EventArgs e)
         {
-            ToggleSelection(this, btnFxdDir);
+            ToggleSelection(btnFxdDir, this);
         }
 
         private void btnTgtPtOri_Click(object sender, EventArgs e)
         {
-            ToggleSelection(this, btnTgtPtOri);
+            ToggleSelection(btnTgtPtOri, this);
         }
 
         private void btnSglDir_Click(object sender, EventArgs e)
         {
-            ToggleSelection(this, btnSglDir);
+            ToggleSelection(btnSglDir, this);
+        }
+
+        private void btnAdvanced_Click(object sender, EventArgs e)
+        {
+            ShowAdvSettings();
         }
     }
 }

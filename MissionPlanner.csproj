@@ -89,6 +89,12 @@
     <EmbeddedResource Include="AFTSaveMission.resx">
       <DependentUpon>AFTSaveMission.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AFTSaveMissionAs.resx">
+      <DependentUpon>AFTSaveMissionAs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AFTSettingsAdv.resx">
+      <DependentUpon>AFTSettingsAdv.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AFTSettingsAlt.resx">
       <DependentUpon>AFTSettingsAlt.cs</DependentUpon>
     </EmbeddedResource>
@@ -101,11 +107,20 @@
     <EmbeddedResource Include="AFTSettingsGrid.resx">
       <DependentUpon>AFTSettingsGrid.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AFTSettingsMore.resx">
+      <DependentUpon>AFTSettingsMore.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AFTSettingsOri.resx">
       <DependentUpon>AFTSettingsOri.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AFTSettingsSpeed.resx">
       <DependentUpon>AFTSettingsSpeed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AFTVehicleConnecting.resx">
+      <DependentUpon>AFTVehicleConnecting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AFTVehiclePowerUp.resx">
+      <DependentUpon>AFTVehiclePowerUp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AFTWarning.resx">
       <DependentUpon>AFTWarning.cs</DependentUpon>
@@ -740,6 +755,18 @@
     <Compile Include="AFTSaveMission.Designer.cs">
       <DependentUpon>AFTSaveMission.cs</DependentUpon>
     </Compile>
+    <Compile Include="AFTSaveMissionAs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AFTSaveMissionAs.Designer.cs">
+      <DependentUpon>AFTSaveMissionAs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AFTSettingsAdv.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AFTSettingsAdv.Designer.cs">
+      <DependentUpon>AFTSettingsAdv.cs</DependentUpon>
+    </Compile>
     <Compile Include="AFTSettingsAlt.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -764,6 +791,12 @@
     <Compile Include="AFTSettingsGrid.Designer.cs">
       <DependentUpon>AFTSettingsGrid.cs</DependentUpon>
     </Compile>
+    <Compile Include="AFTSettingsMore.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AFTSettingsMore.Designer.cs">
+      <DependentUpon>AFTSettingsMore.cs</DependentUpon>
+    </Compile>
     <Compile Include="AFTSettingsOri.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -775,6 +808,18 @@
     </Compile>
     <Compile Include="AFTSettingsSpeed.Designer.cs">
       <DependentUpon>AFTSettingsSpeed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AFTVehicleConnecting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AFTVehicleConnecting.Designer.cs">
+      <DependentUpon>AFTVehicleConnecting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AFTVehiclePowerUp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AFTVehiclePowerUp.Designer.cs">
+      <DependentUpon>AFTVehiclePowerUp.cs</DependentUpon>
     </Compile>
     <Compile Include="AFTWarning.cs">
       <SubType>Form</SubType>
@@ -5028,6 +5073,18 @@
     <None Include="Resources\speed_menu_icon.png" />
     <None Include="Resources\grid_menu_icon.png" />
     <None Include="Resources\save_icon.png" />
+    <None Include="Resources\line_horiz_adv.png" />
+    <None Include="Resources\line_vert_adv.png" />
+    <None Include="Resources\chevron_down.png" />
+    <None Include="Resources\camera_adv_icon.png" />
+    <None Include="Resources\altitude_adv_icon.png" />
+    <None Include="Resources\orientation_adv_icon.png" />
+    <None Include="Resources\speed_adv_icon.png" />
+    <None Include="Resources\battery_adv_icon.png" />
+    <None Include="Resources\grid_adv_icon.png" />
+    <None Include="Resources\close_form_icon.png" />
+    <None Include="Resources\circle_hollow_small.png" />
+    <None Include="Resources\circle_selected_small.png" />
     <Content Include="rotmat.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -23,12 +23,12 @@ namespace MissionPlanner
 
         private void btnNewMission_Click(object sender, EventArgs e)
         {
-            ToggleSelection(this, btnNewMission);
+            ToggleSelection(btnNewMission, this);
         }
 
         private void btnLoadMission_Click(object sender, EventArgs e)
         {
-            ToggleSelection(this, btnLoadMission);
+            ToggleSelection(btnLoadMission, this);
         }
 
         private void btnContinue_Click(object sender, EventArgs e)

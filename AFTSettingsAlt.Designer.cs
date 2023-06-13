@@ -42,12 +42,12 @@
             this.vertLine3 = new System.Windows.Forms.PictureBox();
             this.vertLine2 = new System.Windows.Forms.PictureBox();
             this.vertLine1 = new System.Windows.Forms.PictureBox();
+            this.btnAdvanced = new ePOSOne.btnProduct.Button_WOC();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblTitle = new System.Windows.Forms.Label();
             this.btnBack = new System.Windows.Forms.Button();
             this.picIcon = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnAdvanced = new ePOSOne.btnProduct.Button_WOC();
             this.pnlSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picHorizBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vertLine5)).BeginInit();
@@ -259,6 +259,25 @@
             this.vertLine1.TabIndex = 23;
             this.vertLine1.TabStop = false;
             // 
+            // btnAdvanced
+            // 
+            this.btnAdvanced.BorderColor = System.Drawing.Color.Transparent;
+            this.btnAdvanced.ButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
+            this.btnAdvanced.FlatAppearance.BorderSize = 0;
+            this.btnAdvanced.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAdvanced.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.btnAdvanced.Location = new System.Drawing.Point(920, 22);
+            this.btnAdvanced.Name = "btnAdvanced";
+            this.btnAdvanced.OnHoverBorderColor = System.Drawing.Color.Transparent;
+            this.btnAdvanced.OnHoverButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
+            this.btnAdvanced.OnHoverTextColor = System.Drawing.SystemColors.ControlText;
+            this.btnAdvanced.Size = new System.Drawing.Size(91, 23);
+            this.btnAdvanced.TabIndex = 2;
+            this.btnAdvanced.Text = "Advanced";
+            this.btnAdvanced.TextColor = System.Drawing.SystemColors.ControlText;
+            this.btnAdvanced.UseVisualStyleBackColor = true;
+            this.btnAdvanced.Click += new System.EventHandler(this.btnAdvanced_Click);
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::MissionPlanner.Properties.Resources.aft_header_logo_small;
@@ -314,24 +333,6 @@
             this.label1.TabIndex = 6;
             this.label1.Text = "ALTITUDE";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // btnAdvanced
-            // 
-            this.btnAdvanced.BorderColor = System.Drawing.Color.Transparent;
-            this.btnAdvanced.ButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
-            this.btnAdvanced.FlatAppearance.BorderSize = 0;
-            this.btnAdvanced.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAdvanced.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.btnAdvanced.Location = new System.Drawing.Point(920, 22);
-            this.btnAdvanced.Name = "btnAdvanced";
-            this.btnAdvanced.OnHoverBorderColor = System.Drawing.Color.Transparent;
-            this.btnAdvanced.OnHoverButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
-            this.btnAdvanced.OnHoverTextColor = System.Drawing.SystemColors.ControlText;
-            this.btnAdvanced.Size = new System.Drawing.Size(91, 23);
-            this.btnAdvanced.TabIndex = 2;
-            this.btnAdvanced.Text = "Advanced";
-            this.btnAdvanced.TextColor = System.Drawing.SystemColors.ControlText;
-            this.btnAdvanced.UseVisualStyleBackColor = true;
             // 
             // AFTSettingsAlt
             // 

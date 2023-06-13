@@ -60,5 +60,10 @@ namespace MissionPlanner
             //this.Dispose();
             ShowGridSettings();
         }
+
+        private void btnAdvanced_Click(object sender, EventArgs e)
+        {
+            ShowAdvSettings();
+        }
     }
 }

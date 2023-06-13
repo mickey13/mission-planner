@@ -63,7 +63,12 @@ namespace MissionPlanner
 
         private void btnSegment_Click(object sender, EventArgs e)
         {
-            ToggleSelection(this, btnSegment);
+            ToggleSelection(btnSegment, this);
+        }
+
+        private void btnAdvanced_Click(object sender, EventArgs e)
+        {
+            ShowAdvSettings();
         }
     }
 }

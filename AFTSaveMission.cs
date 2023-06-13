@@ -62,7 +62,17 @@ namespace MissionPlanner
 
         private void btnSaveMission_Click(object sender, EventArgs e)
         {
+            if ((aftSaveMissionAs == null) || aftSaveMissionAs.IsDisposed)
+            {
+                aftSaveMissionAs = new AFTSaveMissionAs();
+            }
+            aftSaveMissionAs.Show();
+            aftSaveMissionAs.BringToFront();
+        }
 
+        private void btnAdvanced_Click(object sender, EventArgs e)
+        {
+            ShowAdvSettings();
         }
     }
 }
