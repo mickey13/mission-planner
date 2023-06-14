@@ -116,5 +116,10 @@ namespace MissionPlanner
             aftSaveMissionAs.Show();
             aftSaveMissionAs.BringToFront();
         }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
     }
 }

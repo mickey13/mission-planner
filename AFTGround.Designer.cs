@@ -113,6 +113,7 @@
             this.homeButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.homeButton.TabIndex = 26;
             this.homeButton.TabStop = false;
+            this.homeButton.Click += new System.EventHandler(this.homeButton_Click);
             // 
             // aftLogo
             // 
@@ -275,6 +276,7 @@
             this.btnPreFlightCheck.TabIndex = 4;
             this.btnPreFlightCheck.Text = "PRE-FLIGHT CHECKLIST";
             this.btnPreFlightCheck.UseVisualStyleBackColor = true;
+            this.btnPreFlightCheck.Click += new System.EventHandler(this.btnPreFlightCheck_Click);
             // 
             // btnFirmUpdate
             // 
@@ -311,6 +313,7 @@
             this.btnSettings.TabIndex = 1;
             this.btnSettings.Text = "SETTINGS";
             this.btnSettings.UseVisualStyleBackColor = true;
+            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
             // 
             // btnNewMission
             // 

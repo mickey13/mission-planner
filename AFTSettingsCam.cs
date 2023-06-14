@@ -21,7 +21,6 @@ namespace MissionPlanner
         public static AFTSettingsBat aftSetBat = null;
         public static AFTSettingsGrid aftSetGrid = null;
 
-        public static AFTSettingsAdv aftSetAdv = null;
         public static AFTSettingsMore aftSetMoreCam = null;
         public static AFTSettingsMore aftSetMoreAlt = null;
         public static AFTSettingsMore aftSetMoreOri = null;
@@ -103,6 +102,18 @@ namespace MissionPlanner
             {
                 aftSetAdv = new AFTSettingsAdv();
             }
+
+            // Show the user the save mission button
+            aftSetAdv.btnSave.Text = "SAVE MISSION";
+            aftSetAdv.btnSave.Size = new Size (166, 28);
+            aftSetAdv.btnSave.Location = new Point(948, 881);
+            aftSetAdv.btnSave.BringToFront();
+
+            // Hide the close menu button
+            aftSetAdv.btnClose.Text = "";
+            aftSetAdv.btnClose.Location = new Point (954, 881);
+            aftSetAdv.btnClose.SendToBack();
+
             aftSetAdv.Show();
             aftSetAdv.BringToFront();
         }
