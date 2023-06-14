@@ -121,6 +121,9 @@
   <data name="planebackground" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\planebackground.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="planeicon4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planetracker4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="marker_07" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\marker_07.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -259,8 +262,8 @@
   <data name="hilquad" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\new frames-12.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="frames-h" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\frames-h.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="BT-hc06" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BT-hc06.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="sonar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\AC-0004-11-2.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -307,9 +310,6 @@
   <data name="FW icons 2013+logos-10" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\FW icons 2013+logos-10.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="marker_06" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\marker_06.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="calibration01" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\calibration01.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -325,9 +325,6 @@
   <data name="apmp2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\apmp2.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="uavcanesc" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\uavcanesc.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="grid_menu_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\grid_menu_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -342,9 +339,6 @@
   </data>
   <data name="quadhover_12" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\quadhover_12.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="planeicon1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\planetracker1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="apmp4" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\apmp4.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -412,6 +406,9 @@
   <data name="grid_adv_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\grid_adv_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="checkbox_empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\checkbox_empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="light_disconnect_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\light_disconnect_icon.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -454,11 +451,14 @@
   <data name="octo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\new frames-05.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="attocurrent" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\09028-01.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="frames-h" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frames-h.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="battery_adv_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\battery_adv_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FW icons 2013+logos-06" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FW icons 2013+logos-06.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="FW icons 2013+logos-03" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\FW icons 2013+logos-03.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -486,9 +486,6 @@
   </data>
   <data name="light_initialsetup_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\light_initialsetup_icon.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\car.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="light_03" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\light_03.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -590,8 +587,8 @@ Control-S - save grid file\par
   <data name="planeicon5" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\planetracker5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="FW icons 2013+logos-06" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\FW icons 2013+logos-06.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="rover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\car.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="FW icons 2013+logos-07" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\FW icons 2013+logos-07.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -616,6 +613,9 @@ Control-S - save grid file\par
   </data>
   <data name="pixhawk" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pixhawk.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="camera_icon_G" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\camera-icon-G.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="compass" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BR-HMC5883-01-2.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -677,8 +677,8 @@ Control-S - save grid file\par
   <data name="quadframesnormal_03" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\quadframesnormal_03.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="planeicon4" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\planetracker4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="planeicon1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planetracker1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="altitude_black" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\altitude_black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -710,11 +710,11 @@ Control-S - save grid file\par
   <data name="FW icons 2013+logos-01" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\FW icons 2013+logos-01.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="camera_icon_G" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\camera-icon-G.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="altitude_white" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\altitude_white.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="BT-hc06" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BT-hc06.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="uavcanesc" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\uavcanesc.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="apm2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\apm2.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -731,8 +731,8 @@ Control-S - save grid file\par
   <data name="cam_set_vert_line" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cam_set_vert_line.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="altitude_white" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\altitude_white.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="marker_06" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\marker_06.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="dark_tuningconfig_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\dark_tuningconfig_icon.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -760,6 +760,9 @@ Control-S - save grid file\par
   </data>
   <data name="circle_hollow_small" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\circle_hollow_small.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="attocurrent" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\09028-01.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="bgdark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bgdark.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -830,6 +833,9 @@ Control-S - save grid file\par
   <data name="x8" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\x8.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="circle_selected_small" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\circle_selected_small.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="_01_05" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\01_05.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -845,7 +851,7 @@ Control-S - save grid file\par
   <data name="AFT_logo_white" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\AFT_logo_white.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="circle_selected_small" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\circle_selected_small.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="checkbox_checkmark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\checkbox_checkmark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

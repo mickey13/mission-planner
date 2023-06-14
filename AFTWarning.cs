@@ -25,9 +25,13 @@ namespace MissionPlanner
 {
     public partial class AFTWarning : Form
     {
+
         public AFTWarning()
         {
             InitializeComponent();
+
+            // Apply drop shadow effect
+            (new MissionPlanner.DropShadow()).ApplyShadows(this);
         }
 
         private void confirmationButton_Click(object sender, EventArgs e)

@@ -653,6 +653,26 @@ namespace MissionPlanner.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap checkbox_checkmark {
+            get {
+                object obj = ResourceManager.GetObject("checkbox_checkmark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap checkbox_empty {
+            get {
+                object obj = ResourceManager.GetObject("checkbox_empty", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap chevron_down {
             get {
                 object obj = ResourceManager.GetObject("chevron_down", resourceCulture);

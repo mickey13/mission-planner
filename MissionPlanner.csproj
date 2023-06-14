@@ -77,6 +77,9 @@
     <EmbeddedResource Include="AFTAir.resx">
       <DependentUpon>AFTAir.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AFTChecklist.resx">
+      <DependentUpon>AFTChecklist.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AFTLoadingScreen.resx">
       <DependentUpon>AFTLoadingScreen.cs</DependentUpon>
     </EmbeddedResource>
@@ -85,6 +88,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AFTNewMission.resx">
       <DependentUpon>AFTNewMission.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AFTReturnHome.resx">
+      <DependentUpon>AFTReturnHome.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AFTSaveMission.resx">
       <DependentUpon>AFTSaveMission.cs</DependentUpon>
@@ -649,6 +655,9 @@
       <Version>1.2.0</Version>
     </PackageReference>
     <PackageReference Include="CSMatIO" version="1.0.20" targetFramework="netstandard2.0" requireReinstallation="true" />
+    <PackageReference Include="DevExpress.Xpo">
+      <Version>23.1.3</Version>
+    </PackageReference>
     <PackageReference Include="DotNetZip">
       <Version>1.16.0</Version>
     </PackageReference>
@@ -731,6 +740,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AFTChecklist.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AFTChecklist.Designer.cs">
+      <DependentUpon>AFTChecklist.cs</DependentUpon>
+    </Compile>
     <Compile Include="AFTLoadingScreen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -748,6 +763,12 @@
     </Compile>
     <Compile Include="AFTNewMission.Designer.cs">
       <DependentUpon>AFTNewMission.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AFTReturnHome.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AFTReturnHome.Designer.cs">
+      <DependentUpon>AFTReturnHome.cs</DependentUpon>
     </Compile>
     <Compile Include="AFTSaveMission.cs">
       <SubType>Form</SubType>
@@ -958,6 +979,7 @@
     <Compile Include="AFTAir.Designer.cs">
       <DependentUpon>AFTAir.cs</DependentUpon>
     </Compile>
+    <Compile Include="DropShadow.cs" />
     <Compile Include="GCSViews\ConfigurationView\ConfigADSB.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -5085,6 +5107,8 @@
     <None Include="Resources\close_form_icon.png" />
     <None Include="Resources\circle_hollow_small.png" />
     <None Include="Resources\circle_selected_small.png" />
+    <None Include="Resources\checkbox_empty.png" />
+    <None Include="Resources\checkbox_checkmark.png" />
     <Content Include="rotmat.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

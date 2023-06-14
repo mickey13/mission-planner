@@ -33,6 +33,9 @@ namespace MissionPlanner
         public static Bitmap emptyButton = MissionPlanner.Properties.Resources.circle_hollow;
         public static Bitmap filledButton = MissionPlanner.Properties.Resources.circle_selected;
 
+        // Picture for checkboxes
+        public static Bitmap boxChecked = MissionPlanner.Properties.Resources.checkbox_checkmark;
+
         public static Form InitializeForm(Form child, Form parent)
         {
             if (parent != null)

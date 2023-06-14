@@ -77,6 +77,7 @@
             this.btnSaveMission.Text = "Save Mission";
             this.btnSaveMission.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSaveMission.UseVisualStyleBackColor = false;
+            this.btnSaveMission.Click += new System.EventHandler(this.btnSaveMission_Click);
             // 
             // AFTSaveMissionAs
             // 
