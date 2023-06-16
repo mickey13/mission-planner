@@ -29,31 +29,32 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.button_WOC1 = new ePOSOne.btnProduct.Button_WOC();
             this.SuspendLayout();
             // 
             // label1
             // 
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(259, 372);
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(396, 402);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(275, 92);
+            this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "RETURN VEHICLE TO STARTING POINT";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label1.Text = "label1";
             // 
-            // button1
+            // button_WOC1
             // 
-            this.button1.BackgroundImage = global::MissionPlanner.Properties.Resources.yellow_circle_big;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Image = global::MissionPlanner.Properties.Resources.white_house_big;
-            this.button1.Location = new System.Drawing.Point(259, 33);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(275, 275);
-            this.button1.TabIndex = 1;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button_WOC1.BorderColor = System.Drawing.Color.Silver;
+            this.button_WOC1.ButtonColor = System.Drawing.Color.Red;
+            this.button_WOC1.Location = new System.Drawing.Point(356, 226);
+            this.button_WOC1.Name = "button_WOC1";
+            this.button_WOC1.OnHoverBorderColor = System.Drawing.Color.Gray;
+            this.button_WOC1.OnHoverButtonColor = System.Drawing.Color.Yellow;
+            this.button_WOC1.OnHoverTextColor = System.Drawing.Color.Gray;
+            this.button_WOC1.Size = new System.Drawing.Size(75, 23);
+            this.button_WOC1.TabIndex = 1;
+            this.button_WOC1.Text = "button_WOC1";
+            this.button_WOC1.TextColor = System.Drawing.Color.White;
+            this.button_WOC1.UseVisualStyleBackColor = true;
             // 
             // AFTReturnHome
             // 
@@ -61,19 +62,20 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
             this.ClientSize = new System.Drawing.Size(793, 488);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.button_WOC1);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "AFTReturnHome";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AFTReturnHome";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
+        private ePOSOne.btnProduct.Button_WOC button_WOC1;
     }
 }

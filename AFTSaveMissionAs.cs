@@ -17,9 +17,13 @@ namespace MissionPlanner
             InitializeComponent();
         }
 
+        public static AFTChecklist testMe = new AFTChecklist();
+
         private void btnSaveMission_Click(object sender, EventArgs e)
         {
-            
+            testMe.Show();
+            testMe.BringToFront();
+            this.Close();
         }
     }
 }

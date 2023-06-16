@@ -18,11 +18,6 @@ namespace MissionPlanner
         public static AFTAir aftAir = null;
         public static MainV2 custom = null;
 
-        // Declaring aftGround sub-forms
-        public static AFTChecklist checklist = null;
-        public static AFTSettingsAdv aftSetAdv = null;
-        public static AFTReturnHome aftReturnHome = null;
-
         // Pictures and colors for color modes
         public static Bitmap aftLogoLight = MissionPlanner.Properties.Resources.AFT_logo_black;
         public static Bitmap aftLogoDark = MissionPlanner.Properties.Resources.AFT_logo_white;

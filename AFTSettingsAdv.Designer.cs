@@ -70,7 +70,6 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.btnNumFlights = new System.Windows.Forms.Button();
             this.btnSegment = new System.Windows.Forms.Button();
-            this.btnClose = new System.Windows.Forms.Button();
             this.pnlSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lineHoriz1)).BeginInit();
@@ -529,25 +528,11 @@
             this.btnSegment.UseVisualStyleBackColor = true;
             this.btnSegment.Click += new System.EventHandler(this.btnSegment_Click);
             // 
-            // btnClose
-            // 
-            this.btnClose.FlatAppearance.BorderSize = 0;
-            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.btnClose.Location = new System.Drawing.Point(754, 881);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(160, 28);
-            this.btnClose.TabIndex = 67;
-            this.btnClose.Text = "CLOSE MENU";
-            this.btnClose.UseVisualStyleBackColor = true;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
-            // 
             // AFTSettingsAdv
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1182, 938);
-            this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnSegment);
             this.Controls.Add(this.btnNumFlights);
             this.Controls.Add(this.btnSave);
@@ -658,9 +643,8 @@
         private System.Windows.Forms.PictureBox picGrid;
         private System.Windows.Forms.PictureBox lineVert6;
         private System.Windows.Forms.PictureBox lineHoriz6;
-        internal System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnNumFlights;
         private System.Windows.Forms.Button btnSegment;
-        internal System.Windows.Forms.Button btnClose;
     }
 }
