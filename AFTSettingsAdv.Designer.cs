@@ -70,6 +70,7 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.btnNumFlights = new System.Windows.Forms.Button();
             this.btnSegment = new System.Windows.Forms.Button();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.pnlSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lineHoriz1)).BeginInit();
@@ -528,11 +529,27 @@
             this.btnSegment.UseVisualStyleBackColor = true;
             this.btnSegment.Click += new System.EventHandler(this.btnSegment_Click);
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 4;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(506, 244);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(200, 100);
+            this.tableLayoutPanel1.TabIndex = 67;
+            // 
             // AFTSettingsAdv
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1182, 938);
+            this.ClientSize = new System.Drawing.Size(1182, 820);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.btnSegment);
             this.Controls.Add(this.btnNumFlights);
             this.Controls.Add(this.btnSave);
@@ -646,5 +663,6 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnNumFlights;
         private System.Windows.Forms.Button btnSegment;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }

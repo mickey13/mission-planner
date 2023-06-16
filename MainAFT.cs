@@ -16,11 +16,14 @@ using static MissionPlanner.Swarm.Sequence.LayoutEditor;
 using static MissionPlanner.AFTMDIContainer;
 using Accord.Statistics.Kernels;
 using netDxf;
+using System.Drawing.Imaging;
 
 namespace MissionPlanner
 {
     public partial class MainAFT : Form
     {
+        private PictureBox picBlur;
+
         public MainAFT()
         {
             InitializeComponent();

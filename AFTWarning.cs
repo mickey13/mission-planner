@@ -25,7 +25,6 @@ namespace MissionPlanner
 {
     public partial class AFTWarning : Form
     {
-
         public AFTWarning()
         {
             InitializeComponent();
