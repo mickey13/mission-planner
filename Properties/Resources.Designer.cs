@@ -763,6 +763,16 @@ namespace MissionPlanner.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap create_mission_button {
+            get {
+                object obj = ResourceManager.GetObject("create_mission_button", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap dark_connect_icon {
             get {
                 object obj = ResourceManager.GetObject("dark_connect_icon", resourceCulture);
@@ -1581,6 +1591,16 @@ namespace MissionPlanner.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap meadow {
+            get {
+                object obj = ResourceManager.GetObject("meadow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap menu_icon {
             get {
                 object obj = ResourceManager.GetObject("menu_icon", resourceCulture);
@@ -1904,6 +1924,16 @@ namespace MissionPlanner.Properties {
         public static System.Drawing.Bitmap PlusFramesGreen_06 {
             get {
                 object obj = ResourceManager.GetObject("PlusFramesGreen_06", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap power_btn_88 {
+            get {
+                object obj = ResourceManager.GetObject("power_btn_88", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

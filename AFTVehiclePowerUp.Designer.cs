@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AFTVehiclePowerUp));
             this.label1 = new System.Windows.Forms.Label();
             this.btnSegment = new System.Windows.Forms.Button();
             this.gifPower = new System.Windows.Forms.PictureBox();
@@ -64,6 +65,7 @@
             // 
             // gifPower
             // 
+            this.gifPower.Image = global::MissionPlanner.Properties.Resources.power_btn_88;
             this.gifPower.Location = new System.Drawing.Point(287, 109);
             this.gifPower.Name = "gifPower";
             this.gifPower.Size = new System.Drawing.Size(88, 88);
@@ -72,6 +74,7 @@
             // 
             // gifDrone
             // 
+            this.gifDrone.Image = ((System.Drawing.Image)(resources.GetObject("gifDrone.Image")));
             this.gifDrone.Location = new System.Drawing.Point(324, 84);
             this.gifDrone.Name = "gifDrone";
             this.gifDrone.Size = new System.Drawing.Size(200, 154);

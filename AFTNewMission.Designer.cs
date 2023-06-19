@@ -102,7 +102,7 @@
             this.Controls.Add(this.btnNewMission);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "AFTNewMission";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AFTNewMission";
             ((System.ComponentModel.ISupportInitialize)(this.vertLine)).EndInit();
             this.ResumeLayout(false);

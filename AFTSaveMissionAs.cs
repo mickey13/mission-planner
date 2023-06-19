@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static MissionPlanner.AFTMDIContainer;
 
 namespace MissionPlanner
 {
@@ -17,12 +18,15 @@ namespace MissionPlanner
             InitializeComponent();
         }
 
-        public static AFTChecklist testMe = new AFTChecklist();
-
         private void btnSaveMission_Click(object sender, EventArgs e)
         {
-            testMe.Show();
-            testMe.BringToFront();
+            if ((checklist == null) || checklist.IsDisposed)
+            {
+                checklist = new AFTChecklist();
+            }
+
+            checklist.Show();
+            checklist.BringToFront();
             this.Close();
         }
     }

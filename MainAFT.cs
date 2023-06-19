@@ -22,8 +22,6 @@ namespace MissionPlanner
 {
     public partial class MainAFT : Form
     {
-        private PictureBox picBlur;
-
         public MainAFT()
         {
             InitializeComponent();
@@ -121,6 +119,11 @@ namespace MissionPlanner
                 pictureBox1.Image = aftLogoDark;
                 line1.Image = lineDark;
                 line2.Image = lineDark;
+
+                toggleButton.BackColor = darkColor;
+                groundButton.BackColor = darkColor;
+                airButton.BackColor = darkColor;
+                customButton.BackColor = darkColor;
             }
             else // If in dark mode
             {
@@ -128,6 +131,11 @@ namespace MissionPlanner
                 pictureBox1.Image = aftLogoLight;
                 line1.Image = lineLight;
                 line2.Image = lineLight;
+
+                toggleButton .BackColor = lightColor;
+                groundButton .BackColor = lightColor;
+                airButton .BackColor = lightColor;
+                customButton.BackColor = lightColor;
             }
 
             SyncColorsAndInitialize(new List<Form> { aftAir }, this, this.MdiParent);

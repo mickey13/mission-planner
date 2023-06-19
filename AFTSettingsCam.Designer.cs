@@ -48,6 +48,7 @@
             this.vertLine = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.picIcon = new System.Windows.Forms.PictureBox();
+            this.lblCamera = new System.Windows.Forms.Label();
             this.pnlSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picHorizBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vertLine5)).BeginInit();
@@ -328,11 +329,23 @@
             this.picIcon.TabIndex = 4;
             this.picIcon.TabStop = false;
             // 
+            // lblCamera
+            // 
+            this.lblCamera.AutoSize = true;
+            this.lblCamera.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.lblCamera.Location = new System.Drawing.Point(349, 246);
+            this.lblCamera.Name = "lblCamera";
+            this.lblCamera.Size = new System.Drawing.Size(134, 29);
+            this.lblCamera.TabIndex = 76;
+            this.lblCamera.Text = "Sony ADTI";
+            this.lblCamera.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // AFTSettingsCam
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1182, 464);
+            this.Controls.Add(this.lblCamera);
             this.Controls.Add(this.picIcon);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.vertLine);
@@ -379,5 +392,6 @@
         private System.Windows.Forms.PictureBox vertLine;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox picIcon;
+        private System.Windows.Forms.Label lblCamera;
     }
 }

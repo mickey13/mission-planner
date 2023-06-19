@@ -5118,6 +5118,9 @@
     <None Include="Resources\checkbox_empty.png" />
     <None Include="Resources\checkbox_checkmark.png" />
     <None Include="Resources\aftLightToBlur.png" />
+    <None Include="Resources\meadow.png" />
+    <None Include="Resources\power_btn_88.gif" />
+    <None Include="Resources\create_mission_button.png" />
     <Content Include="rotmat.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

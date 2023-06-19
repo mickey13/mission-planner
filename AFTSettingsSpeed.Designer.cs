@@ -48,6 +48,12 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.picIcon = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.lblSpeedDisplay = new System.Windows.Forms.Label();
+            this.lblMaxSpeed = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.lblMinSpeed = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.trackSpeed = new System.Windows.Forms.TrackBar();
             this.pnlSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picHorizBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vertLine5)).BeginInit();
@@ -57,6 +63,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.vertLine1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picIcon)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackSpeed)).BeginInit();
             this.SuspendLayout();
             // 
             // btnBack
@@ -334,11 +341,82 @@
             this.label1.Text = "SPEED";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // lblSpeedDisplay
+            // 
+            this.lblSpeedDisplay.AutoSize = true;
+            this.lblSpeedDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.lblSpeedDisplay.Location = new System.Drawing.Point(533, 260);
+            this.lblSpeedDisplay.Name = "lblSpeedDisplay";
+            this.lblSpeedDisplay.Size = new System.Drawing.Size(117, 18);
+            this.lblSpeedDisplay.TabIndex = 18;
+            this.lblSpeedDisplay.Text = "Current speed: 0";
+            // 
+            // lblMaxSpeed
+            // 
+            this.lblMaxSpeed.AutoSize = true;
+            this.lblMaxSpeed.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.lblMaxSpeed.Location = new System.Drawing.Point(880, 256);
+            this.lblMaxSpeed.Name = "lblMaxSpeed";
+            this.lblMaxSpeed.Size = new System.Drawing.Size(118, 25);
+            this.lblMaxSpeed.TabIndex = 17;
+            this.lblMaxSpeed.Text = "Max. Speed";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(921, 287);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(77, 25);
+            this.label11.TabIndex = 16;
+            this.label11.Text = "60 mph";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblMinSpeed
+            // 
+            this.lblMinSpeed.AutoSize = true;
+            this.lblMinSpeed.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.lblMinSpeed.Location = new System.Drawing.Point(184, 256);
+            this.lblMinSpeed.Name = "lblMinSpeed";
+            this.lblMinSpeed.Size = new System.Drawing.Size(112, 25);
+            this.lblMinSpeed.TabIndex = 15;
+            this.lblMinSpeed.Text = "Min. Speed";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(187, 287);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(77, 25);
+            this.label13.TabIndex = 14;
+            this.label13.Text = "10 mph";
+            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // trackSpeed
+            // 
+            this.trackSpeed.AutoSize = false;
+            this.trackSpeed.LargeChange = 10;
+            this.trackSpeed.Location = new System.Drawing.Point(262, 292);
+            this.trackSpeed.Maximum = 60;
+            this.trackSpeed.Minimum = 10;
+            this.trackSpeed.Name = "trackSpeed";
+            this.trackSpeed.Size = new System.Drawing.Size(658, 25);
+            this.trackSpeed.TabIndex = 13;
+            this.trackSpeed.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackSpeed.Value = 10;
+            // 
             // AFTSettingsSpeed
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1182, 464);
+            this.Controls.Add(this.lblSpeedDisplay);
+            this.Controls.Add(this.lblMaxSpeed);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.lblMinSpeed);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.trackSpeed);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.picIcon);
             this.Controls.Add(this.btnBack);
@@ -357,6 +435,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.vertLine1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picIcon)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackSpeed)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -384,5 +463,11 @@
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.PictureBox picIcon;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblSpeedDisplay;
+        private System.Windows.Forms.Label lblMaxSpeed;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label lblMinSpeed;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TrackBar trackSpeed;
     }
 }

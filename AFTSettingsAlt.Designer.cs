@@ -48,6 +48,12 @@
             this.btnBack = new System.Windows.Forms.Button();
             this.picIcon = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.lblAltDisplay = new System.Windows.Forms.Label();
+            this.lblMaxAlt = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.lblMinAlt = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.trackAlt = new System.Windows.Forms.TrackBar();
             this.pnlSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picHorizBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vertLine5)).BeginInit();
@@ -57,6 +63,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.vertLine1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picIcon)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackAlt)).BeginInit();
             this.SuspendLayout();
             // 
             // btnNext
@@ -334,11 +341,81 @@
             this.label1.Text = "ALTITUDE";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // lblAltDisplay
+            // 
+            this.lblAltDisplay.AutoSize = true;
+            this.lblAltDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.lblAltDisplay.Location = new System.Drawing.Point(529, 260);
+            this.lblAltDisplay.Name = "lblAltDisplay";
+            this.lblAltDisplay.Size = new System.Drawing.Size(124, 18);
+            this.lblAltDisplay.TabIndex = 12;
+            this.lblAltDisplay.Text = "Current Altitude: 0";
+            // 
+            // lblMaxAlt
+            // 
+            this.lblMaxAlt.AutoSize = true;
+            this.lblMaxAlt.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.lblMaxAlt.Location = new System.Drawing.Point(873, 256);
+            this.lblMaxAlt.Name = "lblMaxAlt";
+            this.lblMaxAlt.Size = new System.Drawing.Size(125, 25);
+            this.lblMaxAlt.TabIndex = 11;
+            this.lblMaxAlt.Text = "Max. Altitude";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(926, 287);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(65, 25);
+            this.label9.TabIndex = 10;
+            this.label9.Text = "400 ft.";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblMinAlt
+            // 
+            this.lblMinAlt.AutoSize = true;
+            this.lblMinAlt.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.lblMinAlt.Location = new System.Drawing.Point(184, 256);
+            this.lblMinAlt.Name = "lblMinAlt";
+            this.lblMinAlt.Size = new System.Drawing.Size(119, 25);
+            this.lblMinAlt.TabIndex = 9;
+            this.lblMinAlt.Text = "Min. Altitude";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(212, 287);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(43, 25);
+            this.label7.TabIndex = 8;
+            this.label7.Text = "0 ft.";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // trackAlt
+            // 
+            this.trackAlt.AutoSize = false;
+            this.trackAlt.LargeChange = 50;
+            this.trackAlt.Location = new System.Drawing.Point(262, 292);
+            this.trackAlt.Maximum = 400;
+            this.trackAlt.Name = "trackAlt";
+            this.trackAlt.Size = new System.Drawing.Size(658, 25);
+            this.trackAlt.SmallChange = 10;
+            this.trackAlt.TabIndex = 7;
+            this.trackAlt.TickStyle = System.Windows.Forms.TickStyle.None;
+            // 
             // AFTSettingsAlt
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1182, 464);
+            this.Controls.Add(this.lblAltDisplay);
+            this.Controls.Add(this.lblMaxAlt);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.lblMinAlt);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.trackAlt);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.picIcon);
             this.Controls.Add(this.btnBack);
@@ -358,6 +435,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.vertLine1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picIcon)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackAlt)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -385,5 +463,11 @@
         private System.Windows.Forms.Button btnBack;
         private System.Windows.Forms.PictureBox picIcon;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblAltDisplay;
+        private System.Windows.Forms.Label lblMaxAlt;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label lblMinAlt;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TrackBar trackAlt;
     }
 }

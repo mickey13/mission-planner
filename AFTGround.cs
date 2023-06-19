@@ -44,6 +44,60 @@ namespace MissionPlanner
         private void btnNewMission_Click(object sender, EventArgs e)
         {
             AFTNewMission aftNewMission = new AFTNewMission();
+            aftNewMission.Show();
+            aftNewMission.BringToFront();
+        }
+
+        private void btnPreFlightCheck_Click(object sender, EventArgs e)
+        {
+            if ((checklist == null) || checklist.IsDisposed)
+            {
+                checklist = new AFTChecklist();
+            }
+
+            checklist.Show();
+            checklist.BringToFront();
+        }
+
+        private void btnSettings_Click(object sender, EventArgs e)
+        {
+            if ((aftSetAdv == null) || aftSetAdv.IsDisposed)
+            {
+                aftSetAdv = new AFTSettingsAdv();
+            }
+
+            // Hide the save mission button
+            //aftSetAdv.btnSave.Text = "";
+            //aftSetAdv.btnSave.Size = new Size(1, 1);
+            aftSetAdv.btnSave.SendToBack();
+
+            // Show the user the close menu button
+            //aftSetAdv.btnClose.Text = "CLOSE MENU";
+            aftSetAdv.btnClose.Location = new Point(7, 22);
+            aftSetAdv.btnClose.BringToFront();
+
+            aftSetAdv.Show();
+            aftSetAdv.BringToFront();
+        }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void homeButton_Click(object sender, EventArgs e)
+        {
+            if ((aftReturnHome == null) || aftReturnHome.IsDisposed)
+            {
+                aftReturnHome = new AFTReturnHome();
+            }
+            aftReturnHome.Show();
+            aftReturnHome.BringToFront();
+        }
+
+        private void btnCreateMission_Click(object sender, EventArgs e)
+        {
+            AFTNewMission aftNewMission = new AFTNewMission();
             aftNewMission.ShowDialog();
         }
     }

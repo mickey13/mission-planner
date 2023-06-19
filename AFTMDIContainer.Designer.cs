@@ -40,6 +40,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
             this.Name = "AFTMDIContainer";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Mission Planner - AFT Interface";
             this.Load += new System.EventHandler(this.AFTMDIContainer_Load);
             this.ResumeLayout(false);
