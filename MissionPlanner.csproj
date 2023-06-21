@@ -754,6 +754,7 @@
     <Compile Include="AFTChecklist.Designer.cs">
       <DependentUpon>AFTChecklist.cs</DependentUpon>
     </Compile>
+    <Compile Include="AFTController.cs" />
     <Compile Include="AFTLoadingScreen.cs">
       <SubType>Form</SubType>
     </Compile>

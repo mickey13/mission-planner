@@ -1,19 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static MissionPlanner.AFTMDIContainer;
-using static MissionPlanner.AFTSettingsCam;
-using static MissionPlanner.AFTSettingsAlt;
-using static MissionPlanner.AFTSettingsOri;
-using static MissionPlanner.AFTSettingsSpeed;
-using static MissionPlanner.AFTSettingsBat;
-using static MissionPlanner.AFTSettingsGrid;
+using static MissionPlanner.AFTController;
 
 
 
@@ -24,6 +12,9 @@ namespace MissionPlanner
         public AFTSettingsAdv()
         {
             InitializeComponent();
+
+            // Send close button to correct location
+            aftSetAdv.btnClose.Location = new Point(7, 22);
         }
 
         private void AFTSettingsAdv_Load(object sender, EventArgs e)

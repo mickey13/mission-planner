@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static MissionPlanner.AFTMDIContainer;
-using static MissionPlanner.MainAFT;
+using static MissionPlanner.AFTController;
 
 namespace MissionPlanner
 {
@@ -18,24 +11,23 @@ namespace MissionPlanner
         {
             InitializeComponent();
 
+            // Send menu panel to correct starting location
             sideMenuPanel.Dock = DockStyle.None;
             sideMenuPanel.SendToBack();
 
+            // Send compass button to correct starting location
             btnFlightLines.Location = new Point(12, 654);
-        }
-
-        private void groundForm_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void menuButton_Click(object sender, EventArgs e)
         {
+            // Show menu panel
             if (this.Controls.GetChildIndex(sideMenuPanel) == 0)
             {
                 sideMenuPanel.Dock = DockStyle.None;
                 sideMenuPanel.SendToBack();
             }
+            // Hide menu panel
             else
             {
                 sideMenuPanel.Dock = DockStyle.Left;
@@ -45,6 +37,7 @@ namespace MissionPlanner
 
         private void btnNewMission_Click(object sender, EventArgs e)
         {
+            // Instantiate and show new mission screen
             aftNewMission = new AFTNewMission();
             aftNewMission.Show();
             aftNewMission.BringToFront();
@@ -52,39 +45,20 @@ namespace MissionPlanner
 
         private void btnPreFlightCheck_Click(object sender, EventArgs e)
         {
+            // If checklist hasn't been instantiated yet, instantiate it
             if ((checklist == null) || checklist.IsDisposed)
             {
                 checklist = new AFTChecklist();
             }
 
+            // Show checklist
             checklist.Show();
             checklist.BringToFront();
         }
 
         private void btnSettings_Click(object sender, EventArgs e)
         {
-            if ((aftSetAdv == null) || aftSetAdv.IsDisposed)
-            {
-                aftSetAdv = new AFTSettingsAdv();
-            }
-
-            // Hide the save mission button
-            //aftSetAdv.btnSave.Text = "";
-            //aftSetAdv.btnSave.Size = new Size(1, 1);
-            aftSetAdv.btnSave.SendToBack();
-
-            // Show the user the close menu button
-            //aftSetAdv.btnClose.Text = "CLOSE MENU";
-            aftSetAdv.btnClose.Location = new Point(7, 22);
-            aftSetAdv.btnClose.BringToFront();
-
-            aftSetAdv.Show();
-            aftSetAdv.BringToFront();
-        }
-
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
+            ShowAdvSettings(false);
         }
 
         private void homeButton_Click(object sender, EventArgs e)
@@ -97,13 +71,6 @@ namespace MissionPlanner
             aftReturnHome.BringToFront();
         }
 
-        private void btnCreateMission_Click(object sender, EventArgs e)
-        {
-            aftNewMission = new AFTNewMission();
-            aftNewMission.Show();
-            aftNewMission.BringToFront();
-        }
-
         private void btnFly_Click(object sender, EventArgs e)
         {
             AFTVehiclePowerUp powerUp = new AFTVehiclePowerUp();
@@ -111,14 +78,21 @@ namespace MissionPlanner
             powerUp.BringToFront();
         }
 
-        private void btnVidDownlink_Click(object sender, EventArgs e)
+        private void btnCreateMission_Click(object sender, EventArgs e)
         {
-            /*Switch to video downlink*/
+            aftNewMission = new AFTNewMission();
+            aftNewMission.Show();
+            aftNewMission.BringToFront();
         }
 
         private void btnFlightLines_Click(object sender, EventArgs e)
         {
             /*Sow a low res bmap with flight lines showing the quickest safe route home*/
+        }
+
+        private void btnVidDownlink_Click(object sender, EventArgs e)
+        {
+            /*Switch to video downlink*/
         }
     }
 }
