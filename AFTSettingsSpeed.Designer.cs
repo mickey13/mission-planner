@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnBack = new System.Windows.Forms.Button();
             this.btnNext = new System.Windows.Forms.Button();
             this.pnlSettings = new System.Windows.Forms.Panel();
@@ -43,7 +44,6 @@
             this.vertLine3 = new System.Windows.Forms.PictureBox();
             this.vertLine2 = new System.Windows.Forms.PictureBox();
             this.vertLine1 = new System.Windows.Forms.PictureBox();
-            this.btnAdvanced = new ePOSOne.btnProduct.Button_WOC();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblTitle = new System.Windows.Forms.Label();
             this.picIcon = new System.Windows.Forms.PictureBox();
@@ -54,6 +54,9 @@
             this.lblMinSpeed = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.trackSpeed = new System.Windows.Forms.TrackBar();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.label2 = new System.Windows.Forms.Label();
+            this.btnAdvanced = new ePOSOne.btnProduct.Button_WOC();
             this.pnlSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picHorizBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vertLine5)).BeginInit();
@@ -282,25 +285,6 @@
             this.vertLine1.TabIndex = 23;
             this.vertLine1.TabStop = false;
             // 
-            // btnAdvanced
-            // 
-            this.btnAdvanced.BorderColor = System.Drawing.Color.Transparent;
-            this.btnAdvanced.ButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
-            this.btnAdvanced.FlatAppearance.BorderSize = 0;
-            this.btnAdvanced.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAdvanced.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.btnAdvanced.Location = new System.Drawing.Point(920, 22);
-            this.btnAdvanced.Name = "btnAdvanced";
-            this.btnAdvanced.OnHoverBorderColor = System.Drawing.Color.Transparent;
-            this.btnAdvanced.OnHoverButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
-            this.btnAdvanced.OnHoverTextColor = System.Drawing.SystemColors.ControlText;
-            this.btnAdvanced.Size = new System.Drawing.Size(91, 23);
-            this.btnAdvanced.TabIndex = 2;
-            this.btnAdvanced.Text = "Advanced";
-            this.btnAdvanced.TextColor = System.Drawing.SystemColors.ControlText;
-            this.btnAdvanced.UseVisualStyleBackColor = true;
-            this.btnAdvanced.Click += new System.EventHandler(this.btnAdvanced_Click);
-            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::MissionPlanner.Properties.Resources.aft_header_logo_small;
@@ -345,11 +329,11 @@
             // 
             this.lblSpeedDisplay.AutoSize = true;
             this.lblSpeedDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.lblSpeedDisplay.Location = new System.Drawing.Point(533, 260);
+            this.lblSpeedDisplay.Location = new System.Drawing.Point(587, 261);
             this.lblSpeedDisplay.Name = "lblSpeedDisplay";
-            this.lblSpeedDisplay.Size = new System.Drawing.Size(117, 18);
+            this.lblSpeedDisplay.Size = new System.Drawing.Size(24, 18);
             this.lblSpeedDisplay.TabIndex = 18;
-            this.lblSpeedDisplay.Text = "Current speed: 0";
+            this.lblSpeedDisplay.Text = "10";
             // 
             // lblMaxSpeed
             // 
@@ -405,12 +389,43 @@
             this.trackSpeed.TabIndex = 13;
             this.trackSpeed.TickStyle = System.Windows.Forms.TickStyle.None;
             this.trackSpeed.Value = 10;
+            this.trackSpeed.Scroll += new System.EventHandler(this.trackSpeed_Scroll);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(476, 261);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(105, 18);
+            this.label2.TabIndex = 19;
+            this.label2.Text = "Current speed:";
+            // 
+            // btnAdvanced
+            // 
+            this.btnAdvanced.BorderColor = System.Drawing.Color.Transparent;
+            this.btnAdvanced.ButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
+            this.btnAdvanced.FlatAppearance.BorderSize = 0;
+            this.btnAdvanced.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAdvanced.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.btnAdvanced.Location = new System.Drawing.Point(920, 22);
+            this.btnAdvanced.Name = "btnAdvanced";
+            this.btnAdvanced.OnHoverBorderColor = System.Drawing.Color.Transparent;
+            this.btnAdvanced.OnHoverButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
+            this.btnAdvanced.OnHoverTextColor = System.Drawing.SystemColors.ControlText;
+            this.btnAdvanced.Size = new System.Drawing.Size(91, 23);
+            this.btnAdvanced.TabIndex = 2;
+            this.btnAdvanced.Text = "Advanced";
+            this.btnAdvanced.TextColor = System.Drawing.SystemColors.ControlText;
+            this.btnAdvanced.UseVisualStyleBackColor = true;
+            this.btnAdvanced.Click += new System.EventHandler(this.btnAdvanced_Click);
             // 
             // AFTSettingsSpeed
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1182, 464);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.lblSpeedDisplay);
             this.Controls.Add(this.lblMaxSpeed);
             this.Controls.Add(this.label11);
@@ -468,6 +483,8 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label lblMinSpeed;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TrackBar trackSpeed;
+        internal System.Windows.Forms.TrackBar trackSpeed;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Label label2;
     }
 }

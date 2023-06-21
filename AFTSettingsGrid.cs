@@ -63,7 +63,13 @@ namespace MissionPlanner
 
         private void btnSegment_Click(object sender, EventArgs e)
         {
-            ToggleSelection(btnSegment, this);
+            ToggleSelection(btnSegment);
+
+            if (!((aftSetAdv == null) || aftSetAdv.IsDisposed))
+            {
+                ToggleSelection(aftSetAdv.btnSegmentAdv);
+            }
+
         }
 
         private void btnAdvanced_Click(object sender, EventArgs e)

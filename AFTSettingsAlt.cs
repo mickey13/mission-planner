@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static MissionPlanner.AFTNewMission;
 using static MissionPlanner.AFTSettingsCam;
+using static MissionPlanner.AFTMDIContainer;
 
 namespace MissionPlanner
 {
@@ -17,6 +18,12 @@ namespace MissionPlanner
         public AFTSettingsAlt()
         {
             InitializeComponent();
+
+            if (!((aftSetAdv == null) || aftSetAdv.IsDisposed))
+            {
+                trackAlt.Value = aftSetAdv.trackAltAdv.Value;
+                lblAltDisplay.Text = trackAlt.Value.ToString();
+            }
         }
 
         private void btnBack_Click(object sender, EventArgs e)
@@ -64,6 +71,13 @@ namespace MissionPlanner
         private void btnAdvanced_Click(object sender, EventArgs e)
         {
             ShowAdvSettings();
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            toolTip1.SetToolTip(trackAlt, trackAlt.Value.ToString());
+            lblAltDisplay.Text = trackAlt.Value.ToString();
+
         }
     }
 }

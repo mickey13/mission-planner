@@ -5121,6 +5121,9 @@
     <None Include="Resources\meadow.png" />
     <None Include="Resources\power_btn_88.gif" />
     <None Include="Resources\create_mission_button.png" />
+    <None Include="Resources\drone_loading_200.gif" />
+    <None Include="Resources\yellow_circle_big.png" />
+    <None Include="Resources\white_house_big.png" />
     <Content Include="rotmat.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

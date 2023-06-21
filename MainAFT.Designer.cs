@@ -31,7 +31,6 @@ namespace MissionPlanner
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainAFT));
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.airButton = new System.Windows.Forms.Button();
             this.customButton = new System.Windows.Forms.Button();
             this.groundButton = new System.Windows.Forms.Button();
@@ -44,32 +43,25 @@ namespace MissionPlanner
             this.airLabel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.panel4 = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel5 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.panel3 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.panel7 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.line2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.line1)).BeginInit();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.panel5.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel5.SuspendLayout();
             this.panel6.SuspendLayout();
+            this.panel7.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // pictureBox1
-            // 
-            resources.ApplyResources(this.pictureBox1, "pictureBox1");
-            this.tableLayoutPanel1.SetColumnSpan(this.pictureBox1, 6);
-            this.pictureBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.pictureBox1.Image = global::MissionPlanner.Properties.Resources.AFT_logo_black;
-            this.pictureBox1.Name = "pictureBox1";
-            this.tableLayoutPanel1.SetRowSpan(this.pictureBox1, 3);
-            this.pictureBox1.TabStop = false;
             // 
             // airButton
             // 
@@ -128,7 +120,6 @@ namespace MissionPlanner
             // label2
             // 
             resources.ApplyResources(this.label2, "label2");
-            this.tableLayoutPanel1.SetColumnSpan(this.label2, 4);
             this.label2.Name = "label2";
             // 
             // groundLabel
@@ -157,16 +148,22 @@ namespace MissionPlanner
             // tableLayoutPanel1
             // 
             resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
-            this.tableLayoutPanel1.Controls.Add(this.line2, 7, 7);
             this.tableLayoutPanel1.Controls.Add(this.panel3, 7, 8);
             this.tableLayoutPanel1.Controls.Add(this.panel2, 4, 8);
             this.tableLayoutPanel1.Controls.Add(this.panel1, 2, 8);
-            this.tableLayoutPanel1.Controls.Add(this.line1, 2, 7);
-            this.tableLayoutPanel1.Controls.Add(this.label2, 3, 7);
             this.tableLayoutPanel1.Controls.Add(this.pictureBox1, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.panel5, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.panel6, 9, 0);
+            this.tableLayoutPanel1.Controls.Add(this.panel7, 2, 7);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.customLabel);
+            this.panel3.Controls.Add(this.customButton);
+            resources.ApplyResources(this.panel3, "panel3");
+            this.panel3.Name = "panel3";
+            this.tableLayoutPanel1.SetRowSpan(this.panel3, 2);
             // 
             // panel2
             // 
@@ -177,10 +174,15 @@ namespace MissionPlanner
             this.panel2.Name = "panel2";
             this.tableLayoutPanel1.SetRowSpan(this.panel2, 2);
             // 
-            // panel4
+            // pictureBox1
             // 
-            resources.ApplyResources(this.panel4, "panel4");
-            this.panel4.Name = "panel4";
+            resources.ApplyResources(this.pictureBox1, "pictureBox1");
+            this.tableLayoutPanel1.SetColumnSpan(this.pictureBox1, 6);
+            this.pictureBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.pictureBox1.Image = global::MissionPlanner.Properties.Resources.AFT_logo_black;
+            this.pictureBox1.Name = "pictureBox1";
+            this.tableLayoutPanel1.SetRowSpan(this.pictureBox1, 3);
+            this.pictureBox1.TabStop = false;
             // 
             // panel5
             // 
@@ -195,20 +197,26 @@ namespace MissionPlanner
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
             // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.customLabel);
-            this.panel3.Controls.Add(this.customButton);
-            resources.ApplyResources(this.panel3, "panel3");
-            this.panel3.Name = "panel3";
-            this.tableLayoutPanel1.SetRowSpan(this.panel3, 2);
-            // 
             // panel6
             // 
             this.panel6.Controls.Add(this.toggleButton);
             resources.ApplyResources(this.panel6, "panel6");
             this.panel6.Name = "panel6";
             this.tableLayoutPanel1.SetRowSpan(this.panel6, 2);
+            // 
+            // panel4
+            // 
+            resources.ApplyResources(this.panel4, "panel4");
+            this.panel4.Name = "panel4";
+            // 
+            // panel7
+            // 
+            this.tableLayoutPanel1.SetColumnSpan(this.panel7, 6);
+            this.panel7.Controls.Add(this.line2);
+            this.panel7.Controls.Add(this.label2);
+            this.panel7.Controls.Add(this.line1);
+            resources.ApplyResources(this.panel7, "panel7");
+            this.panel7.Name = "panel7";
             // 
             // MainAFT
             // 
@@ -222,25 +230,25 @@ namespace MissionPlanner
             this.Name = "MainAFT";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.MainAFT_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.line2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.line1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            this.panel5.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel5.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
+            this.panel7.ResumeLayout(false);
+            this.panel7.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        internal System.Windows.Forms.PictureBox pictureBox1;
         internal System.Windows.Forms.Button airButton;
         internal System.Windows.Forms.Button customButton;
         internal System.Windows.Forms.Button groundButton;
@@ -259,5 +267,7 @@ namespace MissionPlanner
         private Panel panel5;
         internal Label label1;
         private Panel panel6;
+        internal PictureBox pictureBox1;
+        private Panel panel7;
     }
 }

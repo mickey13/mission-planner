@@ -63,7 +63,12 @@ namespace MissionPlanner
 
         private void btnNumFlights_Click(object sender, EventArgs e)
         {
-            ToggleSelection(btnNumFlights, this);
+            ToggleSelection(btnNumFlights);
+
+            if (!((aftSetAdv == null) || aftSetAdv.IsDisposed))
+            {
+                ToggleSelection(aftSetAdv.btnNumFlightsAdv);
+            }
         }
 
         private void btnAdvanced_Click(object sender, EventArgs e)

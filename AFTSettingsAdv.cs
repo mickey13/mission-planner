@@ -9,6 +9,12 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static MissionPlanner.AFTMDIContainer;
 using static MissionPlanner.AFTSettingsCam;
+using static MissionPlanner.AFTSettingsAlt;
+using static MissionPlanner.AFTSettingsOri;
+using static MissionPlanner.AFTSettingsSpeed;
+using static MissionPlanner.AFTSettingsBat;
+using static MissionPlanner.AFTSettingsGrid;
+
 
 
 namespace MissionPlanner
@@ -22,7 +28,28 @@ namespace MissionPlanner
 
         private void AFTSettingsAdv_Load(object sender, EventArgs e)
         {
-            
+            //Sync with main settings if they're already open
+            if (!((aftSetAlt == null) || aftSetAlt.IsDisposed))
+            {
+                trackAltAdv.Value = aftSetAlt.trackAlt.Value;
+                lblAltDisplay.Text = trackAltAdv.Value.ToString();
+            }
+
+            if (!((aftSetSpeed == null) || aftSetSpeed.IsDisposed))
+            {
+                trackSpeedAdv.Value = aftSetSpeed.trackSpeed.Value;
+                lblSpeedDisplay.Text = trackSpeedAdv.Value.ToString();
+            }
+
+            if (!((aftSetBat == null) || aftSetBat.IsDisposed))
+            {
+                btnNumFlightsAdv.Image = aftSetBat.btnNumFlights.Image;
+            }
+
+            if (!((aftSetGrid == null) || aftSetGrid.IsDisposed))
+            {
+                btnSegmentAdv.Image = aftSetGrid.btnSegment.Image;
+            }
         }
 
         private void btnNumFlights_Click(object sender, EventArgs e)
@@ -32,8 +59,8 @@ namespace MissionPlanner
                 aftSetBat = new AFTSettingsBat();
             }
 
-            ToggleSelection(btnNumFlights);
-            ToggleSelection(btnNumFlights, aftSetBat);
+            ToggleSelection(btnNumFlightsAdv);
+            ToggleSelection(aftSetBat.btnNumFlights);
         }
 
         private void btnSegment_Click(object sender, EventArgs e)
@@ -43,8 +70,8 @@ namespace MissionPlanner
                 aftSetGrid = new AFTSettingsGrid();
             }
 
-            ToggleSelection(btnSegment);
-            ToggleSelection(btnSegment, aftSetGrid);
+            ToggleSelection(btnSegmentAdv);
+            ToggleSelection(aftSetGrid.btnSegment);
         }
 
         private void btnOptn1_Click(object sender, EventArgs e)
@@ -120,6 +147,36 @@ namespace MissionPlanner
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Hide();
+        }
+
+        private void trackAltAdv_Scroll(object sender, EventArgs e)
+        {
+            toolTip1.SetToolTip(trackAltAdv, trackAltAdv.Value.ToString());
+            lblAltDisplay.Text = trackAltAdv.Value.ToString();
+
+            // Write to main altitude settings
+            if (!((aftSetAlt == null) || aftSetAlt.IsDisposed))
+            {
+                aftSetAlt.trackAlt.Value = trackAltAdv.Value;
+            }
+        }
+
+        private void trackOriAdv_Scroll(object sender, EventArgs e)
+        {
+            toolTip1.SetToolTip(trackOriAdv, trackOriAdv.Value.ToString());
+            lblOriDisplay.Text = trackOriAdv.Value.ToString();
+        }
+
+        private void trackSpeedAdv_Scroll(object sender, EventArgs e)
+        {
+            toolTip1.SetToolTip(trackSpeedAdv, trackSpeedAdv.Value.ToString());
+            lblSpeedDisplay.Text = trackSpeedAdv.Value.ToString();
+
+            // Write to main speed settings
+            if (!((aftSetSpeed == null) || aftSetSpeed.IsDisposed))
+            {
+                aftSetSpeed.trackSpeed.Value = trackSpeedAdv.Value;
+            }
         }
     }
 }

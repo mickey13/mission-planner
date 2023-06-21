@@ -53,17 +53,19 @@
             // 
             // label1
             // 
+            this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(261, 81);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(243, 46);
+            this.label1.Size = new System.Drawing.Size(243, 36);
             this.label1.TabIndex = 70;
             this.label1.Text = "Power up vehicle";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // gifDrone
             // 
-            this.gifDrone.Location = new System.Drawing.Point(280, 75);
+            this.gifDrone.Image = global::MissionPlanner.Properties.Resources.drone_loading_200;
+            this.gifDrone.Location = new System.Drawing.Point(305, 75);
             this.gifDrone.Name = "gifDrone";
             this.gifDrone.Size = new System.Drawing.Size(200, 154);
             this.gifDrone.TabIndex = 73;
@@ -88,10 +90,13 @@
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "AFTVehicleConnecting";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AFTVehicleConnecting";
+            this.Load += new System.EventHandler(this.AFTVehicleConnecting_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gifDrone)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

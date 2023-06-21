@@ -31,9 +31,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AFTGround));
             this.topPanel = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnFly = new System.Windows.Forms.Button();
             this.vertLine5 = new System.Windows.Forms.PictureBox();
             this.vertLine4 = new System.Windows.Forms.PictureBox();
-            this.flyIcon = new System.Windows.Forms.PictureBox();
             this.vertLine3 = new System.Windows.Forms.PictureBox();
             this.batteryIcon = new System.Windows.Forms.PictureBox();
             this.menuButton = new System.Windows.Forms.Button();
@@ -54,11 +54,11 @@
             this.btnVidDownlink = new System.Windows.Forms.Button();
             this.btnFlightLines = new System.Windows.Forms.Button();
             this.btnCreateMission = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.topPanel.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.vertLine5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vertLine4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.flyIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vertLine3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.batteryIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vertLine1)).BeginInit();
@@ -96,9 +96,9 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.44151F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 0.07004903F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 6.504553F));
+            this.tableLayoutPanel1.Controls.Add(this.btnFly, 10, 0);
             this.tableLayoutPanel1.Controls.Add(this.vertLine5, 9, 0);
             this.tableLayoutPanel1.Controls.Add(this.vertLine4, 7, 0);
-            this.tableLayoutPanel1.Controls.Add(this.flyIcon, 10, 0);
             this.tableLayoutPanel1.Controls.Add(this.vertLine3, 5, 0);
             this.tableLayoutPanel1.Controls.Add(this.batteryIcon, 8, 0);
             this.tableLayoutPanel1.Controls.Add(this.menuButton, 0, 0);
@@ -115,6 +115,19 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1284, 78);
             this.tableLayoutPanel1.TabIndex = 22;
             this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
+            // 
+            // btnFly
+            // 
+            this.btnFly.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.btnFly.FlatAppearance.BorderSize = 0;
+            this.btnFly.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFly.Image = global::MissionPlanner.Properties.Resources.fly;
+            this.btnFly.Location = new System.Drawing.Point(1209, 3);
+            this.btnFly.Name = "btnFly";
+            this.btnFly.Size = new System.Drawing.Size(61, 72);
+            this.btnFly.TabIndex = 7;
+            this.btnFly.UseVisualStyleBackColor = true;
+            this.btnFly.Click += new System.EventHandler(this.btnFly_Click);
             // 
             // vertLine5
             // 
@@ -135,16 +148,6 @@
             this.vertLine4.Size = new System.Drawing.Size(1, 52);
             this.vertLine4.TabIndex = 20;
             this.vertLine4.TabStop = false;
-            // 
-            // flyIcon
-            // 
-            this.flyIcon.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.flyIcon.Image = global::MissionPlanner.Properties.Resources.fly;
-            this.flyIcon.Location = new System.Drawing.Point(1210, 9);
-            this.flyIcon.Name = "flyIcon";
-            this.flyIcon.Size = new System.Drawing.Size(59, 59);
-            this.flyIcon.TabIndex = 18;
-            this.flyIcon.TabStop = false;
             // 
             // vertLine3
             // 
@@ -250,7 +253,7 @@
             this.btnNewMission.FlatAppearance.BorderSize = 0;
             this.btnNewMission.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNewMission.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.btnNewMission.Location = new System.Drawing.Point(14, 147);
+            this.btnNewMission.Location = new System.Drawing.Point(14, 59);
             this.btnNewMission.Name = "btnNewMission";
             this.btnNewMission.Size = new System.Drawing.Size(260, 34);
             this.btnNewMission.TabIndex = 0;
@@ -263,7 +266,7 @@
             this.btnSettings.FlatAppearance.BorderSize = 0;
             this.btnSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.btnSettings.Location = new System.Drawing.Point(14, 279);
+            this.btnSettings.Location = new System.Drawing.Point(14, 191);
             this.btnSettings.Name = "btnSettings";
             this.btnSettings.Size = new System.Drawing.Size(260, 34);
             this.btnSettings.TabIndex = 1;
@@ -276,7 +279,7 @@
             this.btnVehicleSettings.FlatAppearance.BorderSize = 0;
             this.btnVehicleSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVehicleSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.btnVehicleSettings.Location = new System.Drawing.Point(14, 323);
+            this.btnVehicleSettings.Location = new System.Drawing.Point(14, 235);
             this.btnVehicleSettings.Name = "btnVehicleSettings";
             this.btnVehicleSettings.Size = new System.Drawing.Size(260, 34);
             this.btnVehicleSettings.TabIndex = 2;
@@ -288,7 +291,7 @@
             this.btnFirmUpdate.FlatAppearance.BorderSize = 0;
             this.btnFirmUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFirmUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.btnFirmUpdate.Location = new System.Drawing.Point(14, 367);
+            this.btnFirmUpdate.Location = new System.Drawing.Point(14, 279);
             this.btnFirmUpdate.Name = "btnFirmUpdate";
             this.btnFirmUpdate.Size = new System.Drawing.Size(260, 34);
             this.btnFirmUpdate.TabIndex = 3;
@@ -300,7 +303,7 @@
             this.btnPreFlightCheck.FlatAppearance.BorderSize = 0;
             this.btnPreFlightCheck.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPreFlightCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.btnPreFlightCheck.Location = new System.Drawing.Point(14, 235);
+            this.btnPreFlightCheck.Location = new System.Drawing.Point(14, 147);
             this.btnPreFlightCheck.Name = "btnPreFlightCheck";
             this.btnPreFlightCheck.Size = new System.Drawing.Size(260, 34);
             this.btnPreFlightCheck.TabIndex = 4;
@@ -313,7 +316,7 @@
             this.btnLoadMission.FlatAppearance.BorderSize = 0;
             this.btnLoadMission.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLoadMission.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.btnLoadMission.Location = new System.Drawing.Point(14, 191);
+            this.btnLoadMission.Location = new System.Drawing.Point(14, 103);
             this.btnLoadMission.Name = "btnLoadMission";
             this.btnLoadMission.Size = new System.Drawing.Size(260, 34);
             this.btnLoadMission.TabIndex = 5;
@@ -323,7 +326,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::MissionPlanner.Properties.Resources.line_black_long;
-            this.pictureBox1.Location = new System.Drawing.Point(39, 434);
+            this.pictureBox1.Location = new System.Drawing.Point(39, 346);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(209, 1);
             this.pictureBox1.TabIndex = 6;
@@ -332,6 +335,7 @@
             // sideMenuPanel
             // 
             this.sideMenuPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
+            this.sideMenuPanel.Controls.Add(this.label1);
             this.sideMenuPanel.Controls.Add(this.pictureBox1);
             this.sideMenuPanel.Controls.Add(this.btnLoadMission);
             this.sideMenuPanel.Controls.Add(this.btnPreFlightCheck);
@@ -357,21 +361,25 @@
             this.btnVidDownlink.Size = new System.Drawing.Size(359, 239);
             this.btnVidDownlink.TabIndex = 7;
             this.btnVidDownlink.UseVisualStyleBackColor = false;
+            this.btnVidDownlink.Click += new System.EventHandler(this.btnVidDownlink_Click);
             // 
             // btnFlightLines
             // 
+            this.btnFlightLines.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnFlightLines.BackColor = System.Drawing.Color.Transparent;
             this.btnFlightLines.FlatAppearance.BorderSize = 0;
             this.btnFlightLines.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFlightLines.Image = global::MissionPlanner.Properties.Resources.compass1;
-            this.btnFlightLines.Location = new System.Drawing.Point(377, 564);
+            this.btnFlightLines.Location = new System.Drawing.Point(311, 666);
             this.btnFlightLines.Name = "btnFlightLines";
             this.btnFlightLines.Size = new System.Drawing.Size(115, 115);
             this.btnFlightLines.TabIndex = 7;
             this.btnFlightLines.UseVisualStyleBackColor = false;
+            this.btnFlightLines.Click += new System.EventHandler(this.btnFlightLines_Click);
             // 
             // btnCreateMission
             // 
+            this.btnCreateMission.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCreateMission.FlatAppearance.BorderSize = 0;
             this.btnCreateMission.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCreateMission.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
@@ -385,6 +393,16 @@
             this.btnCreateMission.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCreateMission.UseVisualStyleBackColor = true;
             this.btnCreateMission.Click += new System.EventHandler(this.btnCreateMission_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(17, 475);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(248, 25);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "put in-flight dashboard here";
             // 
             // AFTGround
             // 
@@ -410,7 +428,6 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.vertLine5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vertLine4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.flyIcon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vertLine3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.batteryIcon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vertLine1)).EndInit();
@@ -421,6 +438,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.webView21)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.sideMenuPanel.ResumeLayout(false);
+            this.sideMenuPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -429,7 +447,6 @@
         private System.Windows.Forms.Panel topPanel;
         private System.Windows.Forms.PictureBox batteryIcon;
         private System.Windows.Forms.PictureBox satelliteDish;
-        private System.Windows.Forms.PictureBox flyIcon;
         private System.Windows.Forms.PictureBox vertLine5;
         private System.Windows.Forms.PictureBox vertLine4;
         private System.Windows.Forms.PictureBox vertLine3;
@@ -451,5 +468,7 @@
         private System.Windows.Forms.Button btnVidDownlink;
         private System.Windows.Forms.Button btnFlightLines;
         private System.Windows.Forms.Button btnCreateMission;
+        private System.Windows.Forms.Button btnFly;
+        private System.Windows.Forms.Label label1;
     }
 }

@@ -17,9 +17,13 @@ namespace MissionPlanner
             InitializeComponent();
         }
 
-        private void btnSegment_Click(object sender, EventArgs e)
+        private void btnConnect_Click(object sender, EventArgs e)
         {
+            this.Close();
 
+            AFTVehicleConnecting connectingVehicle = new AFTVehicleConnecting();
+            connectingVehicle.Show();
+            connectingVehicle.BringToFront();
         }
     }
 }

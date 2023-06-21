@@ -20,6 +20,8 @@ namespace MissionPlanner
 
             sideMenuPanel.Dock = DockStyle.None;
             sideMenuPanel.SendToBack();
+
+            btnFlightLines.Location = new Point(12, 654);
         }
 
         private void groundForm_Load(object sender, EventArgs e)
@@ -43,7 +45,7 @@ namespace MissionPlanner
 
         private void btnNewMission_Click(object sender, EventArgs e)
         {
-            AFTNewMission aftNewMission = new AFTNewMission();
+            aftNewMission = new AFTNewMission();
             aftNewMission.Show();
             aftNewMission.BringToFront();
         }
@@ -97,8 +99,26 @@ namespace MissionPlanner
 
         private void btnCreateMission_Click(object sender, EventArgs e)
         {
-            AFTNewMission aftNewMission = new AFTNewMission();
-            aftNewMission.ShowDialog();
+            aftNewMission = new AFTNewMission();
+            aftNewMission.Show();
+            aftNewMission.BringToFront();
+        }
+
+        private void btnFly_Click(object sender, EventArgs e)
+        {
+            AFTVehiclePowerUp powerUp = new AFTVehiclePowerUp();
+            powerUp.Show();
+            powerUp.BringToFront();
+        }
+
+        private void btnVidDownlink_Click(object sender, EventArgs e)
+        {
+            /*Switch to video downlink*/
+        }
+
+        private void btnFlightLines_Click(object sender, EventArgs e)
+        {
+            /*Sow a low res bmap with flight lines showing the quickest safe route home*/
         }
     }
 }

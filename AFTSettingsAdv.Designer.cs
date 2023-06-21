@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.pnlSettings = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblTitle = new System.Windows.Forms.Label();
@@ -60,8 +61,8 @@
             this.lblGrid = new System.Windows.Forms.Label();
             this.picGrid = new System.Windows.Forms.PictureBox();
             this.lineVert6 = new System.Windows.Forms.PictureBox();
-            this.btnNumFlights = new System.Windows.Forms.Button();
-            this.btnSegment = new System.Windows.Forms.Button();
+            this.btnNumFlightsAdv = new System.Windows.Forms.Button();
+            this.btnSegmentAdv = new System.Windows.Forms.Button();
             this.lineVert3 = new System.Windows.Forms.PictureBox();
             this.lineHoriz6 = new System.Windows.Forms.PictureBox();
             this.lineHoriz5 = new System.Windows.Forms.PictureBox();
@@ -86,25 +87,29 @@
             this.lblCamera = new System.Windows.Forms.Label();
             this.lblCamDetect = new System.Windows.Forms.Label();
             this.panel14 = new System.Windows.Forms.Panel();
+            this.label8 = new System.Windows.Forms.Label();
             this.lblAltDisplay = new System.Windows.Forms.Label();
             this.lblMaxAlt = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.lblMinAlt = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.trackAlt = new System.Windows.Forms.TrackBar();
+            this.trackAltAdv = new System.Windows.Forms.TrackBar();
             this.panel15 = new System.Windows.Forms.Panel();
+            this.label12 = new System.Windows.Forms.Label();
             this.lblOriDisplay = new System.Windows.Forms.Label();
-            this.trackOri = new System.Windows.Forms.TrackBar();
+            this.trackOriAdv = new System.Windows.Forms.TrackBar();
             this.panel16 = new System.Windows.Forms.Panel();
+            this.label10 = new System.Windows.Forms.Label();
             this.lblSpeedDisplay = new System.Windows.Forms.Label();
             this.lblMaxSpeed = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.lblMinSpeed = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.trackSpeed = new System.Windows.Forms.TrackBar();
+            this.trackSpeedAdv = new System.Windows.Forms.TrackBar();
             this.panel17 = new System.Windows.Forms.Panel();
-            this.btnSave = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.pnlSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lineVert1)).BeginInit();
@@ -140,11 +145,11 @@
             this.panel12.SuspendLayout();
             this.panel13.SuspendLayout();
             this.panel14.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackAlt)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackAltAdv)).BeginInit();
             this.panel15.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackOri)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackOriAdv)).BeginInit();
             this.panel16.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackSpeed)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackSpeedAdv)).BeginInit();
             this.panel17.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -493,39 +498,39 @@
             this.lineVert6.TabIndex = 59;
             this.lineVert6.TabStop = false;
             // 
-            // btnNumFlights
+            // btnNumFlightsAdv
             // 
-            this.btnNumFlights.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.btnNumFlights.FlatAppearance.BorderSize = 0;
-            this.btnNumFlights.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNumFlights.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.btnNumFlights.Image = global::MissionPlanner.Properties.Resources.circle_hollow;
-            this.btnNumFlights.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnNumFlights.Location = new System.Drawing.Point(178, 409);
-            this.btnNumFlights.Name = "btnNumFlights";
-            this.btnNumFlights.Size = new System.Drawing.Size(627, 30);
-            this.btnNumFlights.TabIndex = 65;
-            this.btnNumFlights.Text = "CHOOSE AMOUNT OF FLIGHTS BASED ON BATTERY LIMITS";
-            this.btnNumFlights.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnNumFlights.UseVisualStyleBackColor = true;
-            this.btnNumFlights.Click += new System.EventHandler(this.btnNumFlights_Click);
+            this.btnNumFlightsAdv.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.btnNumFlightsAdv.FlatAppearance.BorderSize = 0;
+            this.btnNumFlightsAdv.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNumFlightsAdv.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.btnNumFlightsAdv.Image = global::MissionPlanner.Properties.Resources.circle_hollow;
+            this.btnNumFlightsAdv.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnNumFlightsAdv.Location = new System.Drawing.Point(178, 409);
+            this.btnNumFlightsAdv.Name = "btnNumFlightsAdv";
+            this.btnNumFlightsAdv.Size = new System.Drawing.Size(627, 30);
+            this.btnNumFlightsAdv.TabIndex = 65;
+            this.btnNumFlightsAdv.Text = "CHOOSE AMOUNT OF FLIGHTS BASED ON BATTERY LIMITS";
+            this.btnNumFlightsAdv.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnNumFlightsAdv.UseVisualStyleBackColor = true;
+            this.btnNumFlightsAdv.Click += new System.EventHandler(this.btnNumFlights_Click);
             // 
-            // btnSegment
+            // btnSegmentAdv
             // 
-            this.btnSegment.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.btnSegment.FlatAppearance.BorderSize = 0;
-            this.btnSegment.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSegment.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.btnSegment.Image = global::MissionPlanner.Properties.Resources.circle_hollow;
-            this.btnSegment.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSegment.Location = new System.Drawing.Point(178, 504);
-            this.btnSegment.Name = "btnSegment";
-            this.btnSegment.Size = new System.Drawing.Size(278, 30);
-            this.btnSegment.TabIndex = 66;
-            this.btnSegment.Text = "SPLIT INTO SEGMENTS";
-            this.btnSegment.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnSegment.UseVisualStyleBackColor = true;
-            this.btnSegment.Click += new System.EventHandler(this.btnSegment_Click);
+            this.btnSegmentAdv.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.btnSegmentAdv.FlatAppearance.BorderSize = 0;
+            this.btnSegmentAdv.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSegmentAdv.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.btnSegmentAdv.Image = global::MissionPlanner.Properties.Resources.circle_hollow;
+            this.btnSegmentAdv.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSegmentAdv.Location = new System.Drawing.Point(178, 504);
+            this.btnSegmentAdv.Name = "btnSegmentAdv";
+            this.btnSegmentAdv.Size = new System.Drawing.Size(278, 30);
+            this.btnSegmentAdv.TabIndex = 66;
+            this.btnSegmentAdv.Text = "SPLIT INTO SEGMENTS";
+            this.btnSegmentAdv.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSegmentAdv.UseVisualStyleBackColor = true;
+            this.btnSegmentAdv.Click += new System.EventHandler(this.btnSegment_Click);
             // 
             // lineVert3
             // 
@@ -611,9 +616,9 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 69.39F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15.66F));
             this.tableLayoutPanel1.Controls.Add(this.lineVert1, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btnSegment, 2, 10);
+            this.tableLayoutPanel1.Controls.Add(this.btnSegmentAdv, 2, 10);
             this.tableLayoutPanel1.Controls.Add(this.lineVert2, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.btnNumFlights, 2, 8);
+            this.tableLayoutPanel1.Controls.Add(this.btnNumFlightsAdv, 2, 8);
             this.tableLayoutPanel1.Controls.Add(this.lineVert3, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.lineVert4, 1, 6);
             this.tableLayoutPanel1.Controls.Add(this.lineVert5, 1, 8);
@@ -815,27 +820,38 @@
             // 
             // panel14
             // 
+            this.panel14.Controls.Add(this.label8);
             this.panel14.Controls.Add(this.lblAltDisplay);
             this.panel14.Controls.Add(this.lblMaxAlt);
             this.panel14.Controls.Add(this.label9);
             this.panel14.Controls.Add(this.lblMinAlt);
             this.panel14.Controls.Add(this.label7);
-            this.panel14.Controls.Add(this.trackAlt);
+            this.panel14.Controls.Add(this.trackAltAdv);
             this.panel14.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel14.Location = new System.Drawing.Point(178, 98);
             this.panel14.Name = "panel14";
             this.panel14.Size = new System.Drawing.Size(814, 82);
             this.panel14.TabIndex = 74;
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(301, 27);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(111, 18);
+            this.label8.TabIndex = 15;
+            this.label8.Text = "Current altitude:";
+            // 
             // lblAltDisplay
             // 
             this.lblAltDisplay.AutoSize = true;
             this.lblAltDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.lblAltDisplay.Location = new System.Drawing.Point(345, 26);
+            this.lblAltDisplay.Location = new System.Drawing.Point(418, 27);
             this.lblAltDisplay.Name = "lblAltDisplay";
-            this.lblAltDisplay.Size = new System.Drawing.Size(124, 18);
-            this.lblAltDisplay.TabIndex = 5;
-            this.lblAltDisplay.Text = "Current Altitude: 0";
+            this.lblAltDisplay.Size = new System.Drawing.Size(16, 18);
+            this.lblAltDisplay.TabIndex = 14;
+            this.lblAltDisplay.Text = "0";
             // 
             // lblMaxAlt
             // 
@@ -879,73 +895,97 @@
             this.label7.Text = "0 ft.";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // trackAlt
+            // trackAltAdv
             // 
-            this.trackAlt.AutoSize = false;
-            this.trackAlt.LargeChange = 50;
-            this.trackAlt.Location = new System.Drawing.Point(78, 58);
-            this.trackAlt.Maximum = 400;
-            this.trackAlt.Name = "trackAlt";
-            this.trackAlt.Size = new System.Drawing.Size(658, 25);
-            this.trackAlt.SmallChange = 10;
-            this.trackAlt.TabIndex = 0;
-            this.trackAlt.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackAltAdv.AutoSize = false;
+            this.trackAltAdv.LargeChange = 50;
+            this.trackAltAdv.Location = new System.Drawing.Point(78, 58);
+            this.trackAltAdv.Maximum = 400;
+            this.trackAltAdv.Name = "trackAltAdv";
+            this.trackAltAdv.Size = new System.Drawing.Size(658, 25);
+            this.trackAltAdv.SmallChange = 10;
+            this.trackAltAdv.TabIndex = 0;
+            this.trackAltAdv.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackAltAdv.Scroll += new System.EventHandler(this.trackAltAdv_Scroll);
             // 
             // panel15
             // 
+            this.panel15.Controls.Add(this.label12);
             this.panel15.Controls.Add(this.lblOriDisplay);
-            this.panel15.Controls.Add(this.trackOri);
+            this.panel15.Controls.Add(this.trackOriAdv);
             this.panel15.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel15.Location = new System.Drawing.Point(178, 193);
             this.panel15.Name = "panel15";
             this.panel15.Size = new System.Drawing.Size(814, 82);
             this.panel15.TabIndex = 75;
             // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(275, 20);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(137, 18);
+            this.label12.TabIndex = 7;
+            this.label12.Text = "Current Orientation:";
+            // 
             // lblOriDisplay
             // 
             this.lblOriDisplay.AutoSize = true;
             this.lblOriDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.lblOriDisplay.Location = new System.Drawing.Point(333, 13);
+            this.lblOriDisplay.Location = new System.Drawing.Point(418, 20);
             this.lblOriDisplay.Name = "lblOriDisplay";
-            this.lblOriDisplay.Size = new System.Drawing.Size(149, 18);
+            this.lblOriDisplay.Size = new System.Drawing.Size(16, 18);
             this.lblOriDisplay.TabIndex = 6;
-            this.lblOriDisplay.Text = "Current Orientation: 0";
+            this.lblOriDisplay.Text = "0";
             // 
-            // trackOri
+            // trackOriAdv
             // 
-            this.trackOri.AutoSize = false;
-            this.trackOri.LargeChange = 20;
-            this.trackOri.Location = new System.Drawing.Point(78, 45);
-            this.trackOri.Maximum = 180;
-            this.trackOri.Name = "trackOri";
-            this.trackOri.Size = new System.Drawing.Size(658, 25);
-            this.trackOri.SmallChange = 5;
-            this.trackOri.TabIndex = 1;
-            this.trackOri.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackOriAdv.AutoSize = false;
+            this.trackOriAdv.LargeChange = 20;
+            this.trackOriAdv.Location = new System.Drawing.Point(78, 45);
+            this.trackOriAdv.Maximum = 180;
+            this.trackOriAdv.Name = "trackOriAdv";
+            this.trackOriAdv.Size = new System.Drawing.Size(658, 25);
+            this.trackOriAdv.SmallChange = 5;
+            this.trackOriAdv.TabIndex = 1;
+            this.trackOriAdv.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackOriAdv.Scroll += new System.EventHandler(this.trackOriAdv_Scroll);
             // 
             // panel16
             // 
+            this.panel16.Controls.Add(this.label10);
             this.panel16.Controls.Add(this.lblSpeedDisplay);
             this.panel16.Controls.Add(this.lblMaxSpeed);
             this.panel16.Controls.Add(this.label11);
             this.panel16.Controls.Add(this.lblMinSpeed);
             this.panel16.Controls.Add(this.label13);
-            this.panel16.Controls.Add(this.trackSpeed);
+            this.panel16.Controls.Add(this.trackSpeedAdv);
             this.panel16.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel16.Location = new System.Drawing.Point(178, 288);
             this.panel16.Name = "panel16";
             this.panel16.Size = new System.Drawing.Size(814, 82);
             this.panel16.TabIndex = 76;
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(307, 27);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(105, 18);
+            this.label10.TabIndex = 21;
+            this.label10.Text = "Current speed:";
+            // 
             // lblSpeedDisplay
             // 
             this.lblSpeedDisplay.AutoSize = true;
             this.lblSpeedDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.lblSpeedDisplay.Location = new System.Drawing.Point(349, 26);
+            this.lblSpeedDisplay.Location = new System.Drawing.Point(418, 27);
             this.lblSpeedDisplay.Name = "lblSpeedDisplay";
-            this.lblSpeedDisplay.Size = new System.Drawing.Size(117, 18);
-            this.lblSpeedDisplay.TabIndex = 11;
-            this.lblSpeedDisplay.Text = "Current speed: 0";
+            this.lblSpeedDisplay.Size = new System.Drawing.Size(24, 18);
+            this.lblSpeedDisplay.TabIndex = 20;
+            this.lblSpeedDisplay.Text = "10";
             // 
             // lblMaxSpeed
             // 
@@ -989,18 +1029,19 @@
             this.label13.Text = "10 mph";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // trackSpeed
+            // trackSpeedAdv
             // 
-            this.trackSpeed.AutoSize = false;
-            this.trackSpeed.LargeChange = 10;
-            this.trackSpeed.Location = new System.Drawing.Point(78, 58);
-            this.trackSpeed.Maximum = 60;
-            this.trackSpeed.Minimum = 10;
-            this.trackSpeed.Name = "trackSpeed";
-            this.trackSpeed.Size = new System.Drawing.Size(658, 25);
-            this.trackSpeed.TabIndex = 6;
-            this.trackSpeed.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.trackSpeed.Value = 10;
+            this.trackSpeedAdv.AutoSize = false;
+            this.trackSpeedAdv.LargeChange = 10;
+            this.trackSpeedAdv.Location = new System.Drawing.Point(78, 58);
+            this.trackSpeedAdv.Maximum = 60;
+            this.trackSpeedAdv.Minimum = 10;
+            this.trackSpeedAdv.Name = "trackSpeedAdv";
+            this.trackSpeedAdv.Size = new System.Drawing.Size(658, 25);
+            this.trackSpeedAdv.TabIndex = 6;
+            this.trackSpeedAdv.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackSpeedAdv.Value = 10;
+            this.trackSpeedAdv.Scroll += new System.EventHandler(this.trackSpeedAdv_Scroll);
             // 
             // panel17
             // 
@@ -1011,19 +1052,6 @@
             this.panel17.Name = "panel17";
             this.panel17.Size = new System.Drawing.Size(181, 73);
             this.panel17.TabIndex = 77;
-            // 
-            // btnSave
-            // 
-            this.btnSave.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.btnSave.FlatAppearance.BorderSize = 0;
-            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.btnSave.Location = new System.Drawing.Point(7, 22);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(166, 28);
-            this.btnSave.TabIndex = 65;
-            this.btnSave.Text = "SAVE MISSION";
-            this.btnSave.UseVisualStyleBackColor = true;
             // 
             // btnClose
             // 
@@ -1038,6 +1066,20 @@
             this.btnClose.Text = "CLOSE MENU";
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
+            // btnSave
+            // 
+            this.btnSave.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.btnSave.FlatAppearance.BorderSize = 0;
+            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.btnSave.Location = new System.Drawing.Point(7, 22);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(166, 28);
+            this.btnSave.TabIndex = 65;
+            this.btnSave.Text = "SAVE MISSION";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // AFTSettingsAdv
             // 
@@ -1088,13 +1130,13 @@
             this.panel13.PerformLayout();
             this.panel14.ResumeLayout(false);
             this.panel14.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackAlt)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackAltAdv)).EndInit();
             this.panel15.ResumeLayout(false);
             this.panel15.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackOri)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackOriAdv)).EndInit();
             this.panel16.ResumeLayout(false);
             this.panel16.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackSpeed)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackSpeedAdv)).EndInit();
             this.panel17.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -1134,8 +1176,6 @@
         private System.Windows.Forms.Label lblGrid;
         private System.Windows.Forms.PictureBox picGrid;
         private System.Windows.Forms.PictureBox lineVert6;
-        private System.Windows.Forms.Button btnNumFlights;
-        private System.Windows.Forms.Button btnSegment;
         private System.Windows.Forms.PictureBox lineVert3;
         private System.Windows.Forms.PictureBox lineHoriz6;
         private System.Windows.Forms.PictureBox lineHoriz5;
@@ -1160,24 +1200,30 @@
         private System.Windows.Forms.Label lblCamera;
         private System.Windows.Forms.Label lblCamDetect;
         private System.Windows.Forms.Panel panel14;
-        private System.Windows.Forms.TrackBar trackAlt;
         private System.Windows.Forms.Label lblMinAlt;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label lblMaxAlt;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label lblAltDisplay;
         private System.Windows.Forms.Panel panel15;
-        private System.Windows.Forms.TrackBar trackOri;
+        private System.Windows.Forms.TrackBar trackOriAdv;
         private System.Windows.Forms.Label lblOriDisplay;
         private System.Windows.Forms.Panel panel16;
-        private System.Windows.Forms.Label lblSpeedDisplay;
         private System.Windows.Forms.Label lblMaxSpeed;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label lblMinSpeed;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TrackBar trackSpeed;
         private System.Windows.Forms.Panel panel17;
         internal System.Windows.Forms.Button btnSave;
         internal System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label lblAltDisplay;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label lblSpeedDisplay;
+        internal System.Windows.Forms.Button btnNumFlightsAdv;
+        internal System.Windows.Forms.Button btnSegmentAdv;
+        internal System.Windows.Forms.TrackBar trackAltAdv;
+        internal System.Windows.Forms.TrackBar trackSpeedAdv;
     }
 }

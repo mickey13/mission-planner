@@ -41,7 +41,7 @@ namespace MissionPlanner
             }
             else if (btnLoadMission.Image == filledButton)
             {
-
+                /*Load saved mission*/
             }
             else { }
         }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnNext = new System.Windows.Forms.Button();
             this.pnlSettings = new System.Windows.Forms.Panel();
             this.picHorizBar = new System.Windows.Forms.PictureBox();
@@ -54,6 +55,8 @@
             this.lblMinAlt = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.trackAlt = new System.Windows.Forms.TrackBar();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.label2 = new System.Windows.Forms.Label();
             this.pnlSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picHorizBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vertLine5)).BeginInit();
@@ -345,11 +348,11 @@
             // 
             this.lblAltDisplay.AutoSize = true;
             this.lblAltDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.lblAltDisplay.Location = new System.Drawing.Point(529, 260);
+            this.lblAltDisplay.Location = new System.Drawing.Point(587, 261);
             this.lblAltDisplay.Name = "lblAltDisplay";
-            this.lblAltDisplay.Size = new System.Drawing.Size(124, 18);
+            this.lblAltDisplay.Size = new System.Drawing.Size(16, 18);
             this.lblAltDisplay.TabIndex = 12;
-            this.lblAltDisplay.Text = "Current Altitude: 0";
+            this.lblAltDisplay.Text = "0";
             // 
             // lblMaxAlt
             // 
@@ -404,12 +407,24 @@
             this.trackAlt.SmallChange = 10;
             this.trackAlt.TabIndex = 7;
             this.trackAlt.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackAlt.Scroll += new System.EventHandler(this.trackBar1_Scroll);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(469, 261);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(111, 18);
+            this.label2.TabIndex = 13;
+            this.label2.Text = "Current altitude:";
             // 
             // AFTSettingsAlt
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1182, 464);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.lblAltDisplay);
             this.Controls.Add(this.lblMaxAlt);
             this.Controls.Add(this.label9);
@@ -468,6 +483,8 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label lblMinAlt;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TrackBar trackAlt;
+        internal System.Windows.Forms.TrackBar trackAlt;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Label label2;
     }
 }

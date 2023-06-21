@@ -70,7 +70,10 @@ namespace MissionPlanner
             // If checklist complete
             if ((button1.Image == boxChecked) && (button2.Image == boxChecked) && (button3.Image ==  boxChecked) && (button4.Image == boxChecked) && (button5.Image == boxChecked))
             {
+                checklistConfirmed = true;
+                /*Initiate flight?*/
 
+                this.Hide();
             }
         }
 

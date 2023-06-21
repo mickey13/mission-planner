@@ -402,6 +402,6 @@
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.PictureBox picIcon;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnSegment;
+        internal System.Windows.Forms.Button btnSegment;
     }
 }

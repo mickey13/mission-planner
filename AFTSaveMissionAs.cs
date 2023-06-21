@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static MissionPlanner.AFTMDIContainer;
+using static MissionPlanner.AFTNewMission;
+using static MissionPlanner.AFTSettingsCam;
 
 namespace MissionPlanner
 {
@@ -20,13 +22,49 @@ namespace MissionPlanner
 
         private void btnSaveMission_Click(object sender, EventArgs e)
         {
-            if ((checklist == null) || checklist.IsDisposed)
+            /*Save flight settings*/
+
+            // Close all settings
+            if (!((aftSetCam == null) || aftSetCam.IsDisposed))
             {
-                checklist = new AFTChecklist();
+                aftSetCam.Close();
             }
 
-            checklist.Show();
-            checklist.BringToFront();
+            if (!((aftSetAlt == null) || aftSetAlt.IsDisposed))
+            {
+                aftSetAlt.Close();
+            }
+
+            if (!((aftSetOri == null) || aftSetOri.IsDisposed))
+            {
+                aftSetOri.Close();
+            }
+
+            if (!((aftSetSpeed == null) || aftSetSpeed.IsDisposed))
+            {
+                aftSetSpeed.Close();
+            }
+
+            if (!((aftSetBat == null) || aftSetBat.IsDisposed))
+            {
+                aftSetBat.Close();
+            }
+
+            if (!((aftSetGrid == null) || aftSetGrid.IsDisposed))
+            {
+                aftSetGrid.Close();
+            }
+
+            if (!((aftSetAdv == null) || aftSetAdv.IsDisposed))
+            {
+                aftSetAdv.Close();
+            }
+
+            if (!((aftSaveMission == null) || aftSaveMission.IsDisposed))
+            {
+                aftSaveMission.Close();
+            }
+
             this.Close();
         }
     }

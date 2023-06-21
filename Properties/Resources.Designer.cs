@@ -883,6 +883,16 @@ namespace MissionPlanner.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap drone_loading_200 {
+            get {
+                object obj = ResourceManager.GetObject("drone_loading_200", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap fly {
             get {
                 object obj = ResourceManager.GetObject("fly", resourceCulture);
@@ -2371,6 +2381,16 @@ namespace MissionPlanner.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap white_house_big {
+            get {
+                object obj = ResourceManager.GetObject("white_house_big", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap wizardicon {
             get {
                 object obj = ResourceManager.GetObject("wizardicon", resourceCulture);
@@ -2424,6 +2444,16 @@ namespace MissionPlanner.Properties {
         public static System.Drawing.Bitmap yellow_circle {
             get {
                 object obj = ResourceManager.GetObject("yellow_circle", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap yellow_circle_big {
+            get {
+                object obj = ResourceManager.GetObject("yellow_circle_big", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

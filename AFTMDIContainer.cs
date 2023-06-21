@@ -19,6 +19,7 @@ namespace MissionPlanner
         public static MainV2 custom = null;
 
         // Declaring aftGround sub-forms
+        public static AFTNewMission aftNewMission = null;
         public static AFTChecklist checklist = null;
         public static AFTSettingsAdv aftSetAdv = null;
         public static AFTReturnHome aftReturnHome = null;
@@ -40,6 +41,9 @@ namespace MissionPlanner
 
         // Picture for checkboxes
         public static Bitmap boxChecked = MissionPlanner.Properties.Resources.checkbox_checkmark;
+
+        // Checklist variable
+        public static bool checklistConfirmed = false;
 
         public static Form InitializeForm(Form child, Form parent)
         {

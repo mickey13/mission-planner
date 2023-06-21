@@ -21,7 +21,6 @@ namespace MissionPlanner
         public static AFTSettingsBat aftSetBat = null;
         public static AFTSettingsGrid aftSetGrid = null;
 
-        public static AFTSettingsAdv aftSetAdv = null;
         public static AFTSettingsMore aftSetMoreCam = null;
         public static AFTSettingsMore aftSetMoreAlt = null;
         public static AFTSettingsMore aftSetMoreOri = null;
