@@ -1,5 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using static MissionPlanner.AFTMDIContainer;
+using static MissionPlanner.MainAFT;
 
 namespace MissionPlanner
 {
@@ -17,7 +26,7 @@ namespace MissionPlanner
 
         private void airToggleButton_Click(object sender, EventArgs e)
         {
-            /*// Toggle between light and dark mode
+            // Toggle between light and dark mode
             if (MainAFT.ToggleColorMode(this)) // If in light mode
             {
                 airToggleButton.Image = togPicDark;
@@ -42,7 +51,7 @@ namespace MissionPlanner
             // Sync color modes across forms
             MainAFT.SyncColorsAndInitialize(new List<Form> { aftMain, aftGround }, this, aftMain.MdiParent);
             aftMain.toggleButton.Image = airToggleButton.Image;
-            //aftGround.groundToggleButton.Image = airToggleButton.Image;*/
+            //aftGround.groundToggleButton.Image = airToggleButton.Image;
         }
     }
 }

@@ -1,6 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-using static MissionPlanner.AFTController;
+using static MissionPlanner.AFTSettingsCam;
+using static MissionPlanner.AFTMDIContainer;
 
 namespace MissionPlanner
 {
@@ -65,7 +73,7 @@ namespace MissionPlanner
 
         private void btnAdvanced_Click(object sender, EventArgs e)
         {
-            ShowAdvSettings(true);
+            ShowAdvSettings();
         }
     }
 }

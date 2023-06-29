@@ -1,6 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-using static MissionPlanner.AFTController;
+using static MissionPlanner.AFTMDIContainer;
+using static MissionPlanner.AFTNewMission;
+using static MissionPlanner.AFTSettingsCam;
 
 namespace MissionPlanner
 {
@@ -15,58 +24,45 @@ namespace MissionPlanner
         {
             /*Save flight settings*/
 
-            // Close all settings & free up memory
-            /*foreach (Form form in openSubForms)
-            {
-                form.Dispose();
-                //set equal to null
-            }*/
+            // Close all settings
             if (!((aftSetCam == null) || aftSetCam.IsDisposed))
             {
                 aftSetCam.Close();
-                aftSetCam = null;
             }
 
             if (!((aftSetAlt == null) || aftSetAlt.IsDisposed))
             {
                 aftSetAlt.Close();
-                aftSetAlt = null;
             }
 
             if (!((aftSetOri == null) || aftSetOri.IsDisposed))
             {
                 aftSetOri.Close();
-                aftSetOri = null;
             }
 
             if (!((aftSetSpeed == null) || aftSetSpeed.IsDisposed))
             {
                 aftSetSpeed.Close();
-                aftSetSpeed = null;
             }
 
             if (!((aftSetBat == null) || aftSetBat.IsDisposed))
             {
                 aftSetBat.Close();
-                aftSetBat = null;
             }
 
             if (!((aftSetGrid == null) || aftSetGrid.IsDisposed))
             {
                 aftSetGrid.Close();
-                aftSetGrid = null;
             }
 
             if (!((aftSetAdv == null) || aftSetAdv.IsDisposed))
             {
                 aftSetAdv.Close();
-                aftSetAdv = null;
             }
 
             if (!((aftSaveMission == null) || aftSaveMission.IsDisposed))
             {
                 aftSaveMission.Close();
-                aftSaveMission = null;
             }
 
             this.Close();
