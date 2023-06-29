@@ -754,6 +754,7 @@
     <Compile Include="AFTChecklist.Designer.cs">
       <DependentUpon>AFTChecklist.cs</DependentUpon>
     </Compile>
+    <Compile Include="AFTController.cs" />
     <Compile Include="AFTLoadingScreen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -5124,6 +5125,7 @@
     <None Include="Resources\drone_loading_200.gif" />
     <None Include="Resources\yellow_circle_big.png" />
     <None Include="Resources\white_house_big.png" />
+    <None Include="Resources\loading_bar %281%29.gif" />
     <Content Include="rotmat.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

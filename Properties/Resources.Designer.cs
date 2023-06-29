@@ -1457,6 +1457,16 @@ namespace MissionPlanner.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap loading_bar__1_ {
+            get {
+                object obj = ResourceManager.GetObject("loading_bar (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap loading_bar_trans_2 {
             get {
                 object obj = ResourceManager.GetObject("loading_bar_trans_2", resourceCulture);

@@ -73,6 +73,7 @@
             // 
             // pictureBox1
             // 
+            this.pictureBox1.Image = global::MissionPlanner.Properties.Resources.loading_bar__1_;
             this.pictureBox1.Location = new System.Drawing.Point(230, 137);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(300, 300);

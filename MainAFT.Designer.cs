@@ -229,7 +229,6 @@ namespace MissionPlanner
             this.KeyPreview = true;
             this.Name = "MainAFT";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Load += new System.EventHandler(this.MainAFT_Load);
             ((System.ComponentModel.ISupportInitialize)(this.line2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.line1)).EndInit();
             this.panel1.ResumeLayout(false);

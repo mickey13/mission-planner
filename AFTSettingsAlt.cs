@@ -1,15 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static MissionPlanner.AFTNewMission;
-using static MissionPlanner.AFTSettingsCam;
-using static MissionPlanner.AFTMDIContainer;
+using static MissionPlanner.AFTController;
 
 namespace MissionPlanner
 {
@@ -70,7 +61,7 @@ namespace MissionPlanner
 
         private void btnAdvanced_Click(object sender, EventArgs e)
         {
-            ShowAdvSettings();
+            ShowAdvSettings(true);
         }
 
         private void trackBar1_Scroll(object sender, EventArgs e)
