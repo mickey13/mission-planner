@@ -679,6 +679,9 @@
       <Version>1.0.1</Version>
     </PackageReference>
     <PackageReference Include="GeoJSON.Net" version="1.1.64" targetFramework="net462" />
+    <PackageReference Include="GoogleApi">
+      <Version>5.0.5</Version>
+    </PackageReference>
     <PackageReference Include="IronPython" version="2.7.8.1" targetFramework="net462" />
     <PackageReference Include="IronPython.StdLib" version="2.7.8.1" targetFramework="net462" />
     <PackageReference Include="JetBrains.Profiler.SelfApi">

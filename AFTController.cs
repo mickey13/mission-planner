@@ -64,49 +64,6 @@ namespace MissionPlanner
         // List to hold open sub-forms
         //public static List<Form> openSubForms = new List<Form>();
 
-        // Initialize aftMain, aftGround, aftAir, and custom
-        public static Form InitializeForm(Form child, Form parent)
-        {
-            if (parent != null)
-            {
-                if ((child == null || child.IsDisposed) && child != parent)
-                {
-                    if (child == aftMain)
-                    {
-                        aftMain = new MainAFT();
-                        aftMain.MdiParent = parent;
-
-                        return aftMain;
-                    }
-                    else if (child == aftGround)
-                    {
-                        aftGround = new AFTGround();
-                        aftGround.MdiParent = parent;
-
-                        return aftGround;
-                    }
-                    else if (child == aftAir)
-                    {
-                        aftAir = new AFTAir();
-                        aftAir.MdiParent = parent;
-
-                        return aftAir;
-                    }
-                    else
-                    {
-                        custom = new MainV2();
-                        custom.MdiParent = parent;
-
-                        return custom;
-                    }
-                }
-                // Return instantiated child
-                return child;
-            }
-            // If parent is null
-            return null;
-        }
-
         // Initialize with a form for rounded corners
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         public static extern IntPtr CreateRoundRectRgn
@@ -167,29 +124,23 @@ namespace MissionPlanner
         }
 
         // Sync color modes across forms
-        public static void SyncColorsAndInitialize(List<Form> formsToSync, Form formToSyncWith, Form parent)
+        public static void SyncColors(Form formToSync, Form formToSyncWith)
         {
-            if (formsToSync != null && formToSyncWith != null)
+            if (formToSync != null && formToSyncWith != null)
             {
-                foreach (Form form in formsToSync)
+                if (formToSync != null)
                 {
-                    // If form is null or disposed, re-initialize it
-                    Form newForm = InitializeForm(form, parent);
-
-                    if (newForm != null)
+                    formToSync.BackColor = formToSyncWith.BackColor;
+                    foreach (Control c in formToSync.Controls)
                     {
-                        newForm.BackColor = formToSyncWith.BackColor;
-                        foreach (Control c in newForm.Controls)
+                        if (c is Button || c is Label)
                         {
-                            if (c is Button || c is Label)
-                            {
-                                c.BackColor = formToSyncWith.BackColor;
-                                c.ForeColor = formToSyncWith.ForeColor;
-                            }
-                            else
-                            {
-                                c.BackColor = formToSyncWith.BackColor;
-                            }
+                            c.BackColor = formToSyncWith.BackColor;
+                            c.ForeColor = formToSyncWith.ForeColor;
+                        }
+                        else
+                        {
+                            c.BackColor = formToSyncWith.BackColor;
                         }
                     }
                 }

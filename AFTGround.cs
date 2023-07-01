@@ -54,7 +54,7 @@ namespace MissionPlanner
         // Groundwork for getting lat/long from Google Maps while using an API
         //
 
-        /*Latlng mapLocation;
+        /*LatLng mapLocation;
         Point screenLocation;
 
         SKSurface surface = args.Surface;
@@ -68,25 +68,47 @@ namespace MissionPlanner
         };
 
         // Hold all corners of mission border
-        List<Latlng> cornerCoords = new List<Latlng>();
+        List<LatLng> cornerCoords = new List<LatLng>();
 
         //@Override
-        override public void onMapReady(GoogleMap map)
+        public void onMapReady(GoogleMaps map)
         {
-            mMap = map;
+            GoogleMaps mMap = map;
             mMap.setOnMapClickListener(this);
             mMap.setOnMapLongClickListener(this);
             mMap.setOnCameraIdleListener(this);
         }
-
         //'point' holds the value of LatLng coordinates
         //@Override
-        override public void onMapClick(LatLng point)
+        public void onMapClick(LatLng point)
         {
             mapLocation = point;
             cornerCoords.Add(point);
             //Convert from x/y to lat/lng (reverse this somehow) (save this as screenLocation)
             yourGoogleMapInstance.Projection.FromScreenLocation(APointObject);
+
+            // Convert from lat/lng to x/y and subtract with viewport's top left corner to get true pixel coordinates on screen
+            var numTiles = 1 << map.getZoom();
+            var projection = map.getProjection();
+            var worldCoordinate = projection.fromLatLngToPoint(latLng);
+            var pixelCoordinate = new google.maps.Point(
+                    worldCoordinate.x * numTiles,
+                    worldCoordinate.y * numTiles);
+
+            var topLeft = new google.maps.LatLng(
+                map.getBounds().getNorthEast().lat(),
+                map.getBounds().getSouthWest().lng()
+            );
+
+            var topLeftWorldCoordinate = projection.fromLatLngToPoint(topLeft);
+            var topLeftPixelCoordinate = new google.maps.Point(
+                    topLeftWorldCoordinate.x * numTiles,
+                    topLeftWorldCoordinate.y * numTiles);
+
+            return new google.maps.Point(
+                    pixelCoordinate.x - topLeftPixelCoordinate.x,
+                    pixelCoordinate.y - topLeftPixelCoordinate.y
+            )
 
             // Create path while simulatneously recording lat/lng
             if (path == null)

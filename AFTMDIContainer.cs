@@ -13,8 +13,9 @@ namespace MissionPlanner
 
         private void AFTMDIContainer_Load(object sender, EventArgs e)
         {
-            // Initialize main screen
-            InitializeForm(aftMain, this);
+            // Initialize and show main screen
+            aftMain = new MainAFT();
+            aftMain.MdiParent = this;
             aftMain.Show();
         }
     }
