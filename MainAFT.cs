@@ -57,9 +57,6 @@ namespace MissionPlanner
         private void airButton_Click(object sender, EventArgs e)
         {
             // Initialize and show air screen
-            //SyncColorsAndInitialize(new List<Form> { aftAir }, this, this.MdiParent);
-            aftAir.airToggleButton.Image = toggleButton.Image;
-
             aftAir = new AFTAir();
             aftAir.MdiParent = this.MdiParent;
             aftAir.Show();

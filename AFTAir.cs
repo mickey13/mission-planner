@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using static MissionPlanner.AFTController;
 
 namespace MissionPlanner
 {
@@ -15,34 +16,80 @@ namespace MissionPlanner
 
         }
 
-        private void airToggleButton_Click(object sender, EventArgs e)
+        private void menuButton_Click(object sender, EventArgs e)
         {
-            /*// Toggle between light and dark mode
-            if (MainAFT.ToggleColorMode(this)) // If in light mode
+            // Show menu panel
+            if (this.Controls.GetChildIndex(sideMenuPanel) == 0)
             {
-                airToggleButton.Image = togPicDark;
-
-                // Toggle aftMain images
-                aftMain.toggleButton.Image = togPicDark;
-                aftMain.pictureBox1.Image = aftLogoDark;
-                aftMain.line1.Image = lineDark;
-                aftMain.line2.Image = lineDark;
+                sideMenuPanel.Dock = DockStyle.None;
+                sideMenuPanel.SendToBack();
             }
-            else // If in dark mode
+            // Hide menu panel
+            else
             {
-                airToggleButton.Image = togPicLight;
+                sideMenuPanel.Dock = DockStyle.Left;
+                this.Controls.SetChildIndex(sideMenuPanel, 0);
+            }
+        }
 
-                // Toggle aftMain images
-                aftMain.toggleButton.Image = togPicLight;
-                aftMain.pictureBox1.Image = aftLogoLight;
-                aftMain.line1.Image = lineLight;
-                aftMain.line2.Image = lineLight;
+        private void btnNewMission_Click(object sender, EventArgs e)
+        {
+            // Instantiate and show new mission screen
+            aftNewMission = new AFTNewMission();
+            aftNewMission.Show();
+            aftNewMission.BringToFront();
+        }
+
+        private void btnPreFlightCheck_Click(object sender, EventArgs e)
+        {
+            // If checklist hasn't been instantiated yet, instantiate it
+            if ((checklist == null) || checklist.IsDisposed)
+            {
+                checklist = new AFTChecklist();
             }
 
-            // Sync color modes across forms
-            MainAFT.SyncColorsAndInitialize(new List<Form> { aftMain, aftGround }, this, aftMain.MdiParent);
-            aftMain.toggleButton.Image = airToggleButton.Image;
-            //aftGround.groundToggleButton.Image = airToggleButton.Image;*/
+            // Show checklist
+            checklist.Show();
+            checklist.BringToFront();
+        }
+
+        private void btnSettings_Click(object sender, EventArgs e)
+        {
+            ShowAdvSettings(false);
+        }
+
+        private void homeButton_Click(object sender, EventArgs e)
+        {
+            if ((aftReturnHome == null) || aftReturnHome.IsDisposed)
+            {
+                aftReturnHome = new AFTReturnHome();
+            }
+            aftReturnHome.Show();
+            aftReturnHome.BringToFront();
+        }
+
+        private void btnFly_Click(object sender, EventArgs e)
+        {
+            AFTVehiclePowerUp powerUp = new AFTVehiclePowerUp();
+            powerUp.Show();
+            powerUp.BringToFront();
+        }
+
+        private void btnCreateMission_Click(object sender, EventArgs e)
+        {
+            aftNewMission = new AFTNewMission();
+            aftNewMission.Show();
+            aftNewMission.BringToFront();
+        }
+
+        private void btnFlightLines_Click(object sender, EventArgs e)
+        {
+            /*Show a low res bmap with flight lines showing the quickest safe route home*/
+        }
+
+        private void btnVidDownlink_Click(object sender, EventArgs e)
+        {
+            /*Switch to video downlink*/
         }
     }
 }

@@ -1,5 +1,7 @@
-﻿using SkiaSharp;
-using SkiaSharp.Views.Desktop;
+﻿using GMap.NET;
+using GMap.NET.MapProviders;
+//using SkiaSharp;
+//using SkiaSharp.Views.Desktop;
 using System;
 using System.Windows.Forms;
 using static MissionPlanner.AFTController;
@@ -18,6 +20,27 @@ namespace MissionPlanner
 
             // Send compass button to correct starting location
             btnFlightLines.Location = new System.Drawing.Point(12, 654);
+
+            // See if internet connection avaiable for map
+            try
+            {
+                System.Net.IPHostEntry e =
+                     System.Net.Dns.GetHostEntry("www.google.com");
+            }
+            catch
+            {
+                gMap.Manager.Mode = AccessMode.CacheOnly;
+                MessageBox.Show("No internet connection avaible, going to CacheOnly mode.",
+                      "GMap.NET - Demo.WindowsForms", MessageBoxButtons.OK,
+                      MessageBoxIcon.Warning);
+            }
+
+            // config map
+            gMap.MapProvider = GMapProviders.OpenStreetMap;
+            gMap.Position = new PointLatLng(54.6961334816182, 25.2985095977783);
+            gMap.MinZoom = 0;
+            gMap.MaxZoom = 24;
+            gMap.Zoom = 9;
         }
 
         /*private void SkCanvasView_OnPaintSurface
@@ -130,7 +153,7 @@ namespace MissionPlanner
         // Groundwork for allowing user to real-time draw mission boundary
         //
 
-        void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs args)
+        /*void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs args)
         {
             SKImageInfo info = args.Info;
             SKSurface surface = args.Surface;
@@ -180,7 +203,7 @@ namespace MissionPlanner
             // Display thin line
             canvas.DrawPath(path, thinLinePaint);
             y += 3 * textPaint.FontSpacing;
-        }
+        }*/
 
         private void AFTGround_Load(object sender, EventArgs e)
         {
@@ -218,6 +241,73 @@ namespace MissionPlanner
                 }
             }*/
         }
+
+        //
+        //Stuff from MainV2
+        //
+
+        /*public void LoadGDALImages(object nothing)
+        {
+            if (Settings.Instance.ContainsKey("GDALImageDir"))
+            {
+                try
+                {
+                    Utilities.GDAL.ScanDirectory(Settings.Instance["GDALImageDir"]);
+                }
+                catch (Exception ex)
+                {
+                    log.Error(ex);
+                }
+            }
+        }
+
+        private void BGCreateMaps(object state)
+        {
+            // sort logs
+            try
+            {
+                MissionPlanner.Log.LogSort.SortLogs(Directory.GetFiles(Settings.Instance.LogDir, "*.tlog"));
+
+                MissionPlanner.Log.LogSort.SortLogs(Directory.GetFiles(Settings.Instance.LogDir, "*.rlog"));
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+            }
+
+            try
+            {
+                // create maps
+                Log.LogMap.MapLogs(Directory.GetFiles(Settings.Instance.LogDir, "*.tlog", SearchOption.AllDirectories));
+                Log.LogMap.MapLogs(Directory.GetFiles(Settings.Instance.LogDir, "*.bin", SearchOption.AllDirectories));
+                Log.LogMap.MapLogs(Directory.GetFiles(Settings.Instance.LogDir, "*.log", SearchOption.AllDirectories));
+
+                if (File.Exists(tlogThumbnailHandler.tlogThumbnailHandler.queuefile))
+                {
+                    Log.LogMap.MapLogs(File.ReadAllLines(tlogThumbnailHandler.tlogThumbnailHandler.queuefile));
+
+                    File.Delete(tlogThumbnailHandler.tlogThumbnailHandler.queuefile);
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+            }
+
+            try
+            {
+                if (File.Exists(tlogThumbnailHandler.tlogThumbnailHandler.queuefile))
+                {
+                    Log.LogMap.MapLogs(File.ReadAllLines(tlogThumbnailHandler.tlogThumbnailHandler.queuefile));
+
+                    File.Delete(tlogThumbnailHandler.tlogThumbnailHandler.queuefile);
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+            }
+        }*/
 
         private void menuButton_Click(object sender, EventArgs e)
         {
@@ -287,7 +377,7 @@ namespace MissionPlanner
 
         private void btnFlightLines_Click(object sender, EventArgs e)
         {
-            /*Sow a low res bmap with flight lines showing the quickest safe route home*/
+            /*Show a low res bmap with flight lines showing the quickest safe route home*/
         }
 
         private void btnVidDownlink_Click(object sender, EventArgs e)
