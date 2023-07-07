@@ -55,7 +55,6 @@
             this.homeButton = new System.Windows.Forms.PictureBox();
             this.vertLine2 = new System.Windows.Forms.PictureBox();
             this.webView21 = new Microsoft.Web.WebView2.WinForms.WebView2();
-            this.gMap = new GMap.NET.WindowsForms.GMapControl();
             this.sideMenuPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.topPanel.SuspendLayout();
@@ -396,38 +395,13 @@
             this.webView21.AllowExternalDrop = true;
             this.webView21.CreationProperties = null;
             this.webView21.DefaultBackgroundColor = System.Drawing.Color.White;
+            this.webView21.Dock = System.Windows.Forms.DockStyle.Fill;
             this.webView21.Location = new System.Drawing.Point(0, 0);
             this.webView21.Name = "webView21";
-            this.webView21.Size = new System.Drawing.Size(600, 380);
-            this.webView21.Source = new System.Uri("https://maps.google.com", System.UriKind.Absolute);
+            this.webView21.Size = new System.Drawing.Size(1284, 781);
+            this.webView21.Source = new System.Uri("https://bing.com/maps", System.UriKind.Absolute);
             this.webView21.TabIndex = 29;
             this.webView21.ZoomFactor = 1D;
-            // 
-            // gMap
-            // 
-            this.gMap.Bearing = 0F;
-            this.gMap.CanDragMap = true;
-            this.gMap.EmptyTileColor = System.Drawing.Color.Navy;
-            this.gMap.GrayScaleMode = false;
-            this.gMap.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
-            this.gMap.HoldInvalidation = false;
-            this.gMap.LevelsKeepInMemmory = 5;
-            this.gMap.Location = new System.Drawing.Point(404, 173);
-            this.gMap.MarkersEnabled = true;
-            this.gMap.MaxZoom = 2;
-            this.gMap.MinZoom = 2;
-            this.gMap.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
-            this.gMap.Name = "gMap";
-            this.gMap.NegativeMode = false;
-            this.gMap.PolygonsEnabled = true;
-            this.gMap.RetryLoadTile = 0;
-            this.gMap.RoutesEnabled = true;
-            this.gMap.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
-            this.gMap.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
-            this.gMap.ShowTileGridLines = false;
-            this.gMap.Size = new System.Drawing.Size(700, 500);
-            this.gMap.TabIndex = 30;
-            this.gMap.Zoom = 0D;
             // 
             // AFTAir
             // 
@@ -440,7 +414,6 @@
             this.Controls.Add(this.sideMenuPanel);
             this.Controls.Add(this.topPanel);
             this.Controls.Add(this.webView21);
-            this.Controls.Add(this.gMap);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -496,6 +469,5 @@
         private System.Windows.Forms.PictureBox homeButton;
         private System.Windows.Forms.PictureBox vertLine2;
         private Microsoft.Web.WebView2.WinForms.WebView2 webView21;
-        private GMap.NET.WindowsForms.GMapControl gMap;
     }
 }

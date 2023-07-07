@@ -55,7 +55,8 @@
             this.btnFlightLines = new System.Windows.Forms.Button();
             this.btnCreateMission = new System.Windows.Forms.Button();
             this.webView21 = new Microsoft.Web.WebView2.WinForms.WebView2();
-            this.gMap = new GMap.NET.WindowsForms.GMapControl();
+            this.elementHost1 = new System.Windows.Forms.Integration.ElementHost();
+            this.bingMapsUserControl1 = new MissionPlanner.BingMapsUserControl();
             this.topPanel.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.vertLine5)).BeginInit();
@@ -399,37 +400,19 @@
             this.webView21.Location = new System.Drawing.Point(0, 0);
             this.webView21.Name = "webView21";
             this.webView21.Size = new System.Drawing.Size(600, 380);
-            this.webView21.Source = new System.Uri("https://maps.google.com", System.UriKind.Absolute);
+            this.webView21.Source = new System.Uri("https://www.bing.com/maps", System.UriKind.Absolute);
             this.webView21.TabIndex = 22;
             this.webView21.ZoomFactor = 1D;
             this.webView21.Click += new System.EventHandler(this.webView21_Click);
             // 
-            // gMap
+            // elementHost1
             // 
-            this.gMap.Bearing = 0F;
-            this.gMap.CanDragMap = true;
-            this.gMap.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gMap.EmptyTileColor = System.Drawing.Color.Navy;
-            this.gMap.GrayScaleMode = false;
-            this.gMap.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
-            this.gMap.HoldInvalidation = false;
-            this.gMap.LevelsKeepInMemmory = 5;
-            this.gMap.Location = new System.Drawing.Point(0, 0);
-            this.gMap.MarkersEnabled = true;
-            this.gMap.MaxZoom = 2;
-            this.gMap.MinZoom = 2;
-            this.gMap.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
-            this.gMap.Name = "gMap";
-            this.gMap.NegativeMode = false;
-            this.gMap.PolygonsEnabled = true;
-            this.gMap.RetryLoadTile = 0;
-            this.gMap.RoutesEnabled = true;
-            this.gMap.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
-            this.gMap.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
-            this.gMap.ShowTileGridLines = false;
-            this.gMap.Size = new System.Drawing.Size(1284, 781);
-            this.gMap.TabIndex = 23;
-            this.gMap.Zoom = 0D;
+            this.elementHost1.Location = new System.Drawing.Point(729, 211);
+            this.elementHost1.Name = "elementHost1";
+            this.elementHost1.Size = new System.Drawing.Size(326, 190);
+            this.elementHost1.TabIndex = 23;
+            this.elementHost1.Text = "elementHost1";
+            this.elementHost1.Child = this.bingMapsUserControl1;
             // 
             // AFTGround
             // 
@@ -437,13 +420,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1284, 781);
+            this.Controls.Add(this.elementHost1);
             this.Controls.Add(this.btnCreateMission);
             this.Controls.Add(this.btnFlightLines);
             this.Controls.Add(this.btnVidDownlink);
             this.Controls.Add(this.sideMenuPanel);
             this.Controls.Add(this.topPanel);
             this.Controls.Add(this.webView21);
-            this.Controls.Add(this.gMap);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -498,6 +481,7 @@
         private System.Windows.Forms.Button btnFly;
         private System.Windows.Forms.Label label1;
         private Microsoft.Web.WebView2.WinForms.WebView2 webView21;
-        private GMap.NET.WindowsForms.GMapControl gMap;
+        private System.Windows.Forms.Integration.ElementHost elementHost1;
+        private BingMapsUserControl bingMapsUserControl1;
     }
 }

@@ -1,15 +1,21 @@
-﻿using GMap.NET;
-using GMap.NET.MapProviders;
-//using SkiaSharp;
+﻿//using SkiaSharp;
 //using SkiaSharp.Views.Desktop;
+using Microsoft.Maps.MapControl.WPF;
 using System;
 using System.Windows.Forms;
+using System.Windows.Input;
 using static MissionPlanner.AFTController;
 
 namespace MissionPlanner
 {
     public partial class AFTGround : Form
     {
+        // Mission boundary polygon
+        MapPolygon missionBounds = new MapPolygon();
+
+        // Most recent location of mouse click event
+        private Location location = null;
+
         public AFTGround()
         {
             InitializeComponent();
@@ -18,10 +24,29 @@ namespace MissionPlanner
             sideMenuPanel.Dock = DockStyle.None;
             sideMenuPanel.SendToBack();
 
+            // Set WebView to correct position
+            webView21.Dock = DockStyle.Fill;
+
             // Send compass button to correct starting location
             btnFlightLines.Location = new System.Drawing.Point(12, 654);
 
-            // See if internet connection avaiable for map
+            // Capture left mouse button release on map
+            bingMapsUserControl1.MouseLeftButtonUp +=
+                new MouseButtonEventHandler(myMap_MouseLeftButtonUp);
+
+            bingMapsUserControl1.MapTapped +=
+                new MouseButtonEventHandler(myMap_MapTapped);
+
+            // Customize mission boundary polygon
+            missionBounds.Fill = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Blue);
+            missionBounds.Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Green);
+            missionBounds.StrokeThickness = 5;
+            missionBounds.Opacity = 0.7;
+
+            // Mission boundary polygon location collection
+            missionBounds.Locations = new LocationCollection() { };
+
+            /*// See if internet connection avaiable for map
             try
             {
                 System.Net.IPHostEntry e =
@@ -40,7 +65,7 @@ namespace MissionPlanner
             gMap.Position = new PointLatLng(54.6961334816182, 25.2985095977783);
             gMap.MinZoom = 0;
             gMap.MaxZoom = 24;
-            gMap.Zoom = 9;
+            gMap.Zoom = 9;*/
         }
 
         /*private void SkCanvasView_OnPaintSurface
@@ -207,39 +232,19 @@ namespace MissionPlanner
 
         private void AFTGround_Load(object sender, EventArgs e)
         {
-            /*// Initialize map
-            gmap.MapProvider = GMap.NET.MapProviders.BingMapProvider.Instance;
-            GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerOnly;
-            //gmap.SetPositionByKeywords("Paris, France");
-            gmap.Position = new GMap.NET.PointLatLng(48.8589507, 2.2775175);
+            // Set animation level of Bing map, create map load handler
+            this.bingMapsUserControl1.myMap.AnimationLevel = AnimationLevel.Full;
+            this.bingMapsUserControl1.myMap.Loaded += MyMap_Loaded;
 
-            // Hide center red cross
-            gmap.ShowCenter = false;*/
+            // Create handler for clicking map
+            MyMap.MouseLeftButtonUp += new EventHandler<MapEventArgs>(MyMap_MouseLeftButtonUp);
+        }
 
-            /*SKImageInfo imageInfo = new SKImageInfo(1284, 781);
-            using (SKSurface surface = SKSurface.Create(imageInfo))
-            {
-                SKCanvas canvas = surface.Canvas;
-
-                canvas.Clear(SKColors.Red.WithAlpha(0));
-
-                using (SKPaint paint = new SKPaint())
-                {
-                    paint.Color = SKColors.Blue;
-                    paint.IsAntialias = true;
-                    paint.StrokeWidth = 15;
-                    paint.Style = SKPaintStyle.Stroke;
-                    canvas.DrawCircle(500, 500, 30, paint); //arguments are x position, y position, radius, and paint
-                }
-
-                using (SKImage image = surface.Snapshot())
-                using (SKData data = image.Encode(SKEncodedImageFormat.Png, 100))
-                using (MemoryStream mStream = new MemoryStream(data.ToArray()))
-                {
-                    Bitmap bm = new Bitmap(mStream, false);
-                    pictureBox1.Image = bm;
-                }
-            }*/
+        // Set starting location of Bing map
+        private void MyMap_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            var location = new Location(47.604, -122.329);
+            this.bingMapsUserControl1.myMap.SetView(location, 12);
         }
 
         //
@@ -308,6 +313,42 @@ namespace MissionPlanner
                 log.Error(ex);
             }
         }*/
+
+        void myMap_MouseLeftButtonUp(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            /*if (e.targetType == "map")
+            {
+                var point = new Microsoft.Maps.Point(e.getX(), e.getY());
+                var loc = e.target.tryPixelToLocation(point);
+                location = new Location(loc.latitude, loc.longitude);
+            }*/
+            CoordPoint pt = this.bingMapsUserControl1.ScreenPointToCoordPoint(e.Location);
+
+            Point mousePosition = e.GetPosition(this);
+            location = bingMapsUserControl1.ViewportPointToLocation(e.ViewportPoint);
+
+            // Add clicked position to mission boundary locations
+            missionBounds.Locations.Add(location);
+
+            // If enough locations to make a shape, show the shape
+            if (missionBounds.Locations.Count > 2)
+            {
+                this.bingMapsUserControl1.myMap.Children.Add(missionBounds);
+            }
+        }
+
+        // Event from UWP; if can use in WinForms this would be the ideal solution (I think)
+        /*private void myMap_MapTapped(object sender, TappedRoutedEventArgs e)
+        {
+            var pos = e.GetPosition(bingMapsUserControl1);
+            Location location;
+            bingMapsUserControl1.TryPixelToLocation(pos, out location);
+        }*/
+
+        private void MyMap_MapTapped(MapControl sender, MapInputEventArgs args)
+        {
+            Geopoint location = args.Location;
+        }
 
         private void menuButton_Click(object sender, EventArgs e)
         {
