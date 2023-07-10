@@ -1,31 +1,13 @@
-﻿using Microsoft.Maps.MapControl.WPF;
+﻿using SkiaSharp;
+using SkiaSharp.Views.Desktop;
 using System;
-using System.Windows;
 using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Shapes;
 using static MissionPlanner.AFTController;
 
 namespace MissionPlanner
 {
     public partial class AFTGround : Form
     {
-        // Mission boundary polygon
-        MapPolygon missionBounds = new MapPolygon();
-
-        // Most recent location of mouse click event
-        private Location location = null;
-
-        //
-        // Custom polygon addition
-        //
-
-        // The user defined polygon to add to the map.
-        MapPolygon newPolygon = null;
-        // The map layer containing the polygon points defined by the user.
-        MapLayer polygonPointLayer = new MapLayer();
-
         public AFTGround()
         {
             InitializeComponent();
@@ -34,209 +16,208 @@ namespace MissionPlanner
             sideMenuPanel.Dock = DockStyle.None;
             sideMenuPanel.SendToBack();
 
-            // Set WebView to correct position
-            webView21.Dock = DockStyle.Fill;
-
             // Send compass button to correct starting location
             btnFlightLines.Location = new System.Drawing.Point(12, 654);
-
-            // Capture left mouse button release on map
-            //bingMapsUserControl1.MouseLeftButtonUp +=
-            //  new MouseButtonEventHandler(myMap_MouseLeftButtonUp);
-
-            /*bingMapsUserControl1.MapTapped +=
-                new MouseButtonEventHandler(myMap_MapTapped);*/
-
-            // Customize mission boundary polygon
-            missionBounds.Fill = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Blue);
-            missionBounds.Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Green);
-            missionBounds.StrokeThickness = 5;
-            missionBounds.Opacity = 0.7;
-
-            // Mission boundary polygon location collection
-            missionBounds.Locations = new LocationCollection() { };
-
-            //
-            // Custom polygon addition
-            //
-
-            //Set focus to map
-            this.bingMapsUserControl1.myMap.Focus();
-            SetUpNewPolygon();
-            // Adds location points to the polygon for every single mouse click
-            this.bingMapsUserControl1.myMap.MouseLeftButtonUp += new MouseButtonEventHandler(
-            MyMap_MouseLeftButtonUp);
-
-            // Adds the layer that contains the polygon points
-            this.bingMapsUserControl1.myMap.Children.Add(polygonPointLayer);
         }
 
-        //
-        // Custom polygon addition
-        //
-
-        private void SetUpNewPolygon()
+        /*private void SkCanvasView_OnPaintSurface
+        (object sender, SKPaintSurfaceEventArgs e)
         {
-            newPolygon = new MapPolygon();
+            // Init skcanvas
+            SKImageInfo skImageInfo = e.Info;
+            SKSurface skSurface = e.Surface;
+            SKCanvas skCanvas = skSurface.Canvas;
 
-            // Defines the polygon fill details
-            newPolygon.Locations = new LocationCollection();
-            newPolygon.Fill = new SolidColorBrush(Colors.Blue);
-            newPolygon.Stroke = new SolidColorBrush(Colors.Green);
-            newPolygon.StrokeThickness = 3;
-            newPolygon.Opacity = 0.8;
+            // clear the canvas surface
+            skCanvas.Clear(SKColors.SkyBlue);
 
-            //Set focus back to the map so that +/- work for zoom in/out
-            this.bingMapsUserControl1.myMap.Focus();
-        }
-        private void MyMap_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            e.Handled = true;
-            // Creates a location for a single polygon point and adds it to
-            // the polygon's point location list.
-            //Point mousePosition = e.GetPosition(this);
-            Point mousePosition = e.GetPosition(null);
-            //Point mousePosition = Control.MousePosition;
+            // retrieve the canvas info
+            var skCanvasWidth = skImageInfo.Width;
+            var skCanvasheight = skImageInfo.Height;
 
-            //Convert the mouse coordinates to a location on the map
-            Location polygonPointLocation = this.bingMapsUserControl1.myMap.ViewportPointToLocation(
-                mousePosition);
-            newPolygon.Locations.Add(polygonPointLocation);
+            // move canvas's X,Y to center of screen
+            skCanvas.Translate((float)skCanvasWidth / 2,
+                        (float)skCanvasheight / 2);
 
-            // A visual representation of a polygon point.
-            Rectangle r = new Rectangle();
-            r.Fill = new SolidColorBrush(Colors.Red);
-            r.Stroke = new SolidColorBrush(Colors.Yellow);
-            r.StrokeThickness = 1;
-            r.Width = 8;
-            r.Height = 8;
+            // set the pixel scale of the canvas
+            skCanvas.Scale(skCanvasWidth / 200f);
 
-            // Adds a small square where the user clicked, to mark the polygon point.
-            polygonPointLayer.AddChild(r, polygonPointLocation);
-            //Set focus back to the map so that +/- work for zoom in/out
-            this.bingMapsUserControl1.myMap.Focus();
-
-            //If there are two or more points, add the polygon layer to the map
-            if (newPolygon.Locations.Count >= 2)
+            SKPaint skPaint = new SKPaint()
             {
-                // Removes the polygon points layer.
-                polygonPointLayer.Children.Clear();
+                Style = SKPaintStyle.Fill,
+                IsAntialias = true,
+                Color = SKColors.Blue,
+            };
+        }*/
 
-                // Adds the filled polygon layer to the map.
-                this.bingMapsUserControl1.myMap.Children.Add(newPolygon);
-                SetUpNewPolygon();
+        //
+        // Groundwork for getting lat/long from Google Maps while using an API
+        //
+
+        /*LatLng mapLocation;
+        Point screenLocation;
+
+        SKSurface surface = args.Surface;
+        SKCanvas canvas = surface.Canvas;
+        SKPath path = null;
+        SKPaint thickLinePaint = new SKPaint
+        {
+            Style = SKPaintStyle.Stroke,
+            Color = SKColors.Orange,
+            StrokeWidth = 50
+        };
+
+        // Hold all corners of mission border
+        List<LatLng> cornerCoords = new List<LatLng>();
+
+        //@Override
+        public void onMapReady(GoogleMaps map)
+        {
+            GoogleMaps mMap = map;
+            mMap.setOnMapClickListener(this);
+            mMap.setOnMapLongClickListener(this);
+            mMap.setOnCameraIdleListener(this);
+        }
+        //'point' holds the value of LatLng coordinates
+        //@Override
+        public void onMapClick(LatLng point)
+        {
+            mapLocation = point;
+            cornerCoords.Add(point);
+            //Convert from x/y to lat/lng (reverse this somehow) (save this as screenLocation)
+            yourGoogleMapInstance.Projection.FromScreenLocation(APointObject);
+
+            // Convert from lat/lng to x/y and subtract with viewport's top left corner to get true pixel coordinates on screen
+            var numTiles = 1 << map.getZoom();
+            var projection = map.getProjection();
+            var worldCoordinate = projection.fromLatLngToPoint(latLng);
+            var pixelCoordinate = new google.maps.Point(
+                    worldCoordinate.x * numTiles,
+                    worldCoordinate.y * numTiles);
+
+            var topLeft = new google.maps.LatLng(
+                map.getBounds().getNorthEast().lat(),
+                map.getBounds().getSouthWest().lng()
+            );
+
+            var topLeftWorldCoordinate = projection.fromLatLngToPoint(topLeft);
+            var topLeftPixelCoordinate = new google.maps.Point(
+                    topLeftWorldCoordinate.x * numTiles,
+                    topLeftWorldCoordinate.y * numTiles);
+
+            return new google.maps.Point(
+                    pixelCoordinate.x - topLeftPixelCoordinate.x,
+                    pixelCoordinate.y - topLeftPixelCoordinate.y
+            )
+
+            // Create path while simulatneously recording lat/lng
+            if (path == null)
+            {
+                path = new SKPath();
+                path.MoveTo(screenLocation.X, screenLocation.Y);
             }
+            else
+            {
+                path.LineTo(screenLocation.X, screenLocation.Y);
+
+                // Display thick line
+                thickLinePaint.StrokeJoin = SKStrokeJoin.Round;
+                canvas.DrawPath(path, thickLinePaint);
+            }
+        }*/
+
+        //
+        // Groundwork for allowing user to real-time draw mission boundary
+        //
+
+        void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs args)
+        {
+            SKImageInfo info = args.Info;
+            SKSurface surface = args.Surface;
+            SKCanvas canvas = surface.Canvas;
+
+            canvas.Clear();
+
+            SKPaint textPaint = new SKPaint
+            {
+                Color = SKColors.Black,
+                TextSize = 75,
+                TextAlign = SKTextAlign.Right
+            };
+
+            SKPaint thickLinePaint = new SKPaint
+            {
+                Style = SKPaintStyle.Stroke,
+                Color = SKColors.Orange,
+                StrokeWidth = 50
+            };
+
+            SKPaint thinLinePaint = new SKPaint
+            {
+                Style = SKPaintStyle.Stroke,
+                Color = SKColors.Black,
+                StrokeWidth = 2
+            };
+            //float xCoord1 = screenLocation.X;
+            //float y = screenLocation.Y;
+            float xCoord1 = 100;
+            float xCoord2 = info.Width - xCoord1;
+            float y = 2 * textPaint.FontSpacing;
+
+            // Get stroke-join value
+            SKStrokeJoin strokeJoin = SKStrokeJoin.Round;
+
+            // Create path
+            SKPath path = new SKPath();
+            path.MoveTo(xCoord1, y - 80);
+            path.LineTo(xCoord1, y + 80);
+            path.LineTo(xCoord2, y + 80);
+
+            // Display thick line
+            thickLinePaint.StrokeJoin = strokeJoin;
+            canvas.DrawPath(path, thickLinePaint);
+
+            // Display thin line
+            canvas.DrawPath(path, thinLinePaint);
+            y += 3 * textPaint.FontSpacing;
         }
 
         private void AFTGround_Load(object sender, EventArgs e)
         {
-            // Set animation level of Bing map, create map load handler
-            this.bingMapsUserControl1.myMap.AnimationLevel = AnimationLevel.Full;
+            /*// Initialize map
+            gmap.MapProvider = GMap.NET.MapProviders.BingMapProvider.Instance;
+            GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerOnly;
+            //gmap.SetPositionByKeywords("Paris, France");
+            gmap.Position = new GMap.NET.PointLatLng(48.8589507, 2.2775175);
 
-            // Create handlers for loading and clicking map
-            this.bingMapsUserControl1.myMap.Loaded += MyMap_Loaded;
-            //this.bingMapsUserControl1.myMap.MouseLeftButtonUp += MyMap_MouseLeftButtonUp;
+            // Hide center red cross
+            gmap.ShowCenter = false;*/
+
+            /*SKImageInfo imageInfo = new SKImageInfo(1284, 781);
+            using (SKSurface surface = SKSurface.Create(imageInfo))
+            {
+                SKCanvas canvas = surface.Canvas;
+
+                canvas.Clear(SKColors.Red.WithAlpha(0));
+
+                using (SKPaint paint = new SKPaint())
+                {
+                    paint.Color = SKColors.Blue;
+                    paint.IsAntialias = true;
+                    paint.StrokeWidth = 15;
+                    paint.Style = SKPaintStyle.Stroke;
+                    canvas.DrawCircle(500, 500, 30, paint); //arguments are x position, y position, radius, and paint
+                }
+
+                using (SKImage image = surface.Snapshot())
+                using (SKData data = image.Encode(SKEncodedImageFormat.Png, 100))
+                using (MemoryStream mStream = new MemoryStream(data.ToArray()))
+                {
+                    Bitmap bm = new Bitmap(mStream, false);
+                    pictureBox1.Image = bm;
+                }
+            }*/
         }
-
-        // Set starting location of Bing map
-        private void MyMap_Loaded(object sender, System.Windows.RoutedEventArgs e)
-        {
-            var location = new Location(47.604, -122.329);
-            this.bingMapsUserControl1.myMap.SetView(location, 12);
-        }
-
-        //
-        //Stuff from MainV2
-        //
-
-        /*public void LoadGDALImages(object nothing)
-        {
-            if (Settings.Instance.ContainsKey("GDALImageDir"))
-            {
-                try
-                {
-                    Utilities.GDAL.ScanDirectory(Settings.Instance["GDALImageDir"]);
-                }
-                catch (Exception ex)
-                {
-                    log.Error(ex);
-                }
-            }
-        }
-
-        private void BGCreateMaps(object state)
-        {
-            // sort logs
-            try
-            {
-                MissionPlanner.Log.LogSort.SortLogs(Directory.GetFiles(Settings.Instance.LogDir, "*.tlog"));
-
-                MissionPlanner.Log.LogSort.SortLogs(Directory.GetFiles(Settings.Instance.LogDir, "*.rlog"));
-            }
-            catch (Exception ex)
-            {
-                log.Error(ex);
-            }
-
-            try
-            {
-                // create maps
-                Log.LogMap.MapLogs(Directory.GetFiles(Settings.Instance.LogDir, "*.tlog", SearchOption.AllDirectories));
-                Log.LogMap.MapLogs(Directory.GetFiles(Settings.Instance.LogDir, "*.bin", SearchOption.AllDirectories));
-                Log.LogMap.MapLogs(Directory.GetFiles(Settings.Instance.LogDir, "*.log", SearchOption.AllDirectories));
-
-                if (File.Exists(tlogThumbnailHandler.tlogThumbnailHandler.queuefile))
-                {
-                    Log.LogMap.MapLogs(File.ReadAllLines(tlogThumbnailHandler.tlogThumbnailHandler.queuefile));
-
-                    File.Delete(tlogThumbnailHandler.tlogThumbnailHandler.queuefile);
-                }
-            }
-            catch (Exception ex)
-            {
-                log.Error(ex);
-            }
-
-            try
-            {
-                if (File.Exists(tlogThumbnailHandler.tlogThumbnailHandler.queuefile))
-                {
-                    Log.LogMap.MapLogs(File.ReadAllLines(tlogThumbnailHandler.tlogThumbnailHandler.queuefile));
-
-                    File.Delete(tlogThumbnailHandler.tlogThumbnailHandler.queuefile);
-                }
-            }
-            catch (Exception ex)
-            {
-                log.Error(ex);
-            }
-        }*/
-
-        //
-        // Prototype prior to custom polygon addition
-        //
-
-        /*void MyMap_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            //CoordPoint pt = this.bingMapsUserControl1.myMap.ScreenPointToCoordPoint(e.Location);
-
-            Point mousePosition = e.GetPosition(null);
-            location = bingMapsUserControl1.myMap.ViewportPointToLocation(mousePosition);
-
-            // Add clicked position to mission boundary locations
-            missionBounds.Locations.Add(location);
-
-            // If enough locations to make a shape, show the shape
-            if (missionBounds.Locations.Count > 2)
-            {
-                this.bingMapsUserControl1.myMap.Children.Add(missionBounds);
-            }
-        }*/
-
-        /*private void MyMap_MapTapped(MapControl sender, MapInputEventArgs args)
-        {
-            Geopoint location = args.Location;
-        }*/
 
         private void menuButton_Click(object sender, EventArgs e)
         {
@@ -306,7 +287,7 @@ namespace MissionPlanner
 
         private void btnFlightLines_Click(object sender, EventArgs e)
         {
-            /*Show a low res bmap with flight lines showing the quickest safe route home*/
+            /*Sow a low res bmap with flight lines showing the quickest safe route home*/
         }
 
         private void btnVidDownlink_Click(object sender, EventArgs e)

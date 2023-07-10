@@ -8,8 +8,6 @@ namespace MissionPlanner
 {
     internal class AFTController
     {
-        #region Form declarations and constants
-
         // Declaring main forms
         public static MainAFT aftMain = null;
         public static AFTGround aftGround = null;
@@ -63,37 +61,22 @@ namespace MissionPlanner
         public static Bitmap boxChecked = MissionPlanner.Properties.Resources.checkbox_checkmark;
         public static bool checklistConfirmed = false;
 
-        #endregion
+        // List to hold open sub-forms
+        //public static List<Form> openSubForms = new List<Form>();
 
-        #region General functions
-
-        /// <summary>
-        /// Initialize with a form for rounded corners
-        /// </summary>
-        /// <param name="nLeftRect"></X-coordinate of upper-left corner>
-        /// <param name="nTopRect"></Y-coordinate of upper-left corner>
-        /// <param name="nRightRect"></X-coordinate of lower-right corner>
-        /// <param name="nBottomRect"></Y-coordinate of lower-right corner>
-        /// <param name="nWidthEllipse"></Width of ellipse>
-        /// <param name="nHeightEllipse"></Height of ellipse>
-        /// <returns></Rectangular region that defines the edge of the form>
+        // Initialize with a form for rounded corners
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         public static extern IntPtr CreateRoundRectRgn
         (
-            int nLeftRect,
-            int nTopRect,
-            int nRightRect,
-            int nBottomRect,
-            int nWidthEllipse,
-            int nHeightEllipse
+            int nLeftRect,     // x-coordinate of upper-left corner
+            int nTopRect,      // y-coordinate of upper-left corner
+            int nRightRect,    // x-coordinate of lower-right corner
+            int nBottomRect,   // y-coordinate of lower-right corner
+            int nWidthEllipse, // width of ellipse
+            int nHeightEllipse // height of ellipse
         );
 
-
-        /// <summary>
-        /// Toggle a form between light and dark mode
-        /// </summary>
-        /// <param name="form"></Form to toggle color modes>
-        /// <returns></True if going to dark mode, false if going to light>
+        // Toggle a form between light and dark mode
         public static bool ToggleColorMode(Form form)
         {
             // If in light mode
@@ -140,11 +123,7 @@ namespace MissionPlanner
             }
         }
 
-        /// <summary>
-        /// Sync color modes across forms
-        /// </summary>
-        /// <param name="formToSync"></Form to change color mode>
-        /// <param name="formToSyncWith"></Form to sync colors with>
+        // Sync color modes across forms
         public static void SyncColors(Form formToSync, Form formToSyncWith)
         {
             if (formToSync != null && formToSyncWith != null)
@@ -168,11 +147,7 @@ namespace MissionPlanner
             }
         }
 
-        /// <summary>
-        /// Provide function for selection buttons
-        /// </summary>
-        /// <param name="btn"></Button to select/deselect>
-        /// <param name="form"></Form that has multiple selection buttons>
+        // Provide function for selection buttons
         public static void ToggleSelection(Button btn, Form form = null)
         {
             // If multiple buttons on form
@@ -227,13 +202,7 @@ namespace MissionPlanner
 
         }
 
-        #endregion
-
-        #region Funtions that instantiate & show forms
-
-        /// <summary>
-        /// Instantiate and show camera settings
-        /// </summary>
+        // Instantiate and show camera settings
         public static void ShowCamSettings()
         {
             if ((aftSetCam == null) || aftSetCam.IsDisposed)
@@ -247,9 +216,7 @@ namespace MissionPlanner
             aftSetCam.BringToFront();
         }
 
-        /// <summary>
-        /// Instantiate and show altitude settings
-        /// </summary>
+        // Instantiate and show altitude settings
         public static void ShowAltSettings()
         {
             if ((aftSetAlt == null) || aftSetAlt.IsDisposed)
@@ -263,9 +230,7 @@ namespace MissionPlanner
             aftSetAlt.BringToFront();
         }
 
-        /// <summary>
-        /// Instantiate and show orientation settings
-        /// </summary>
+        // Instantiate and show orientation settings
         public static void ShowOriSettings()
         {
             if ((aftSetOri == null) || aftSetOri.IsDisposed)
@@ -279,9 +244,7 @@ namespace MissionPlanner
             aftSetOri.BringToFront();
         }
 
-        /// <summary>
-        /// Instantiate and show speed settings
-        /// </summary>
+        // Instantiate and show speed settings
         public static void ShowSpeedSettings()
         {
             if ((aftSetSpeed == null) || aftSetSpeed.IsDisposed)
@@ -295,9 +258,7 @@ namespace MissionPlanner
             aftSetSpeed.BringToFront();
         }
 
-        /// <summary>
-        /// Instantiate and show battery settings
-        /// </summary>
+        // Instantiate and show battery settings
         public static void ShowBatSettings()
         {
             if ((aftSetBat == null) || aftSetBat.IsDisposed)
@@ -311,9 +272,7 @@ namespace MissionPlanner
             aftSetBat.BringToFront();
         }
 
-        /// <summary>
-        /// Instantiate and show grid settings
-        /// </summary>
+        // Instantiate and show grid settings
         public static void ShowGridSettings()
         {
             if ((aftSetGrid == null) || aftSetGrid.IsDisposed)
@@ -327,10 +286,7 @@ namespace MissionPlanner
             aftSetGrid.BringToFront();
         }
 
-        /// <summary>
-        /// Instantiate and show advanced settings
-        /// </summary>
-        /// <param name="saveMission"></Set to true if calling from settings window, false otherwise>
+        // Instantiate and show advanced settings
         public static void ShowAdvSettings(bool saveMission)
         {
             if ((aftSetAdv == null) || aftSetAdv.IsDisposed)
@@ -357,9 +313,6 @@ namespace MissionPlanner
             aftSetAdv.BringToFront();
         }
 
-        /// <summary>
-        /// Instantiate and show mission save screen
-        /// </summary>
         public static void ShowSaveScreen()
         {
             if ((aftSaveMission == null) || aftSaveMission.IsDisposed)
@@ -372,7 +325,5 @@ namespace MissionPlanner
             aftSaveMission.Show();
             aftSaveMission.BringToFront();
         }
-
-        #endregion
     }
 }
