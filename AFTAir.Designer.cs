@@ -54,7 +54,8 @@
             this.aftLogo = new System.Windows.Forms.PictureBox();
             this.homeButton = new System.Windows.Forms.PictureBox();
             this.vertLine2 = new System.Windows.Forms.PictureBox();
-            this.webView21 = new Microsoft.Web.WebView2.WinForms.WebView2();
+            this.elementHost1 = new System.Windows.Forms.Integration.ElementHost();
+            this.bingMapsUserControl1 = new MissionPlanner.BingMapsUserControl();
             this.sideMenuPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.topPanel.SuspendLayout();
@@ -68,7 +69,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.aftLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.homeButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vertLine2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.webView21)).BeginInit();
             this.SuspendLayout();
             // 
             // btnCreateMission
@@ -390,18 +390,15 @@
             this.vertLine2.TabIndex = 23;
             this.vertLine2.TabStop = false;
             // 
-            // webView21
+            // elementHost1
             // 
-            this.webView21.AllowExternalDrop = true;
-            this.webView21.CreationProperties = null;
-            this.webView21.DefaultBackgroundColor = System.Drawing.Color.White;
-            this.webView21.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.webView21.Location = new System.Drawing.Point(0, 0);
-            this.webView21.Name = "webView21";
-            this.webView21.Size = new System.Drawing.Size(1284, 781);
-            this.webView21.Source = new System.Uri("https://bing.com/maps", System.UriKind.Absolute);
-            this.webView21.TabIndex = 29;
-            this.webView21.ZoomFactor = 1D;
+            this.elementHost1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.elementHost1.Location = new System.Drawing.Point(0, 0);
+            this.elementHost1.Name = "elementHost1";
+            this.elementHost1.Size = new System.Drawing.Size(1284, 781);
+            this.elementHost1.TabIndex = 29;
+            this.elementHost1.Text = "elementHost1";
+            this.elementHost1.Child = this.bingMapsUserControl1;
             // 
             // AFTAir
             // 
@@ -413,7 +410,7 @@
             this.Controls.Add(this.btnVidDownlink);
             this.Controls.Add(this.sideMenuPanel);
             this.Controls.Add(this.topPanel);
-            this.Controls.Add(this.webView21);
+            this.Controls.Add(this.elementHost1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -436,7 +433,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.aftLogo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.homeButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vertLine2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.webView21)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -468,6 +464,7 @@
         private System.Windows.Forms.PictureBox aftLogo;
         private System.Windows.Forms.PictureBox homeButton;
         private System.Windows.Forms.PictureBox vertLine2;
-        private Microsoft.Web.WebView2.WinForms.WebView2 webView21;
+        private System.Windows.Forms.Integration.ElementHost elementHost1;
+        private BingMapsUserControl bingMapsUserControl1;
     }
 }

@@ -407,9 +407,10 @@
             // 
             // elementHost1
             // 
-            this.elementHost1.Location = new System.Drawing.Point(729, 211);
+            this.elementHost1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.elementHost1.Location = new System.Drawing.Point(0, 0);
             this.elementHost1.Name = "elementHost1";
-            this.elementHost1.Size = new System.Drawing.Size(326, 190);
+            this.elementHost1.Size = new System.Drawing.Size(1284, 781);
             this.elementHost1.TabIndex = 23;
             this.elementHost1.Text = "elementHost1";
             this.elementHost1.Child = this.bingMapsUserControl1;
@@ -420,13 +421,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1284, 781);
-            this.Controls.Add(this.elementHost1);
             this.Controls.Add(this.btnCreateMission);
             this.Controls.Add(this.btnFlightLines);
             this.Controls.Add(this.btnVidDownlink);
             this.Controls.Add(this.sideMenuPanel);
             this.Controls.Add(this.topPanel);
             this.Controls.Add(this.webView21);
+            this.Controls.Add(this.elementHost1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);

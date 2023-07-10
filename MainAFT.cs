@@ -40,10 +40,6 @@ namespace MissionPlanner
                 airButton.BackColor = lightColor;
                 customButton.BackColor = lightColor;
             }
-
-            // The below throws an exception. It should fix itself when updating the code to the current version
-            //SyncColorsAndInitialize(new List<Form> { aftAir }, this, this.MdiParent);
-            //aftAir.airToggleButton.Image = toggleButton.Image;
         }
 
         private void groundButton_Click(object sender, EventArgs e)
