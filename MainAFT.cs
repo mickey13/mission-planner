@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using static MissionPlanner.AFTController;
@@ -48,29 +49,24 @@ namespace MissionPlanner
 
         private void groundButton_Click(object sender, EventArgs e)
         {
-            // Initialize and show ground screen
-            aftGround = new AFTGround();
-            aftGround.MdiParent = this.MdiParent;
+            InitializeForm(aftGround, this.MdiParent);
             aftGround.Show();
         }
 
         private void airButton_Click(object sender, EventArgs e)
         {
-            // Initialize and show air screen
-            //SyncColorsAndInitialize(new List<Form> { aftAir }, this, this.MdiParent);
+            SyncColorsAndInitialize(new List<Form> { aftAir }, this, this.MdiParent);
             aftAir.airToggleButton.Image = toggleButton.Image;
 
-            aftAir = new AFTAir();
-            aftAir.MdiParent = this.MdiParent;
             aftAir.Show();
         }
 
         private void customButton_Click(object sender, EventArgs e)
         {
-            // Initialize, sync colors, and show warning screen
             warning = new AFTWarning();
-            SyncColors(warning, this);
+            SyncColorsAndInitialize(new List<Form> { warning }, this, this.MdiParent);
             warning.label1.ForeColor = Color.Red;
+
             warning.ShowDialog();
         }
     }

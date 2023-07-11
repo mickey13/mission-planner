@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using static MissionPlanner.AFTController;
 
@@ -20,15 +21,14 @@ namespace MissionPlanner
             this.Dispose();
             warning = null;
 
-            // Initialize, sync colors, and show loading screen
+            // Instantiate loading screen
             aftLoad = new AFTLoadingScreen();
             aftLoad.MdiParent = aftMain.MdiParent;
-            SyncColors(aftLoad, aftMain);
+            SyncColorsAndInitialize(new List<Form> { aftLoad }, aftMain, aftMain.MdiParent);
             aftLoad.Show();
 
-            // Initialize and show custom form, free up memory
-            custom = new MainV2();
-            custom.MdiParent = aftMain.MdiParent;
+            // Instantiate custom form and free up memory
+            InitializeForm(custom, aftMain.MdiParent);
             custom.Show();
             aftLoad.Close();
             aftLoad = null;
