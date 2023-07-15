@@ -42,7 +42,6 @@
             this.aftLogo = new System.Windows.Forms.PictureBox();
             this.homeButton = new System.Windows.Forms.PictureBox();
             this.vertLine2 = new System.Windows.Forms.PictureBox();
-            this.webView21 = new Microsoft.Web.WebView2.WinForms.WebView2();
             this.btnNewMission = new System.Windows.Forms.Button();
             this.btnSettings = new System.Windows.Forms.Button();
             this.btnVehicleSettings = new System.Windows.Forms.Button();
@@ -51,10 +50,12 @@
             this.btnLoadMission = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.sideMenuPanel = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.btnVidDownlink = new System.Windows.Forms.Button();
             this.btnFlightLines = new System.Windows.Forms.Button();
             this.btnCreateMission = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.elementHost1 = new System.Windows.Forms.Integration.ElementHost();
+            this.bingMapsUserControl1 = new MissionPlanner.BingMapsUserControl();
             this.topPanel.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.vertLine5)).BeginInit();
@@ -66,7 +67,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.aftLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.homeButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vertLine2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.webView21)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.sideMenuPanel.SuspendLayout();
             this.SuspendLayout();
@@ -234,19 +234,6 @@
             this.vertLine2.TabIndex = 23;
             this.vertLine2.TabStop = false;
             // 
-            // webView21
-            // 
-            this.webView21.AllowExternalDrop = true;
-            this.webView21.CreationProperties = null;
-            this.webView21.DefaultBackgroundColor = System.Drawing.Color.White;
-            this.webView21.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.webView21.Location = new System.Drawing.Point(0, 78);
-            this.webView21.Name = "webView21";
-            this.webView21.Size = new System.Drawing.Size(1284, 703);
-            this.webView21.Source = new System.Uri("https://earth.google.com", System.UriKind.Absolute);
-            this.webView21.TabIndex = 20;
-            this.webView21.ZoomFactor = 1D;
-            // 
             // btnNewMission
             // 
             this.btnNewMission.FlatAppearance.BorderSize = 0;
@@ -348,6 +335,16 @@
             this.sideMenuPanel.Size = new System.Drawing.Size(288, 703);
             this.sideMenuPanel.TabIndex = 21;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(17, 475);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(248, 25);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "put in-flight dashboard here";
+            // 
             // btnVidDownlink
             // 
             this.btnVidDownlink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -393,15 +390,15 @@
             this.btnCreateMission.UseVisualStyleBackColor = true;
             this.btnCreateMission.Click += new System.EventHandler(this.btnCreateMission_Click);
             // 
-            // label1
+            // elementHost1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(17, 475);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(248, 25);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "put in-flight dashboard here";
+            this.elementHost1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.elementHost1.Location = new System.Drawing.Point(0, 0);
+            this.elementHost1.Name = "elementHost1";
+            this.elementHost1.Size = new System.Drawing.Size(1284, 781);
+            this.elementHost1.TabIndex = 22;
+            this.elementHost1.Text = "elementHost1";
+            this.elementHost1.Child = this.bingMapsUserControl1;
             // 
             // AFTGround
             // 
@@ -413,8 +410,8 @@
             this.Controls.Add(this.btnFlightLines);
             this.Controls.Add(this.btnVidDownlink);
             this.Controls.Add(this.sideMenuPanel);
-            this.Controls.Add(this.webView21);
             this.Controls.Add(this.topPanel);
+            this.Controls.Add(this.elementHost1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -422,6 +419,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Ground";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.AFTGround_Load);
             this.topPanel.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.vertLine5)).EndInit();
@@ -433,7 +431,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.aftLogo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.homeButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vertLine2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.webView21)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.sideMenuPanel.ResumeLayout(false);
             this.sideMenuPanel.PerformLayout();
@@ -453,7 +450,6 @@
         private System.Windows.Forms.PictureBox aftLogo;
         private System.Windows.Forms.PictureBox homeButton;
         private System.Windows.Forms.Button menuButton;
-        private Microsoft.Web.WebView2.WinForms.WebView2 webView21;
         private System.Windows.Forms.Button btnNewMission;
         private System.Windows.Forms.Button btnSettings;
         private System.Windows.Forms.Button btnVehicleSettings;
@@ -468,5 +464,7 @@
         private System.Windows.Forms.Button btnCreateMission;
         private System.Windows.Forms.Button btnFly;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Integration.ElementHost elementHost1;
+        private BingMapsUserControl bingMapsUserControl1;
     }
 }

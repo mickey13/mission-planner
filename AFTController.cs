@@ -8,6 +8,11 @@ namespace MissionPlanner
 {
     internal class AFTController
     {
+        #region Form declarations and constants
+
+        // Input Bing Maps API key below
+        public static string bingMapsKey = "YOUR_MAPS_KEY";
+
         // Declaring main forms
         public static MainAFT aftMain = null;
         public static AFTGround aftGround = null;
@@ -61,65 +66,37 @@ namespace MissionPlanner
         public static Bitmap boxChecked = MissionPlanner.Properties.Resources.checkbox_checkmark;
         public static bool checklistConfirmed = false;
 
-        // List to hold open sub-forms
-        //public static List<Form> openSubForms = new List<Form>();
+        #endregion
 
-        // Initialize aftMain, aftGround, aftAir, and custom
-        public static Form InitializeForm(Form child, Form parent)
-        {
-            if (parent != null)
-            {
-                if ((child == null || child.IsDisposed) && child != parent)
-                {
-                    if (child == aftMain)
-                    {
-                        aftMain = new MainAFT();
-                        aftMain.MdiParent = parent;
+        #region General functions
 
-                        return aftMain;
-                    }
-                    else if (child == aftGround)
-                    {
-                        aftGround = new AFTGround();
-                        aftGround.MdiParent = parent;
-
-                        return aftGround;
-                    }
-                    else if (child == aftAir)
-                    {
-                        aftAir = new AFTAir();
-                        aftAir.MdiParent = parent;
-
-                        return aftAir;
-                    }
-                    else
-                    {
-                        custom = new MainV2();
-                        custom.MdiParent = parent;
-
-                        return custom;
-                    }
-                }
-                // Return instantiated child
-                return child;
-            }
-            // If parent is null
-            return null;
-        }
-
-        // Initialize with a form for rounded corners
+        /// <summary>
+        /// Initialize with a form for rounded corners
+        /// </summary>
+        /// <param name="nLeftRect"></X-coordinate of upper-left corner>
+        /// <param name="nTopRect"></Y-coordinate of upper-left corner>
+        /// <param name="nRightRect"></X-coordinate of lower-right corner>
+        /// <param name="nBottomRect"></Y-coordinate of lower-right corner>
+        /// <param name="nWidthEllipse"></Width of ellipse>
+        /// <param name="nHeightEllipse"></Height of ellipse>
+        /// <returns></Rectangular region that defines the edge of the form>
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         public static extern IntPtr CreateRoundRectRgn
         (
-            int nLeftRect,     // x-coordinate of upper-left corner
-            int nTopRect,      // y-coordinate of upper-left corner
-            int nRightRect,    // x-coordinate of lower-right corner
-            int nBottomRect,   // y-coordinate of lower-right corner
-            int nWidthEllipse, // width of ellipse
-            int nHeightEllipse // height of ellipse
+            int nLeftRect,
+            int nTopRect,
+            int nRightRect,
+            int nBottomRect,
+            int nWidthEllipse,
+            int nHeightEllipse
         );
 
-        // Toggle a form between light and dark mode
+
+        /// <summary>
+        /// Toggle a form between light and dark mode
+        /// </summary>
+        /// <param name="form"></Form to toggle color modes>
+        /// <returns></True if going to dark mode, false if going to light>
         public static bool ToggleColorMode(Form form)
         {
             // If in light mode
@@ -166,37 +143,39 @@ namespace MissionPlanner
             }
         }
 
-        // Sync color modes across forms
-        public static void SyncColorsAndInitialize(List<Form> formsToSync, Form formToSyncWith, Form parent)
+        /// <summary>
+        /// Sync color modes across forms
+        /// </summary>
+        /// <param name="formToSync"></Form to change color mode>
+        /// <param name="formToSyncWith"></Form to sync colors with>
+        public static void SyncColors(Form formToSync, Form formToSyncWith)
         {
-            if (formsToSync != null && formToSyncWith != null)
+            if (formToSync != null && formToSyncWith != null)
             {
-                foreach (Form form in formsToSync)
+                if (formToSync != null)
                 {
-                    // If form is null or disposed, re-initialize it
-                    Form newForm = InitializeForm(form, parent);
-
-                    if (newForm != null)
+                    formToSync.BackColor = formToSyncWith.BackColor;
+                    foreach (Control c in formToSync.Controls)
                     {
-                        newForm.BackColor = formToSyncWith.BackColor;
-                        foreach (Control c in newForm.Controls)
+                        if (c is Button || c is Label)
                         {
-                            if (c is Button || c is Label)
-                            {
-                                c.BackColor = formToSyncWith.BackColor;
-                                c.ForeColor = formToSyncWith.ForeColor;
-                            }
-                            else
-                            {
-                                c.BackColor = formToSyncWith.BackColor;
-                            }
+                            c.BackColor = formToSyncWith.BackColor;
+                            c.ForeColor = formToSyncWith.ForeColor;
+                        }
+                        else
+                        {
+                            c.BackColor = formToSyncWith.BackColor;
                         }
                     }
                 }
             }
         }
 
-        // Provide function for selection buttons
+        /// <summary>
+        /// Provide function for selection buttons
+        /// </summary>
+        /// <param name="btn"></Button to select/deselect>
+        /// <param name="form"></Form that has multiple selection buttons>
         public static void ToggleSelection(Button btn, Form form = null)
         {
             // If multiple buttons on form
@@ -251,7 +230,13 @@ namespace MissionPlanner
 
         }
 
-        // Instantiate and show camera settings
+        #endregion
+
+        #region Funtions that instantiate & show forms
+
+        /// <summary>
+        /// Instantiate and show camera settings
+        /// </summary>
         public static void ShowCamSettings()
         {
             if ((aftSetCam == null) || aftSetCam.IsDisposed)
@@ -265,7 +250,9 @@ namespace MissionPlanner
             aftSetCam.BringToFront();
         }
 
-        // Instantiate and show altitude settings
+        /// <summary>
+        /// Instantiate and show altitude settings
+        /// </summary>
         public static void ShowAltSettings()
         {
             if ((aftSetAlt == null) || aftSetAlt.IsDisposed)
@@ -279,7 +266,9 @@ namespace MissionPlanner
             aftSetAlt.BringToFront();
         }
 
-        // Instantiate and show orientation settings
+        /// <summary>
+        /// Instantiate and show orientation settings
+        /// </summary>
         public static void ShowOriSettings()
         {
             if ((aftSetOri == null) || aftSetOri.IsDisposed)
@@ -293,7 +282,9 @@ namespace MissionPlanner
             aftSetOri.BringToFront();
         }
 
-        // Instantiate and show speed settings
+        /// <summary>
+        /// Instantiate and show speed settings
+        /// </summary>
         public static void ShowSpeedSettings()
         {
             if ((aftSetSpeed == null) || aftSetSpeed.IsDisposed)
@@ -307,7 +298,9 @@ namespace MissionPlanner
             aftSetSpeed.BringToFront();
         }
 
-        // Instantiate and show battery settings
+        /// <summary>
+        /// Instantiate and show battery settings
+        /// </summary>
         public static void ShowBatSettings()
         {
             if ((aftSetBat == null) || aftSetBat.IsDisposed)
@@ -321,7 +314,9 @@ namespace MissionPlanner
             aftSetBat.BringToFront();
         }
 
-        // Instantiate and show grid settings
+        /// <summary>
+        /// Instantiate and show grid settings
+        /// </summary>
         public static void ShowGridSettings()
         {
             if ((aftSetGrid == null) || aftSetGrid.IsDisposed)
@@ -335,7 +330,10 @@ namespace MissionPlanner
             aftSetGrid.BringToFront();
         }
 
-        // Instantiate and show advanced settings
+        /// <summary>
+        /// Instantiate and show advanced settings
+        /// </summary>
+        /// <param name="saveMission"></Set to true if calling from settings window, false otherwise>
         public static void ShowAdvSettings(bool saveMission)
         {
             if ((aftSetAdv == null) || aftSetAdv.IsDisposed)
@@ -362,6 +360,9 @@ namespace MissionPlanner
             aftSetAdv.BringToFront();
         }
 
+        /// <summary>
+        /// Instantiate and show mission save screen
+        /// </summary>
         public static void ShowSaveScreen()
         {
             if ((aftSaveMission == null) || aftSaveMission.IsDisposed)
@@ -374,5 +375,7 @@ namespace MissionPlanner
             aftSaveMission.Show();
             aftSaveMission.BringToFront();
         }
+
+        #endregion
     }
 }

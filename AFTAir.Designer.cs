@@ -46,7 +46,6 @@
             this.airToggleButton.TabIndex = 16;
             this.airToggleButton.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.airToggleButton.UseVisualStyleBackColor = false;
-            this.airToggleButton.Click += new System.EventHandler(this.airToggleButton_Click);
             // 
             // AFTAir
             // 
