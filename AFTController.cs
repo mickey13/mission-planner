@@ -1,35 +1,45 @@
-﻿using System;
+﻿using Microsoft.Maps.MapControl.WPF;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using System.Windows.Media;
 
 namespace MissionPlanner
 {
     internal class AFTController
     {
-        #region Form declarations and constants
+        #region Things that require user input before running
 
-        // Input Bing Maps API key below
-        public static string bingMapsKey = "YOUR_MAPS_KEY";
+        // Bing Maps API key
+        public static string bingMapsKey = "YOUR_BING_MAPS_API_KEY";
 
-        // Declaring main forms
+        // Starting map location and zoom level
+        public static Location locationStart = new Location(37.2296, -80.4139);
+        public static int zoomStart = 12;
+
+        #endregion
+
+        #region Form declarations
+
+        // Main forms
         public static MainAFT aftMain = null;
         public static AFTGround aftGround = null;
         public static AFTAir aftAir = null;
         public static MainV2 custom = null;
 
-        // Declaring aftGround sub-forms
+        // aftGround sub-forms
         public static AFTNewMission aftNewMission = null;
         public static AFTChecklist checklist = null;
         public static AFTSettingsAdv aftSetAdv = null;
         public static AFTReturnHome aftReturnHome = null;
 
-        // Declaring custom sub-forms
+        // custom sub-forms
         public static AFTWarning warning = null;
         public static AFTLoadingScreen aftLoad = null;
 
-        // Declaring settings forms (aftSetMore___ use same class type as placeholder)
+        // Settings forms (aftSetMore___ use same class type as placeholder)
         public static AFTSettingsCam aftSetCam = null;
         public static AFTSettingsAlt aftSetAlt = null;
         public static AFTSettingsOri aftSetOri = null;
@@ -47,6 +57,14 @@ namespace MissionPlanner
         public static AFTSaveMission aftSaveMission = null;
         public static AFTSaveMissionAs aftSaveMissionAs = null;
 
+        // Vehicle power up/connecting forms
+        public static AFTVehiclePowerUp powerUp = null;
+        public static AFTVehicleConnecting connectingVehicle = null;
+
+        #endregion
+
+        #region Constants for light/dark modes
+
         // Pictures and colors for color modes
         public static Bitmap aftLogoLight = MissionPlanner.Properties.Resources.AFT_logo_black;
         public static Bitmap aftLogoDark = MissionPlanner.Properties.Resources.AFT_logo_white;
@@ -55,8 +73,12 @@ namespace MissionPlanner
         public static Bitmap lineLight = MissionPlanner.Properties.Resources.line_black;
         public static Bitmap lineDark = MissionPlanner.Properties.Resources.line_white;
 
-        public static Color lightColor = System.Drawing.SystemColors.Control;
-        public static Color darkColor = System.Drawing.SystemColors.ControlText;
+        public static System.Drawing.Color lightColor = System.Drawing.SystemColors.Control;
+        public static System.Drawing.Color darkColor = System.Drawing.SystemColors.ControlText;
+
+        #endregion
+
+        #region Constants for mission settings
 
         // Pictures for selection buttons
         public static Bitmap emptyButton = MissionPlanner.Properties.Resources.circle_hollow;
@@ -65,6 +87,22 @@ namespace MissionPlanner
         // Picture and variable for checkboxes
         public static Bitmap boxChecked = MissionPlanner.Properties.Resources.checkbox_checkmark;
         public static bool checklistConfirmed = false;
+
+        #endregion
+
+        #region Constants for maps and mission drawing feature
+
+        // Mission boundary color
+        public static System.Windows.Media.Color missionBoundaryColor = System.Windows.Media.Colors.DeepSkyBlue;
+
+        // User defined polygon to add to the map
+        public static MapPolygon newPolygon = null;
+
+        // Map layer containing the polygon points defined by the user
+        public static MapLayer polygonPointLayer = null;
+
+        // Mission boundary
+        public static LocationCollection missionBounds = null;
 
         #endregion
 
@@ -230,9 +268,23 @@ namespace MissionPlanner
 
         }
 
+        /// <summary>
+        /// Overwrite existing mission boundary polygon with a new one
+        /// </summary>
+        public static void SetUpNewPolygon()
+        {
+            newPolygon = new MapPolygon();
+
+            // Defines the polygon fill details
+            newPolygon.Locations = new LocationCollection();
+            newPolygon.Stroke = new SolidColorBrush(missionBoundaryColor);
+            newPolygon.StrokeThickness = 4;
+            newPolygon.Opacity = 0.8;
+        }
+
         #endregion
 
-        #region Funtions that instantiate & show forms
+        #region Functions that instantiate & show forms
 
         /// <summary>
         /// Instantiate and show camera settings
@@ -243,8 +295,6 @@ namespace MissionPlanner
             {
                 aftSetCam = new AFTSettingsCam();
             }
-            // Add to open forms list
-            //openSubForms.Add(aftSetCam);
 
             aftSetCam.Show();
             aftSetCam.BringToFront();
@@ -259,8 +309,6 @@ namespace MissionPlanner
             {
                 aftSetAlt = new AFTSettingsAlt();
             }
-            // Add to open forms list
-            //openSubForms.Add(aftSetAlt);
 
             aftSetAlt.Show();
             aftSetAlt.BringToFront();
@@ -275,8 +323,6 @@ namespace MissionPlanner
             {
                 aftSetOri = new AFTSettingsOri();
             }
-            // Add to open forms list
-            //openSubForms.Add(aftSetOri);
 
             aftSetOri.Show();
             aftSetOri.BringToFront();
@@ -291,8 +337,6 @@ namespace MissionPlanner
             {
                 aftSetSpeed = new AFTSettingsSpeed();
             }
-            // Add to open forms list
-            //openSubForms.Add(aftSetSpeed);
 
             aftSetSpeed.Show();
             aftSetSpeed.BringToFront();
@@ -307,8 +351,6 @@ namespace MissionPlanner
             {
                 aftSetBat = new AFTSettingsBat();
             }
-            // Add to open forms list
-            //openSubForms.Add(aftSetBat);
 
             aftSetBat.Show();
             aftSetBat.BringToFront();
@@ -323,8 +365,6 @@ namespace MissionPlanner
             {
                 aftSetGrid = new AFTSettingsGrid();
             }
-            // Add to open forms list
-            //openSubForms.Add(aftSetGrid);
 
             aftSetGrid.Show();
             aftSetGrid.BringToFront();
@@ -353,8 +393,6 @@ namespace MissionPlanner
                 aftSetAdv.btnSave.SendToBack();
                 aftSetAdv.btnClose.BringToFront();
             }
-            // Add to open forms list
-            //openSubForms.Add(aftSetAdv);
 
             aftSetAdv.Show();
             aftSetAdv.BringToFront();
@@ -369,8 +407,6 @@ namespace MissionPlanner
             {
                 aftSaveMission = new AFTSaveMission();
             }
-            // Add to open forms list
-            //openSubForms.Add(aftSaveMission);
 
             aftSaveMission.Show();
             aftSaveMission.BringToFront();

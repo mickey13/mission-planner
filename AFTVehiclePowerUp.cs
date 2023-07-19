@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using static MissionPlanner.AFTController;
 
 namespace MissionPlanner
 {
@@ -14,7 +15,7 @@ namespace MissionPlanner
         {
             this.Close();
 
-            AFTVehicleConnecting connectingVehicle = new AFTVehicleConnecting();
+            connectingVehicle = new AFTVehicleConnecting();
             connectingVehicle.Show();
             connectingVehicle.BringToFront();
         }
