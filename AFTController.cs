@@ -13,11 +13,11 @@ namespace MissionPlanner
         #region Things that require user input before running
 
         // Bing Maps API key
-        public static string bingMapsKey = "YOUR_BING_MAPS_API_KEY";
+        public static string bingMapsKey = "INSERT_BING_MAPS_KEY_HERE";
 
         // Starting map location and zoom level
-        public static Location locationStart = new Location(37.2296, -80.4139);
-        public static int zoomStart = 12;
+        public static Location locationStart = new Location(37.19912, -80.40813);
+        public static int zoomStart = 16;
 
         #endregion
 

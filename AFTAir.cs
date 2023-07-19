@@ -22,11 +22,8 @@ namespace MissionPlanner
             // Send compass button to correct starting location
             btnFlightLines.Location = new System.Drawing.Point(12, 654);
 
-            // Set Credentials for map
+            // Initialize map and polygon
             bingMapsUserControl1.myMap.CredentialsProvider = new ApplicationIdCredentialsProvider(bingMapsKey);
-
-            // Set focus to map and create initial mission boundary polygon
-            this.bingMapsUserControl1.myMap.Focus();
             SetUpNewPolygon();
             this.bingMapsUserControl1.myMap.Focus();
 

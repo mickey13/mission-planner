@@ -5,6 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF">
     <Grid>
-        <m:Map Name="myMap"/>
+        <m:Map Name="myMap" Mode="AerialWithLabels"/>
     </Grid>
 </UserControl>
