@@ -9,6 +9,10 @@ namespace MissionPlanner
         public AFTMDIContainer()
         {
             InitializeComponent();
+
+            // Adding an invisible menustrip to the parent container hides all menu bars on the child forms.
+            // But, child forms need to have WindowState = Maximized
+            menuStrip1.Visible = false;
         }
 
         private void AFTMDIContainer_Load(object sender, EventArgs e)
