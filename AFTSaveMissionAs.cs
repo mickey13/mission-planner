@@ -13,14 +13,23 @@ namespace MissionPlanner
 
         private void btnSaveMission_Click(object sender, EventArgs e)
         {
-            /*Save flight settings*/
+            // *** Save flight settings ***
+            /*// Create file with user-inputted name (only works on Windows machines)
+            using System.IO;
+            using System.Text.Json;
+            using System.Text.Json.Serialization;
+            List<data> _data = new List<data>();
+            _data.Add(new data()
+            {
+                Id = 1,
+                SSN = 2,
+                Message = "A Message"
+            });
+
+            string settingsToSave = JsonSerializer.Serialize(_data);
+            File.WriteAllText(@"C:\path" + textBox1.Text + ".json", settingsToSave);*/
 
             // Close all settings & free up memory
-            /*foreach (Form form in openSubForms)
-            {
-                form.Dispose();
-                //set equal to null
-            }*/
             if (!((aftSetCam == null) || aftSetCam.IsDisposed))
             {
                 aftSetCam.Close();

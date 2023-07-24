@@ -13,7 +13,7 @@ namespace MissionPlanner
         #region Things that require user input before running
 
         // Bing Maps API key
-        public static string bingMapsKey = "INSERT_BING_MAPS_KEY_HERE";
+        public static string bingMapsKey = "YOUR_MAPS_KEY";
 
         // Starting map location and zoom level
         public static Location locationStart = new Location(37.19912, -80.40813);
@@ -39,7 +39,7 @@ namespace MissionPlanner
         public static AFTWarning warning = null;
         public static AFTLoadingScreen aftLoad = null;
 
-        // Settings forms (aftSetMore___ use same class type as placeholder)
+        // Settings forms (aftSetMore___ forms use same class type as placeholder)
         public static AFTSettingsCam aftSetCam = null;
         public static AFTSettingsAlt aftSetAlt = null;
         public static AFTSettingsOri aftSetOri = null;
