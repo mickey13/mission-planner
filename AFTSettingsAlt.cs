@@ -61,7 +61,7 @@ namespace MissionPlanner
 
         private void btnAdvanced_Click(object sender, EventArgs e)
         {
-            ShowAdvSettings(true);
+            ShowAdvSettings(true, true);
         }
 
         private void trackBar1_Scroll(object sender, EventArgs e)
@@ -69,6 +69,12 @@ namespace MissionPlanner
             toolTip1.SetToolTip(trackAlt, trackAlt.Value.ToString());
             lblAltDisplay.Text = trackAlt.Value.ToString();
 
+            // Update advanced settings if they are open
+            if (!((aftSetAdv == null) || aftSetAdv.IsDisposed))
+            {
+                aftSetAdv.trackAltAdv.Value = trackAlt.Value;
+                aftSetAdv.lblAltDisplay.Text = lblAltDisplay.Text;
+            }
         }
     }
 }

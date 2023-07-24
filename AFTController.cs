@@ -10,7 +10,7 @@ namespace MissionPlanner
 {
     internal class AFTController
     {
-        #region Things that require user input before running
+        #region Things that require user input or that may change based on the user
 
         // Bing Maps API key
         public static string bingMapsKey = "YOUR_MAPS_KEY";
@@ -90,7 +90,7 @@ namespace MissionPlanner
 
         #endregion
 
-        #region Constants for maps and mission drawing feature
+        #region Constants for maps and mission boundary feature
 
         // Mission boundary color
         public static System.Windows.Media.Color missionBoundaryColor = System.Windows.Media.Colors.DeepSkyBlue;
@@ -103,6 +103,72 @@ namespace MissionPlanner
 
         // Mission boundary
         public static LocationCollection missionBounds = null;
+
+        // Create list to hold pushpins
+        public static List<Pushpin> pushPinList { get; set; }
+
+        // Pushpin that is currently selected
+        public static Pushpin SelectedPushpin { get; set; }
+
+        #endregion
+
+        #region Classes
+
+        /// <summary>
+        /// File format for saving mission settings
+        /// </summary>
+        public class MissionSettings
+        {
+            public AltitudeSettings Altitude { get; set; }
+            public OrientationSettings Orientation { get; set; }
+            public SpeedSettings Speed { get; set; }
+            public BatterySettings Battery { get; set; }
+            public GridSettings Grid { get; set; }
+            public MissionBoundarySettings MissionBoundary { get; set; }
+
+            public class AltitudeSettings
+            {
+                public int Altitude { get; set; }
+            }
+
+            public class OrientationSettings
+            {
+                public bool FixedDirection { get; set; } = false;
+                public bool TargetPtDirection { get; set; } = false;
+                public bool DroneFacingDirection { get; set; } = false;
+                public int Angle { get; set; }
+
+                public OrientationSettings()
+                {
+                    // Assign values if orientation settings screen has been created
+                    if (aftSetOri != null)
+                    {
+                        FixedDirection = IsSelected(aftSetOri.btnFxdDir);
+                        TargetPtDirection = IsSelected(aftSetOri.btnTgtPtOri);
+                        DroneFacingDirection = IsSelected(aftSetOri.btnSglDir);
+                    }
+                }
+            }
+
+            public class SpeedSettings
+            {
+                public int Speed { get; set; }
+            }
+
+            public class BatterySettings
+            {
+                public bool ChooseNumFlightsForMe { get; set; }
+            }
+
+            public class GridSettings
+            {
+                public bool Segmented { get; set; }
+            }
+            public class MissionBoundarySettings
+            {
+                public LocationCollection MissionBoundary { get; set; }
+            }
+        }
 
         #endregion
 
@@ -265,7 +331,16 @@ namespace MissionPlanner
                     btn.Image = emptyButton;
                 }
             }
+        }
 
+        /// <summary>
+        /// Test if button is selected or not
+        /// </summary>
+        /// <param name="button"></Button to test>
+        /// <returns></True if button is selected, false if button is not selected>
+        public static bool IsSelected(Button button)
+        {
+            return button.Image == filledButton;
         }
 
         /// <summary>
@@ -374,7 +449,7 @@ namespace MissionPlanner
         /// Instantiate and show advanced settings
         /// </summary>
         /// <param name="saveMission"></Set to true if calling from settings window, false otherwise>
-        public static void ShowAdvSettings(bool saveMission)
+        public static void ShowAdvSettings(bool saveMission, bool showForm)
         {
             if ((aftSetAdv == null) || aftSetAdv.IsDisposed)
             {
@@ -394,8 +469,16 @@ namespace MissionPlanner
                 aftSetAdv.btnClose.BringToFront();
             }
 
+            if (showForm)
+            {
+                aftSetAdv.BringToFront();
+            }
+            else
+            {
+                aftSetAdv.SendToBack();
+            }
+
             aftSetAdv.Show();
-            aftSetAdv.BringToFront();
         }
 
         /// <summary>

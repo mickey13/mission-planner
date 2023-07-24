@@ -65,7 +65,7 @@ namespace MissionPlanner
 
         private void btnAdvanced_Click(object sender, EventArgs e)
         {
-            ShowAdvSettings(true);
+            ShowAdvSettings(true, true);
         }
     }
 }

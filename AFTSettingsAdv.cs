@@ -12,14 +12,14 @@ namespace MissionPlanner
         public AFTSettingsAdv()
         {
             InitializeComponent();
-
-            // Send close button to correct location
-            aftSetAdv.btnClose.Location = new Point(7, 22);
         }
 
         private void AFTSettingsAdv_Load(object sender, EventArgs e)
         {
-            //Sync with main settings if they're already open
+            // Send close button to correct location
+            aftSetAdv.btnClose.Location = new Point(7, 22);
+
+            // Sync with main settings if they're already open
             if (!((aftSetAlt == null) || aftSetAlt.IsDisposed))
             {
                 trackAltAdv.Value = aftSetAlt.trackAlt.Value;
@@ -149,6 +149,7 @@ namespace MissionPlanner
             if (!((aftSetAlt == null) || aftSetAlt.IsDisposed))
             {
                 aftSetAlt.trackAlt.Value = trackAltAdv.Value;
+                aftSetAlt.lblAltDisplay.Text = lblAltDisplay.Text;
             }
         }
 
@@ -167,6 +168,7 @@ namespace MissionPlanner
             if (!((aftSetSpeed == null) || aftSetSpeed.IsDisposed))
             {
                 aftSetSpeed.trackSpeed.Value = trackSpeedAdv.Value;
+                aftSetSpeed.lblSpeedDisplay.Text = lblSpeedDisplay.Text;
             }
         }
     }

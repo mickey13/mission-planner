@@ -56,7 +56,6 @@ namespace MissionPlanner
             ShowGridSettings();
         }
 
-        // Selecting fixed direction
         private void btnFxdDir_Click(object sender, EventArgs e)
         {
             ToggleSelection(btnFxdDir, this);
@@ -74,7 +73,7 @@ namespace MissionPlanner
 
         private void btnAdvanced_Click(object sender, EventArgs e)
         {
-            ShowAdvSettings(true);
+            ShowAdvSettings(true, true);
         }
     }
 }

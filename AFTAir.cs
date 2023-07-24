@@ -1,39 +1,43 @@
 ﻿using Microsoft.Maps.MapControl.WPF;
 using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Shapes;
 using static MissionPlanner.AFTController;
 
 namespace MissionPlanner
 {
     public partial class AFTAir : Form
     {
+        // Vector from mouse to selected pushpin
+        Vector _mouseToMarker;
+
+        // Private field to track if current pushpin is being dragged or not
+        private bool _IsPinDragging;
+
         public AFTAir()
         {
             InitializeComponent();
 
-            // Send menu panel to correct starting location
+            // Send menu panel and compass button to correct starting location
             sideMenuPanel.Dock = DockStyle.None;
             sideMenuPanel.SendToBack();
-
-            // Send compass button to correct starting location
             btnFlightLines.Location = new System.Drawing.Point(12, 654);
 
             // Initialize map and polygon
             bingMapsUserControl1.myMap.CredentialsProvider = new ApplicationIdCredentialsProvider(bingMapsKey);
             SetUpNewPolygon();
-            this.bingMapsUserControl1.myMap.Focus();
-
-            // Create handlers for right mouse button click and map load
-            this.bingMapsUserControl1.myMap.MouseRightButtonUp += new MouseButtonEventHandler(MyMap_MouseRightButtonUp);
-            this.bingMapsUserControl1.myMap.Loaded += MyMap_Loaded;
-
-            // Adds the layer that contains the polygon points/vertices
             polygonPointLayer = new MapLayer();
-            this.bingMapsUserControl1.myMap.Children.Add(polygonPointLayer);
+            pushPinList = new List<Pushpin>();
+            bingMapsUserControl1.myMap.Children.Add(polygonPointLayer);
+            bingMapsUserControl1.myMap.Focus();
+
+            // Create handlers for mouse double click, mouse move, and map loaded
+            bingMapsUserControl1.myMap.MouseDoubleClick += new MouseButtonEventHandler(MyMap_MouseDoubleClick);
+            bingMapsUserControl1.myMap.MouseMove += new System.Windows.Input.MouseEventHandler(myMap_MouseMove);
+            bingMapsUserControl1.myMap.Loaded += MyMap_Loaded;
         }
 
         private void AFTAir_Load(object sender, EventArgs e)
@@ -48,21 +52,76 @@ namespace MissionPlanner
             this.bingMapsUserControl1.myMap.SetView(locationStart, zoomStart);
         }
 
-        private void MyMap_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        void pin_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-            // Visual representation of polygon point/vertice
-            Ellipse polygonPt = new Ellipse();
-            polygonPt.Stroke = new SolidColorBrush(missionBoundaryColor);
-            polygonPt.StrokeThickness = 3;
-            polygonPt.Width = 16;
-            polygonPt.Height = 16;
+            e.Handled = true;
+
+            // Update pushpin fields/properties
+            SelectedPushpin = (Pushpin)sender;
+            _IsPinDragging = true;
+            _mouseToMarker = Point.Subtract(
+            bingMapsUserControl1.myMap.LocationToViewportPoint(SelectedPushpin.Location),
+            e.GetPosition(bingMapsUserControl1.myMap));
+        }
+
+        void pin_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            // Save updated pushpin locations
+            LocationCollection locCol = new LocationCollection();
+            foreach (Pushpin p in pushPinList)
+            {
+                locCol.Add(p.Location);
+            }
+
+            // Create new polygon and set focus back to the map so that +/- work for zoom in/out
+            bingMapsUserControl1.myMap.Children.Remove(newPolygon);
+            SetUpNewPolygon();
+            bingMapsUserControl1.myMap.Focus();
+
+            // Add updated locations to new polygon
+            newPolygon.Locations = locCol;
+            bingMapsUserControl1.myMap.Children.Add(newPolygon);
+
+            // Update fields/properties
+            _IsPinDragging = false;
+            SelectedPushpin = null;
+        }
+
+        private void myMap_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            if (e.RightButton == MouseButtonState.Pressed)
+            {
+                if (_IsPinDragging && SelectedPushpin != null)
+                {
+                    SelectedPushpin.Location = bingMapsUserControl1.myMap.ViewportPointToLocation(Point.Add(e.GetPosition(bingMapsUserControl1.myMap), _mouseToMarker));
+                    e.Handled = true;
+                }
+            }
+        }
+
+        private void MyMap_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Disable double-click zoom feature
+            e.Handled = true;
+
+            // Visual representation of polygon point/vertex
+            Pushpin polygonPushPin = new Pushpin();
+            //polygonPt.Stroke = new SolidColorBrush(missionBoundaryColor);
+            //polygonPt.StrokeThickness = 3;
+            polygonPushPin.Width = 16;
+            polygonPushPin.Height = 16;
+            polygonPushPin.Background = new SolidColorBrush(missionBoundaryColor);
+
+            // Add handlers to the pushpin
+            polygonPushPin.MouseRightButtonDown += new MouseButtonEventHandler(pin_MouseRightButtonDown);
+            polygonPushPin.MouseRightButtonUp += new MouseButtonEventHandler(pin_MouseRightButtonUp);
 
             // Capture mouse screen coords, convert to lat/long
             Point mousePosition = e.GetPosition(null);
-            Location polygonPointLocation = this.bingMapsUserControl1.myMap.ViewportPointToLocation(mousePosition);
+            Location polygonPointLocation = bingMapsUserControl1.myMap.ViewportPointToLocation(mousePosition);
 
             // If polygon already being showed
-            if (this.bingMapsUserControl1.myMap.Children.Contains(newPolygon))
+            if (bingMapsUserControl1.myMap.Children.Contains(newPolygon))
             {
                 // Create/reset mission boundary
                 missionBounds = new LocationCollection();
@@ -73,37 +132,30 @@ namespace MissionPlanner
                     missionBounds.Add(loc);
                 }
 
-                // Clear polygon
-                this.bingMapsUserControl1.myMap.Children.Clear();
-
                 // Create new polygon and set focus back to the map so that +/- work for zoom in/out
+                bingMapsUserControl1.myMap.Children.Remove(newPolygon);
                 SetUpNewPolygon();
-                this.bingMapsUserControl1.myMap.Focus();
+                bingMapsUserControl1.myMap.Focus();
 
                 // Add saved locations to new polygon
-                foreach (Location loc in missionBounds)
-                {
-                    newPolygon.Locations.Add(loc);
-                }
+                newPolygon.Locations = missionBounds;
             }
 
-            // Add clicked lat/long position to mission boundary
+            // Add clicked lat/long position to polygon
             newPolygon.Locations.Add(polygonPointLocation);
+            polygonPushPin.Location = polygonPointLocation;
 
-            // Add point/vertice marker to map
-            polygonPointLayer.AddChild(polygonPt, polygonPointLocation);
+            // Add pushpin to map
+            polygonPointLayer.AddChild(polygonPushPin, polygonPointLocation);
+            pushPinList.Add(polygonPushPin);
 
             // Set focus back to the map so that +/- work for zoom in/out
-            this.bingMapsUserControl1.myMap.Focus();
+            bingMapsUserControl1.myMap.Focus();
 
             // If there are two or more points, add the polygon layer to the map
             if (newPolygon.Locations.Count >= 2)
             {
-                // Removes the polygon points layer.
-                polygonPointLayer.Children.Clear();
-
-                // Adds the filled polygon layer to the map.
-                this.bingMapsUserControl1.myMap.Children.Add(newPolygon);
+                bingMapsUserControl1.myMap.Children.Add(newPolygon);
             }
         }
 
@@ -147,7 +199,7 @@ namespace MissionPlanner
         private void btnSettings_Click(object sender, EventArgs e)
         {
             // Show advanced settings with close button visible
-            ShowAdvSettings(false);
+            ShowAdvSettings(false, true);
         }
 
         private void homeButton_Click(object sender, EventArgs e)

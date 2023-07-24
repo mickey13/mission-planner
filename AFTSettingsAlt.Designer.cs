@@ -478,7 +478,6 @@
         private System.Windows.Forms.Button btnBack;
         private System.Windows.Forms.PictureBox picIcon;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label lblAltDisplay;
         private System.Windows.Forms.Label lblMaxAlt;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label lblMinAlt;
@@ -486,5 +485,6 @@
         internal System.Windows.Forms.TrackBar trackAlt;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label label2;
+        internal System.Windows.Forms.Label lblAltDisplay;
     }
 }

@@ -1205,7 +1205,6 @@
         private System.Windows.Forms.Label lblMaxAlt;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Panel panel15;
-        private System.Windows.Forms.TrackBar trackOriAdv;
         private System.Windows.Forms.Label lblOriDisplay;
         private System.Windows.Forms.Panel panel16;
         private System.Windows.Forms.Label lblMaxSpeed;
@@ -1217,13 +1216,14 @@
         internal System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label lblAltDisplay;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label lblSpeedDisplay;
         internal System.Windows.Forms.Button btnNumFlightsAdv;
         internal System.Windows.Forms.Button btnSegmentAdv;
         internal System.Windows.Forms.TrackBar trackAltAdv;
         internal System.Windows.Forms.TrackBar trackSpeedAdv;
+        internal System.Windows.Forms.TrackBar trackOriAdv;
+        internal System.Windows.Forms.Label lblAltDisplay;
+        internal System.Windows.Forms.Label lblSpeedDisplay;
     }
 }

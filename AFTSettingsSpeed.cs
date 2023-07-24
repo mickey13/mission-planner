@@ -61,13 +61,20 @@ namespace MissionPlanner
 
         private void btnAdvanced_Click(object sender, EventArgs e)
         {
-            ShowAdvSettings(true);
+            ShowAdvSettings(true, true);
         }
 
         private void trackSpeed_Scroll(object sender, EventArgs e)
         {
             toolTip1.SetToolTip(trackSpeed, trackSpeed.Value.ToString());
             lblSpeedDisplay.Text = trackSpeed.Value.ToString();
+
+            // Update advanced settings if they are open
+            if (!((aftSetAdv == null) || aftSetAdv.IsDisposed))
+            {
+                aftSetAdv.trackSpeedAdv.Value = trackSpeed.Value;
+                aftSetAdv.lblSpeedDisplay.Text = lblSpeedDisplay.Text;
+            }
         }
     }
 }
