@@ -15,6 +15,12 @@ namespace MissionPlanner
                 trackSpeed.Value = aftSetAdv.trackSpeedAdv.Value;
                 lblSpeedDisplay.Text = trackSpeed.Value.ToString();
             }
+            // Sync with loaded settings
+            else if (missionSettings != null)
+            {
+                trackSpeed.Value = missionSettings.SpeedSet.Speed;
+                lblSpeedDisplay.Text = trackSpeed.Value.ToString();
+            }
         }
 
         private void btnBack_Click(object sender, EventArgs e)

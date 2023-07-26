@@ -9,6 +9,23 @@ namespace MissionPlanner
         public AFTSettingsOri()
         {
             InitializeComponent();
+
+            // Sync with loaded settings
+            if (missionSettings != null)
+            {
+                if (missionSettings.OrientationSet.FixedDirection)
+                {
+                    btnFxdDir.Image = filledButton;
+                }
+                if (missionSettings.OrientationSet.TargetPtDirection)
+                {
+                    btnTgtPtOri.Image = filledButton;
+                }
+                if (missionSettings.OrientationSet.DroneFacingDirection)
+                {
+                    btnSglDir.Image = filledButton;
+                }
+            }
         }
 
         private void btnBack_Click(object sender, EventArgs e)

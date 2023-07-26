@@ -19,29 +19,29 @@ namespace MissionPlanner
             ShowAdvSettings(true, false);
 
             // Save mission settings
-            var missionSettings = new MissionSettings
+            missionSettings = new MissionSettings
             {
-                Altitude = new MissionSettings.AltitudeSettings
+                AltitudeSet = new MissionSettings.AltitudeSettings
                 {
                     Altitude = aftSetAdv.trackAltAdv.Value
                 },
-                Orientation = new MissionSettings.OrientationSettings
+                OrientationSet = new MissionSettings.OrientationSettings
                 {
                     Angle = aftSetAdv.trackOriAdv.Value
                 },
-                Speed = new MissionSettings.SpeedSettings
+                SpeedSet = new MissionSettings.SpeedSettings
                 {
                     Speed = aftSetAdv.trackSpeedAdv.Value
                 },
-                Battery = new MissionSettings.BatterySettings
+                BatterySet = new MissionSettings.BatterySettings
                 {
                     ChooseNumFlightsForMe = IsSelected(aftSetAdv.btnNumFlightsAdv)
                 },
-                Grid = new MissionSettings.GridSettings
+                GridSet = new MissionSettings.GridSettings
                 {
                     Segmented = IsSelected(aftSetAdv.btnSegmentAdv)
                 },
-                MissionBoundary = new MissionSettings.MissionBoundarySettings
+                MissionBoundarySet = new MissionSettings.MissionBoundarySettings
                 {
                     MissionBoundary = missionBounds
                 }
@@ -54,16 +54,16 @@ namespace MissionPlanner
             };
 
             // Convert mission settings to json
-            string jsonsettings = JsonSerializer.Serialize(missionSettings, saveOptions);
+            string settingsToWrite = JsonSerializer.Serialize(missionSettings, saveOptions);
 
             // Get path to user's Downloads folder
-            string downloadsFolder = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-            string filePath = Path.Combine(downloadsFolder, "Downloads", textBox1.Text + ".json");
+            string downloadsFolderLocation = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            string filePath = Path.Combine(downloadsFolderLocation, "Downloads", textBox1.Text + ".json");
 
             // Create and save file
             try
             {
-                File.WriteAllText(filePath, jsonsettings);
+                File.WriteAllText(filePath, settingsToWrite);
                 Console.WriteLine("Mission settings have been saved to the Downloads folder.");
             }
             catch (Exception ex)

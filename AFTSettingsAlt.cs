@@ -10,9 +10,16 @@ namespace MissionPlanner
         {
             InitializeComponent();
 
+            // Sync with advanced settings if they are open
             if (!((aftSetAdv == null) || aftSetAdv.IsDisposed))
             {
                 trackAlt.Value = aftSetAdv.trackAltAdv.Value;
+                lblAltDisplay.Text = trackAlt.Value.ToString();
+            }
+            // Sync with loaded settings
+            else if (missionSettings != null)
+            {
+                trackAlt.Value = missionSettings.AltitudeSet.Altitude;
                 lblAltDisplay.Text = trackAlt.Value.ToString();
             }
         }

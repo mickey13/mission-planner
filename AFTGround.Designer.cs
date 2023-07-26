@@ -464,7 +464,7 @@
         private System.Windows.Forms.Button btnCreateMission;
         private System.Windows.Forms.Button btnFly;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Integration.ElementHost elementHost1;
-        private BingMapsUserControl bingMapsUserControl1;
+        internal System.Windows.Forms.Integration.ElementHost elementHost1;
+        internal BingMapsUserControl bingMapsUserControl1;
     }
 }

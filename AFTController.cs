@@ -78,7 +78,7 @@ namespace MissionPlanner
 
         #endregion
 
-        #region Constants for mission settings
+        #region Constants for form interactions
 
         // Pictures for selection buttons
         public static Bitmap emptyButton = MissionPlanner.Properties.Resources.circle_hollow;
@@ -101,14 +101,21 @@ namespace MissionPlanner
         // Map layer containing the polygon points defined by the user
         public static MapLayer polygonPointLayer = null;
 
-        // Mission boundary
-        public static LocationCollection missionBounds = null;
-
         // Create list to hold pushpins
         public static List<Pushpin> pushPinList { get; set; }
 
         // Pushpin that is currently selected
         public static Pushpin SelectedPushpin { get; set; }
+
+        #endregion
+
+        #region Constants for mission settings
+
+        // Mission boundary
+        public static LocationCollection missionBounds = null;
+
+        // Mission settings loaded from file
+        public static MissionSettings missionSettings = null;
 
         #endregion
 
@@ -119,16 +126,16 @@ namespace MissionPlanner
         /// </summary>
         public class MissionSettings
         {
-            public AltitudeSettings Altitude { get; set; }
-            public OrientationSettings Orientation { get; set; }
-            public SpeedSettings Speed { get; set; }
-            public BatterySettings Battery { get; set; }
-            public GridSettings Grid { get; set; }
-            public MissionBoundarySettings MissionBoundary { get; set; }
+            public AltitudeSettings AltitudeSet { get; set; }
+            public OrientationSettings OrientationSet { get; set; }
+            public SpeedSettings SpeedSet { get; set; }
+            public BatterySettings BatterySet { get; set; }
+            public GridSettings GridSet { get; set; }
+            public MissionBoundarySettings MissionBoundarySet { get; set; }
 
             public class AltitudeSettings
             {
-                public int Altitude { get; set; }
+                public int Altitude { get; set; } = 0;
             }
 
             public class OrientationSettings
@@ -136,7 +143,7 @@ namespace MissionPlanner
                 public bool FixedDirection { get; set; } = false;
                 public bool TargetPtDirection { get; set; } = false;
                 public bool DroneFacingDirection { get; set; } = false;
-                public int Angle { get; set; }
+                public int Angle { get; set; } = 0;
 
                 public OrientationSettings()
                 {
@@ -152,21 +159,21 @@ namespace MissionPlanner
 
             public class SpeedSettings
             {
-                public int Speed { get; set; }
+                public int Speed { get; set; } = 10;
             }
 
             public class BatterySettings
             {
-                public bool ChooseNumFlightsForMe { get; set; }
+                public bool ChooseNumFlightsForMe { get; set; } = false;
             }
 
             public class GridSettings
             {
-                public bool Segmented { get; set; }
+                public bool Segmented { get; set; } = false;
             }
             public class MissionBoundarySettings
             {
-                public LocationCollection MissionBoundary { get; set; }
+                public LocationCollection MissionBoundary { get; set; } = null;
             }
         }
 
