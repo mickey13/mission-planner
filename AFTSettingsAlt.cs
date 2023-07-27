@@ -16,12 +16,6 @@ namespace MissionPlanner
                 trackAlt.Value = aftSetAdv.trackAltAdv.Value;
                 lblAltDisplay.Text = trackAlt.Value.ToString();
             }
-            // Sync with loaded settings
-            else if (missionSettings != null)
-            {
-                trackAlt.Value = missionSettings.AltitudeSet.Altitude;
-                lblAltDisplay.Text = trackAlt.Value.ToString();
-            }
         }
 
         private void btnBack_Click(object sender, EventArgs e)

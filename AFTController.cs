@@ -455,7 +455,8 @@ namespace MissionPlanner
         /// <summary>
         /// Instantiate and show advanced settings
         /// </summary>
-        /// <param name="saveMission"></Set to true if calling from settings window, false otherwise>
+        /// <param name="saveMission"></Set to true if calling from settings window, false if calling from side menu panel>
+        /// <param name="showForm"></Set to true if showing the form immediately, false if otherwise>
         public static void ShowAdvSettings(bool saveMission, bool showForm)
         {
             if ((aftSetAdv == null) || aftSetAdv.IsDisposed)
@@ -479,13 +480,12 @@ namespace MissionPlanner
             if (showForm)
             {
                 aftSetAdv.BringToFront();
+                aftSetAdv.Show();
             }
             else
             {
                 aftSetAdv.SendToBack();
             }
-
-            aftSetAdv.Show();
         }
 
         /// <summary>

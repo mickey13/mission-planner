@@ -118,7 +118,7 @@ namespace MissionPlanner
             bingMapsUserControl1.myMap.MouseDoubleClick += new MouseButtonEventHandler(MyMap_MouseDoubleClick);
             bingMapsUserControl1.myMap.MouseMove += new System.Windows.Input.MouseEventHandler(myMap_MouseMove);
             bingMapsUserControl1.myMap.Loaded += MyMap_Loaded;
-            aftNewMission.PolygonEditRequested += aftNewMission_PolygonEditRequested;
+            aftNewMission.GroundPolygonEditRequested += aftNewMission_GroundPolygonEditRequested;
         }
 
         private void AFTGround_Load(object sender, EventArgs e)
@@ -133,7 +133,7 @@ namespace MissionPlanner
             bingMapsUserControl1.myMap.SetView(locationStart, zoomStart);
         }
 
-        private void aftNewMission_PolygonEditRequested(object sender, PolygonEventArgs e)
+        private void aftNewMission_GroundPolygonEditRequested(object sender, PolygonEventArgs e)
         {
             // Handle event when it's raised in aftNewMission
             // Clear map before loading boundary from saved file
@@ -225,6 +225,10 @@ namespace MissionPlanner
         private void btnNewMission_Click(object sender, EventArgs e)
         {
             // Show new mission screen
+            if (aftNewMission == null || aftNewMission.IsDisposed)
+            {
+                aftNewMission = new AFTNewMission();
+            }
             aftNewMission.Show();
             aftNewMission.BringToFront();
         }
@@ -267,6 +271,10 @@ namespace MissionPlanner
         private void btnCreateMission_Click(object sender, EventArgs e)
         {
             // Show new mission screen
+            if (aftNewMission == null || aftNewMission.IsDisposed)
+            {
+                aftNewMission = new AFTNewMission();
+            }
             aftNewMission.Show();
             aftNewMission.BringToFront();
         }

@@ -3,14 +3,16 @@ using System.IO;
 using System.Text.Json;
 using System.Windows.Forms;
 using static MissionPlanner.AFTController;
-using static MissionPlanner.AFTGround;
 
 namespace MissionPlanner
 {
     public partial class AFTNewMission : Form
     {
         // Declare an event to notify subscribers when the map polygon needs to be edited
-        public event EventHandler<PolygonEventArgs> PolygonEditRequested;
+        public event EventHandler<AFTGround.PolygonEventArgs> GroundPolygonEditRequested;
+        public event EventHandler<AFTAir.PolygonEventArgs> AirPolygonEditRequested;
+
+        public event EventHandler<AFTSettingsAdv.MissionSettingsEventArgs> MissionSettingsEditRequested;
 
         public AFTNewMission()
         {
@@ -38,6 +40,9 @@ namespace MissionPlanner
             }
             else if (btnLoadMission.Image == filledButton)
             {
+                // Instantiate advanced settings to update them with mission file
+                ShowAdvSettings(false, false);
+
                 // Show an OpenFileDialog to let the user choose a file
                 var openFileDialog = new OpenFileDialog
                 {
@@ -88,21 +93,26 @@ namespace MissionPlanner
                     Console.WriteLine("File selection canceled by the user.");
                 }
 
+                // Send mission settings to aftSettingsAdv to update settings
+                MissionSettingsEditRequested?.Invoke(this, new AFTSettingsAdv.MissionSettingsEventArgs(
+                    missionSettings.AltitudeSet.Altitude,
+                    missionSettings.OrientationSet.Angle,
+                    missionSettings.SpeedSet.Speed,
+                    missionSettings.BatterySet.ChooseNumFlightsForMe,
+                    missionSettings.GridSet.Segmented));
+
                 // If there is a mission boundary in the loaded file
                 if (missionSettings.MissionBoundarySet.MissionBoundary != null)
                 {
                     if (aftGround != null)
                     {
-                        // Raise the event with the polygon coordinates as the event arguments
-                        if (PolygonEditRequested != null)
-                        {
-                            // Send mission boundary coords to aftGround to update polygon
-                            PolygonEditRequested.Invoke(this, new PolygonEventArgs(missionSettings.MissionBoundarySet.MissionBoundary));
-                        }
+                        // Send mission boundary coords to aftGround to update polygon
+                        GroundPolygonEditRequested?.Invoke(this, new AFTGround.PolygonEventArgs(missionSettings.MissionBoundarySet.MissionBoundary));
                     }
                     else if (aftAir != null)
                     {
-
+                        // Send mission boundary coords to aftAir to update polygon
+                        AirPolygonEditRequested?.Invoke(this, new AFTAir.PolygonEventArgs(missionSettings.MissionBoundarySet.MissionBoundary));
                     }
                 }
 

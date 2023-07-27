@@ -9,15 +9,6 @@ namespace MissionPlanner
         public AFTSettingsBat()
         {
             InitializeComponent();
-
-            // Sync with loaded settings
-            if (missionSettings != null)
-            {
-                if (missionSettings.BatterySet.ChooseNumFlightsForMe)
-                {
-                    btnNumFlights.Image = filledButton;
-                }
-            }
         }
 
         private void btnBack_Click(object sender, EventArgs e)

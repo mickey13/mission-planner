@@ -9,9 +9,34 @@ namespace MissionPlanner
 {
     public partial class AFTSettingsAdv : Form
     {
+        /// <summary>
+        /// Custom EventArgs for updating mission settings
+        /// </summary>
+        public class MissionSettingsEventArgs : EventArgs
+        {
+            public int Altitude { get; }
+            public int Angle { get; }
+            public int Speed { get; }
+            public bool ChooseNumFlightsForMe { get; }
+            public bool Segmented { get; }
+
+            public MissionSettingsEventArgs(int altitude, int angle, int speed, bool chooseNumFlightsForMe, bool segmented)
+            {
+                Altitude = altitude;
+                Angle = angle;
+                Speed = speed;
+                ChooseNumFlightsForMe = chooseNumFlightsForMe;
+                Segmented = segmented;
+            }
+        }
+
         public AFTSettingsAdv()
         {
             InitializeComponent();
+
+            aftNewMission.MissionSettingsEditRequested += aftNewMission_MissionSettingsEditRequested;
+
+
         }
 
         private void AFTSettingsAdv_Load(object sender, EventArgs e)
@@ -40,6 +65,30 @@ namespace MissionPlanner
             if (!((aftSetGrid == null) || aftSetGrid.IsDisposed))
             {
                 btnSegmentAdv.Image = aftSetGrid.btnSegment.Image;
+            }
+        }
+
+        private void aftNewMission_MissionSettingsEditRequested(object sender, MissionSettingsEventArgs e)
+        {
+            // Handle event when it's raised in aftNewMission
+            // Update mission settings from loaded file
+            trackAltAdv.Value = e.Altitude;
+            lblAltDisplay.Text = e.Altitude.ToString();
+
+            trackOriAdv.Value = e.Angle;
+            lblOriDisplay.Text = e.Angle.ToString();
+
+            trackSpeedAdv.Value = e.Speed;
+            lblSpeedDisplay.Text = e.Speed.ToString();
+
+            if (e.ChooseNumFlightsForMe)
+            {
+                btnNumFlightsAdv.Image = filledButton;
+            }
+
+            if (e.Segmented)
+            {
+                btnSegmentAdv.Image = filledButton;
             }
         }
 

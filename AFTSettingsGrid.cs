@@ -9,15 +9,6 @@ namespace MissionPlanner
         public AFTSettingsGrid()
         {
             InitializeComponent();
-
-            // Sync with loaded settings
-            if (missionSettings != null)
-            {
-                if (missionSettings.GridSet.Segmented)
-                {
-                    btnSegment.Image = filledButton;
-                }
-            }
         }
 
         private void btnBack_Click(object sender, EventArgs e)
