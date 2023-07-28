@@ -182,7 +182,8 @@ namespace MissionPlanner.GCSViews
             Scripting_cmd_stop_and_restart,
             Scripting_cmd_stop,
             HighLatency_Enable,
-            HighLatency_Disable
+            HighLatency_Disable,
+            Toggle_Safety_Switch,
         }
 
         private Dictionary<int, string> NIC_table = new Dictionary<int, string>()
@@ -1710,6 +1711,14 @@ namespace MissionPlanner.GCSViews
                     if (CMB_action.Text == actions.HighLatency_Disable.ToString())
                     {
                         MainV2.comPort.doHighLatency(false);
+                        ((Control)sender).Enabled = true;
+                        return;
+                    }
+                    if (CMB_action.Text == actions.Toggle_Safety_Switch.ToString())
+                    {
+                        var custom_mode = (MainV2.comPort.MAV.cs.sensors_enabled.motor_control && MainV2.comPort.MAV.cs.sensors_enabled.seen) ? 1u : 0u;
+                        var mode = new MAVLink.mavlink_set_mode_t() { custom_mode = custom_mode };
+                        MainV2.comPort.setMode(mode, MAVLink.MAV_MODE_FLAG.SAFETY_ARMED);
                         ((Control)sender).Enabled = true;
                         return;
                     }
@@ -4129,7 +4138,7 @@ namespace MissionPlanner.GCSViews
                 || GetTagMarker == null || create == null || update == null)
                 return;
 
-            var markers = gMapOverlay.Markers.ToArray();
+            var markers = gMapOverlay.Markers.Where(a => a is TMarker).ToArray();
 
             foreach (var item in list)
             {
@@ -4655,7 +4664,7 @@ namespace MissionPlanner.GCSViews
                 {
                     var alt = srtm.getAltitude(MouseDownStart.Lat, MouseDownStart.Lng);
 
-                    if (alt.currenttype != srtm.tiletype.valid)
+                    if (alt.currenttype != srtm.tiletype.valid && alt.currenttype != srtm.tiletype.ocean)
                     {
                         CustomMessageBox.Show("No SRTM data for this area", Strings.ERROR);
                         return;
