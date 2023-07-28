@@ -11,6 +11,9 @@ namespace MissionPlanner
         public AFTSaveMissionAs()
         {
             InitializeComponent();
+
+            // Apply drop shadow effect
+            (new MissionPlanner.DropShadow()).ApplyShadows(this);
         }
 
         private void btnSaveMission_Click(object sender, EventArgs e)
@@ -72,49 +75,49 @@ namespace MissionPlanner
             }
 
             // Close all settings & free up memory
-            if (!((aftSetCam == null) || aftSetCam.IsDisposed))
+            if (aftNewMission != null || !aftNewMission.IsDisposed)
             {
-                //aftSetCam.Close();
-                //aftSetCam = null;
-                aftSetCam.Hide();
+                aftNewMission.Close();
+                aftNewMission = null;
             }
 
-            if (!((aftSetAlt == null) || aftSetAlt.IsDisposed))
+            if (aftSetCam != null || !aftSetCam.IsDisposed)
             {
-                //aftSetAlt.Close();
-                //aftSetAlt = null;
-                aftSetAlt.Hide();
+                aftSetCam.Close();
+                aftSetCam = null;
             }
 
-            if (!((aftSetOri == null) || aftSetOri.IsDisposed))
+            if (aftSetAlt != null || !aftSetAlt.IsDisposed)
             {
-                //aftSetOri.Close();
-                //aftSetOri = null;
-                aftSetOri.Hide();
+                aftSetAlt.Close();
+                aftSetAlt = null;
             }
 
-            if (!((aftSetSpeed == null) || aftSetSpeed.IsDisposed))
+            if (aftSetOri != null || !aftSetOri.IsDisposed)
             {
-                //aftSetSpeed.Close();
-                //aftSetSpeed = null;
-                aftSetSpeed.Hide();
+                aftSetOri.Close();
+                aftSetOri = null;
             }
 
-            if (!((aftSetBat == null) || aftSetBat.IsDisposed))
+            if (aftSetSpeed != null || !aftSetSpeed.IsDisposed)
             {
-                //aftSetBat.Close();
-                //aftSetBat = null;
-                aftSetBat.Hide();
+                aftSetSpeed.Close();
+                aftSetSpeed = null;
             }
 
-            if (!((aftSetGrid == null) || aftSetGrid.IsDisposed))
+            if (aftSetBat != null || !aftSetBat.IsDisposed)
             {
-                //aftSetGrid.Close();
-                //aftSetGrid = null;
-                aftSetGrid.Hide();
+                aftSetBat.Close();
+                aftSetBat = null;
             }
 
-            if (!((aftSetAdv == null) || aftSetAdv.IsDisposed))
+            if (aftSetGrid != null || !aftSetGrid.IsDisposed)
+            {
+                aftSetGrid.Close();
+                aftSetGrid = null;
+            }
+
+            if (aftSetAdv != null || !aftSetAdv.IsDisposed)
             {
                 // Dispose of advanced settings because it syncs whenever it is created
                 aftSetAdv.Close();
@@ -122,7 +125,7 @@ namespace MissionPlanner
 
             }
 
-            if (!((aftSaveMission == null) || aftSaveMission.IsDisposed))
+            if (aftSaveMission != null || !aftSaveMission.IsDisposed)
             {
                 aftSaveMission.Close();
                 aftSaveMission = null;

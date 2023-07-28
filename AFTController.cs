@@ -29,8 +29,8 @@ namespace MissionPlanner
         public static AFTAir aftAir = null;
         public static MainV2 custom = null;
 
-        // aftGround sub-forms
-        public static AFTNewMission aftNewMission = null;
+        // Sub-forms
+        public static AFTNewMission aftNewMission = new AFTNewMission(); // Initialize early so that polygon edit event works
         public static AFTChecklist checklist = null;
         public static AFTSettingsAdv aftSetAdv = null;
         public static AFTReturnHome aftReturnHome = null;

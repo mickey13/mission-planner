@@ -11,6 +11,7 @@ namespace MissionPlanner
 {
     public partial class AFTGround : Form
     {
+
         // Vector from mouse to selected pushpin
         Vector _mouseToMarker;
 
@@ -110,9 +111,6 @@ namespace MissionPlanner
             bingMapsUserControl1.myMap.CredentialsProvider = new ApplicationIdCredentialsProvider(bingMapsKey);
             _initializeMapChildren();
             bingMapsUserControl1.myMap.Focus();
-
-            // Initialize early so that polygon edit event works 
-            aftNewMission = new AFTNewMission();
 
             // Subscribe to events for mouse double click, mouse move, map loading, and for initiating a polygon edit
             bingMapsUserControl1.myMap.MouseDoubleClick += new MouseButtonEventHandler(MyMap_MouseDoubleClick);
@@ -270,7 +268,7 @@ namespace MissionPlanner
 
         private void btnCreateMission_Click(object sender, EventArgs e)
         {
-            // Show new mission screen
+            // Instantiate and show new mission screen
             if (aftNewMission == null || aftNewMission.IsDisposed)
             {
                 aftNewMission = new AFTNewMission();

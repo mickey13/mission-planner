@@ -111,9 +111,6 @@ namespace MissionPlanner
             _initializeMapChildren();
             bingMapsUserControl1.myMap.Focus();
 
-            // Initialize early so that polygon edit event works 
-            aftNewMission = new AFTNewMission();
-
             // Subscribe to events for mouse double click, mouse move, map loading, and for initiating a polygon edit
             bingMapsUserControl1.myMap.MouseDoubleClick += new MouseButtonEventHandler(MyMap_MouseDoubleClick);
             bingMapsUserControl1.myMap.MouseMove += new System.Windows.Input.MouseEventHandler(myMap_MouseMove);
