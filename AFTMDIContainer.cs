@@ -12,6 +12,7 @@ namespace MissionPlanner
 
             // Adding an invisible menustrip to the parent container hides all menu bars on the child forms.
             // But, child forms need to have WindowState = Maximized
+            // Adding this causes the MainV2 top menubar to not render
             menuStrip1.Visible = false;
         }
 

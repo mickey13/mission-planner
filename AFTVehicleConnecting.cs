@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using static MissionPlanner.AFTController;
+using static MissionPlanner.AFTGround;
 
 namespace MissionPlanner
 {
@@ -13,7 +14,9 @@ namespace MissionPlanner
 
         private void AFTVehicleConnecting_Load(object sender, EventArgs e)
         {
-            /*Connect drone*/
+            //Connect drone
+            Connect();
+
 
             // Show pre-flight checklist
             if ((checklist == null) || checklist.IsDisposed)

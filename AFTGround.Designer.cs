@@ -50,10 +50,22 @@
             this.btnLoadMission = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.sideMenuPanel = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
             this.btnVidDownlink = new System.Windows.Forms.Button();
             this.btnFlightLines = new System.Windows.Forms.Button();
             this.btnCreateMission = new System.Windows.Forms.Button();
+            this.lblAltitude = new System.Windows.Forms.Label();
+            this.lblGSpeed = new System.Windows.Forms.Label();
+            this.lblWPDist = new System.Windows.Forms.Label();
+            this.lblYaw = new System.Windows.Forms.Label();
+            this.lblVSpeed = new System.Windows.Forms.Label();
+            this.lblMAVDist = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.picFlightLines = new System.Windows.Forms.PictureBox();
             this.elementHost1 = new System.Windows.Forms.Integration.ElementHost();
             this.bingMapsUserControl1 = new MissionPlanner.BingMapsUserControl();
             this.topPanel.SuspendLayout();
@@ -69,6 +81,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.vertLine2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.sideMenuPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picFlightLines)).BeginInit();
             this.SuspendLayout();
             // 
             // topPanel
@@ -321,7 +334,18 @@
             // sideMenuPanel
             // 
             this.sideMenuPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
+            this.sideMenuPanel.Controls.Add(this.label6);
+            this.sideMenuPanel.Controls.Add(this.label5);
+            this.sideMenuPanel.Controls.Add(this.label4);
+            this.sideMenuPanel.Controls.Add(this.label3);
+            this.sideMenuPanel.Controls.Add(this.label2);
             this.sideMenuPanel.Controls.Add(this.label1);
+            this.sideMenuPanel.Controls.Add(this.lblMAVDist);
+            this.sideMenuPanel.Controls.Add(this.lblVSpeed);
+            this.sideMenuPanel.Controls.Add(this.lblYaw);
+            this.sideMenuPanel.Controls.Add(this.lblWPDist);
+            this.sideMenuPanel.Controls.Add(this.lblGSpeed);
+            this.sideMenuPanel.Controls.Add(this.lblAltitude);
             this.sideMenuPanel.Controls.Add(this.pictureBox1);
             this.sideMenuPanel.Controls.Add(this.btnLoadMission);
             this.sideMenuPanel.Controls.Add(this.btnPreFlightCheck);
@@ -334,16 +358,6 @@
             this.sideMenuPanel.Name = "sideMenuPanel";
             this.sideMenuPanel.Size = new System.Drawing.Size(288, 703);
             this.sideMenuPanel.TabIndex = 21;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(17, 475);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(248, 25);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "put in-flight dashboard here";
             // 
             // btnVidDownlink
             // 
@@ -390,12 +404,139 @@
             this.btnCreateMission.UseVisualStyleBackColor = true;
             this.btnCreateMission.Click += new System.EventHandler(this.btnCreateMission_Click);
             // 
+            // lblAltitude
+            // 
+            this.lblAltitude.AutoSize = true;
+            this.lblAltitude.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAltitude.Location = new System.Drawing.Point(32, 373);
+            this.lblAltitude.Name = "lblAltitude";
+            this.lblAltitude.Size = new System.Drawing.Size(80, 17);
+            this.lblAltitude.TabIndex = 7;
+            this.lblAltitude.Text = "Altitude (m)";
+            // 
+            // lblGSpeed
+            // 
+            this.lblGSpeed.AutoSize = true;
+            this.lblGSpeed.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblGSpeed.Location = new System.Drawing.Point(137, 373);
+            this.lblGSpeed.Name = "lblGSpeed";
+            this.lblGSpeed.Size = new System.Drawing.Size(137, 17);
+            this.lblGSpeed.TabIndex = 8;
+            this.lblGSpeed.Text = "Ground Speed (m/s)";
+            // 
+            // lblWPDist
+            // 
+            this.lblWPDist.AutoSize = true;
+            this.lblWPDist.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblWPDist.Location = new System.Drawing.Point(32, 479);
+            this.lblWPDist.Name = "lblWPDist";
+            this.lblWPDist.Size = new System.Drawing.Size(99, 17);
+            this.lblWPDist.TabIndex = 9;
+            this.lblWPDist.Text = "Dist to WP (m)";
+            // 
+            // lblYaw
+            // 
+            this.lblYaw.AutoSize = true;
+            this.lblYaw.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblYaw.Location = new System.Drawing.Point(172, 479);
+            this.lblYaw.Name = "lblYaw";
+            this.lblYaw.Size = new System.Drawing.Size(72, 17);
+            this.lblYaw.TabIndex = 10;
+            this.lblYaw.Text = "Yaw (deg)";
+            // 
+            // lblVSpeed
+            // 
+            this.lblVSpeed.AutoSize = true;
+            this.lblVSpeed.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblVSpeed.Location = new System.Drawing.Point(11, 588);
+            this.lblVSpeed.Name = "lblVSpeed";
+            this.lblVSpeed.Size = new System.Drawing.Size(136, 17);
+            this.lblVSpeed.TabIndex = 11;
+            this.lblVSpeed.Text = "Vertical Speed (m/s)";
+            // 
+            // lblMAVDist
+            // 
+            this.lblMAVDist.AutoSize = true;
+            this.lblMAVDist.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMAVDist.Location = new System.Drawing.Point(153, 588);
+            this.lblMAVDist.Name = "lblMAVDist";
+            this.lblMAVDist.Size = new System.Drawing.Size(106, 17);
+            this.lblMAVDist.TabIndex = 12;
+            this.lblMAVDist.Text = "Dist to MAV (m)";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 26F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(32, 416);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(84, 39);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "0.00";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 26F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(168, 416);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(84, 39);
+            this.label2.TabIndex = 14;
+            this.label2.Text = "0.00";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 26F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(32, 519);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(84, 39);
+            this.label3.TabIndex = 15;
+            this.label3.Text = "0.00";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 26F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(168, 519);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(84, 39);
+            this.label4.TabIndex = 16;
+            this.label4.Text = "0.00";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 26F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(32, 635);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(84, 39);
+            this.label5.TabIndex = 17;
+            this.label5.Text = "0.00";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 26F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(168, 635);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(84, 39);
+            this.label6.TabIndex = 18;
+            this.label6.Text = "0.00";
+            // 
+            // picFlightLines
+            // 
+            this.picFlightLines.Location = new System.Drawing.Point(542, 545);
+            this.picFlightLines.Name = "picFlightLines";
+            this.picFlightLines.Size = new System.Drawing.Size(316, 177);
+            this.picFlightLines.TabIndex = 23;
+            this.picFlightLines.TabStop = false;
+            // 
             // elementHost1
             // 
-            this.elementHost1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.elementHost1.Location = new System.Drawing.Point(0, 0);
             this.elementHost1.Name = "elementHost1";
-            this.elementHost1.Size = new System.Drawing.Size(1284, 781);
+            this.elementHost1.Size = new System.Drawing.Size(750, 500);
             this.elementHost1.TabIndex = 22;
             this.elementHost1.Text = "elementHost1";
             this.elementHost1.Child = this.bingMapsUserControl1;
@@ -412,13 +553,13 @@
             this.Controls.Add(this.sideMenuPanel);
             this.Controls.Add(this.topPanel);
             this.Controls.Add(this.elementHost1);
+            this.Controls.Add(this.picFlightLines);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "AFTGround";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Ground";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.AFTGround_Load);
             this.topPanel.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -434,6 +575,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.sideMenuPanel.ResumeLayout(false);
             this.sideMenuPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picFlightLines)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -463,8 +605,20 @@
         private System.Windows.Forms.Button btnFlightLines;
         private System.Windows.Forms.Button btnCreateMission;
         private System.Windows.Forms.Button btnFly;
-        private System.Windows.Forms.Label label1;
         internal System.Windows.Forms.Integration.ElementHost elementHost1;
         internal BingMapsUserControl bingMapsUserControl1;
+        private System.Windows.Forms.Label lblMAVDist;
+        private System.Windows.Forms.Label lblVSpeed;
+        private System.Windows.Forms.Label lblYaw;
+        private System.Windows.Forms.Label lblWPDist;
+        private System.Windows.Forms.Label lblGSpeed;
+        private System.Windows.Forms.Label lblAltitude;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.PictureBox picFlightLines;
     }
 }

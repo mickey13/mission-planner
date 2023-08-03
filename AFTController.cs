@@ -24,6 +24,7 @@ namespace MissionPlanner
         #region Form declarations
 
         // Main forms
+        //public static AFTMDIContainer aftContainer = null;
         public static MainAFT aftMain = null;
         public static AFTGround aftGround = null;
         public static AFTAir aftAir = null;
