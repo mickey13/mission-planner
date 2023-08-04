@@ -12,9 +12,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
-using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -30,27 +28,7 @@ namespace MissionPlanner
 
         #region From MainV2, for MAVLink
 
-        //private static readonly ILog log =
-        //LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        /*
-        public static event EventHandler LayoutChanged;
-
-        private static DisplayView _displayConfiguration = File.Exists(DisplayViewExtensions.custompath)
-            ? new DisplayView().Custom()
-            : new DisplayView().Advanced();
-
-        public static DisplayView DisplayConfiguration
-        {
-            get { return _displayConfiguration; }
-            set
-            {
-                _displayConfiguration = value;
-                Settings.Instance["displayview"] = _displayConfiguration.ConvertToString();
-                LayoutChanged?.Invoke(null, EventArgs.Empty);
-            }
-        }
-        */
-        /// <summary>
+        /*/// <summary>
         /// Active Comport interface
         /// </summary>
         public static MAVLinkInterface comPort
@@ -70,57 +48,44 @@ namespace MissionPlanner
         }
 
         static MAVLinkInterface _comPort = new MAVLinkInterface();
-
+        */
         /// <summary>
         /// passive comports
         /// </summary>
-        public static List<MAVLinkInterface> Comports = new List<MAVLinkInterface>();
+        //public static List<MAVLinkInterface> Comports = new List<MAVLinkInterface>();
 
-        /// <summary>
-        /// Comport name
-        /// </summary>
-        //public static string comPortName = "";
-
-        //public static int comPortBaud = 57600;
-
+        /*
         public static string inputtedPortName = "preset";
         public static string inputtedBaud = "57600";
-
+        */
+        /*
         /// <summary>
         /// store the time we first connect
         /// </summary>
         public static DateTime connecttime = DateTime.Now;
 
-        DateTime nodatawarning = DateTime.Now;
+        public static DateTime nodatawarning = DateTime.Now;
 
         /// <summary>
         /// track the last heartbeat sent
         /// </summary>
-        private DateTime heatbeatSend = DateTime.Now;
-
-        /// <summary>
-        /// declared here if i want a "single" instance of the form
-        /// ie configuration gets reloaded on every click
-        /// </summary>
-        //public GCSViews.FlightData FlightData;
-
-        //public static GCSViews.FlightPlanner FlightPlanner;
-
-        //public static bool UseCachedParams { get; set; } = false;
-
+        public static DateTime heatbeatSend = DateTime.Now;
+        */
+        /*
         public static string titlebar;
 
         /// <summary>
         /// controls the main serial reader thread
         /// </summary>
-        bool serialThread = false;
+        public static bool serialThread = false;
 
-        bool pluginthreadrun = false;
+        public static bool pluginthreadrun = false;
 
-        Thread pluginthread;
+        public static Thread pluginthread;
 
-        ManualResetEvent SerialThreadrunner = new ManualResetEvent(false);
-
+        public static ManualResetEvent SerialThreadrunner = new ManualResetEvent(false);
+        */
+        /*
         /// <summary>
         /// speech engine enable
         /// </summary>
@@ -151,47 +116,17 @@ namespace MissionPlanner
         /// spech engine static class
         /// </summary>
         public static ISpeech speechEngine { get; set; }
+        */
 
-        /// <summary>
-        /// This 'Control' is the toolstrip control that holds the comport combo, baudrate combo etc
-        /// Otiginally seperate controls, each hosted in a toolstip sqaure, combined into this custom
-        /// control for layout reasons.
-        /// </summary>
-        //public static ConnectionControl _connectionControl;
-
-        void comPort_MavChanged(object sender, EventArgs e)
+        public void comPort_MavChanged(object sender, EventArgs e)
         {
-            //log.Info($"Mav Changed {AFTGround.comPort.MAV.sysid}");
+            Console.WriteLine($"Mav Changed {AFTController.comPort.MAV.sysid}");
 
-            HUD.Custom.src = AFTGround.comPort.MAV.cs;
+            HUD.Custom.src = AFTController.comPort.MAV.cs;
 
-            CustomWarning.defaultsrc = AFTGround.comPort.MAV.cs;
+            CustomWarning.defaultsrc = AFTController.comPort.MAV.cs;
 
-            MissionPlanner.Controls.PreFlight.CheckListItem.defaultsrc = AFTGround.comPort.MAV.cs;
-            /*
-            if (this.InvokeRequired)
-            {
-                this.BeginInvoke((MethodInvoker)delegate
-                {
-                    //enable the payload control page if a mavlink gimbal is detected
-                    if (aftGround.FlightData != null)
-                    {
-                        aftGround.FlightData.updatePayloadTabVisible();
-                    }
-
-                    //_connectionControl.UpdateSysIDS();
-                });
-            }
-            else
-            {
-                //enable the payload control page if a mavlink gimbal is detected
-                if (aftGround.FlightData != null)
-                {
-                    aftGround.FlightData.updatePayloadTabVisible();
-                }
-
-                //_connectionControl.UpdateSysIDS();
-            }*/
+            MissionPlanner.Controls.PreFlight.CheckListItem.defaultsrc = AFTController.comPort.MAV.cs;
         }
 
         void SystemEvents_PowerModeChanged(object sender, Microsoft.Win32.PowerModeChangedEventArgs e)
@@ -199,13 +134,12 @@ namespace MissionPlanner
             // try prevent crash on resume
             if (e.Mode == Microsoft.Win32.PowerModes.Suspend)
             {
-                doDisconnect(AFTGround.comPort);
+                doDisconnect(AFTController.comPort);
             }
         }
-
+        /*
         public static void doDisconnect(MAVLinkInterface comPort)
         {
-            //log.Info("We are disconnecting");
             try
             {
                 if (speechEngine != null) // cancel all pending speech
@@ -216,30 +150,8 @@ namespace MissionPlanner
             }
             catch (Exception ex)
             {
-                //log.Error(ex);
+                Console.WriteLine(ex.Message);
             }
-            /*
-            // now that we have closed the connection, cancel the connection stats
-            // so that the 'time connected' etc does not grow, but the user can still
-            // look at the now frozen stats on the still open form
-            try
-            {
-                // if terminal is used, then closed using this button.... exception
-                if (this.connectionStatsForm != null)
-                    ((ConnectionStats)this.connectionStatsForm.Controls[0]).StopUpdates();
-            }
-            catch
-            {
-            }*/
-
-            // refresh config window if needed
-            //if (MyView.current != null)
-            //{
-            //if (MyView.current.Name == "HWConfig")
-            //MyView.ShowScreen("HWConfig");
-            //if (MyView.current.Name == "SWConfig")
-            //MyView.ShowScreen("SWConfig");
-            //}
 
             try
             {
@@ -258,108 +170,30 @@ namespace MissionPlanner
             catch
             {
             }
-
-            //this.MenuConnect.Image = global::MissionPlanner.Properties.Resources.light_connect_icon;
-        }
-        /*
-        void adsb_UpdatePlanePosition(object sender, MissionPlanner.Utilities.adsb.PointLatLngAltHdg adsb)
-        {
-            lock (adsblock)
-            {
-                var id = adsb.Tag;
-
-                if (MainV2.instance.adsbPlanes.ContainsKey(id))
-                {
-                    // update existing
-                    ((adsb.PointLatLngAltHdg)instance.adsbPlanes[id]).Lat = adsb.Lat;
-                    ((adsb.PointLatLngAltHdg)instance.adsbPlanes[id]).Lng = adsb.Lng;
-                    ((adsb.PointLatLngAltHdg)instance.adsbPlanes[id]).Alt = adsb.Alt;
-                    ((adsb.PointLatLngAltHdg)instance.adsbPlanes[id]).Heading = adsb.Heading;
-                    ((adsb.PointLatLngAltHdg)instance.adsbPlanes[id]).Time = DateTime.Now;
-                    ((adsb.PointLatLngAltHdg)instance.adsbPlanes[id]).CallSign = adsb.CallSign;
-                    ((adsb.PointLatLngAltHdg)instance.adsbPlanes[id]).Squawk = adsb.Squawk;
-                    ((adsb.PointLatLngAltHdg)instance.adsbPlanes[id]).Raw = adsb.Raw;
-                    ((adsb.PointLatLngAltHdg)instance.adsbPlanes[id]).Speed = adsb.Speed;
-                }
-                else
-                {
-                    // create new plane
-                    MainV2.instance.adsbPlanes[id] =
-                        new adsb.PointLatLngAltHdg(adsb.Lat, adsb.Lng,
-                                adsb.Alt, adsb.Heading, adsb.Speed, id,
-                                DateTime.Now)
-                        { CallSign = adsb.CallSign, Squawk = adsb.Squawk, Raw = adsb.Raw };
-                }
-            }
-
-            try
-            {
-                // dont rebroadcast something that came from the drone
-                if (sender != null && sender is MAVLinkInterface)
-                    return;
-
-                MAVLink.mavlink_adsb_vehicle_t packet = new MAVLink.mavlink_adsb_vehicle_t();
-
-                packet.altitude = (int)(adsb.Alt * 1000);
-                packet.altitude_type = (byte)MAVLink.ADSB_ALTITUDE_TYPE.GEOMETRIC;
-                packet.callsign = adsb.CallSign.MakeBytes();
-                packet.squawk = adsb.Squawk;
-                packet.emitter_type = (byte)MAVLink.ADSB_EMITTER_TYPE.NO_INFO;
-                packet.heading = (ushort)(adsb.Heading * 100);
-                packet.lat = (int)(adsb.Lat * 1e7);
-                packet.lon = (int)(adsb.Lng * 1e7);
-                packet.ICAO_address = uint.Parse(adsb.Tag, NumberStyles.HexNumber);
-
-                packet.flags = (ushort)(MAVLink.ADSB_FLAGS.VALID_ALTITUDE | MAVLink.ADSB_FLAGS.VALID_COORDS |
-                                            MAVLink.ADSB_FLAGS.VALID_HEADING | MAVLink.ADSB_FLAGS.VALID_CALLSIGN);
-
-                //send to current connected
-                MainV2.comPort.sendPacket(packet, MainV2.comPort.MAV.sysid, MainV2.comPort.MAV.compid);
-            }
-            catch
-            {
-
-            }
         }
         */
-        public static void doConnect(MAVLinkInterface comPort, string portname, string baud, bool getparams = true, bool showui = true)
+        // Keep here since it references private functions
+        public static void _doConnect(MAVLinkInterface comPort, string portname, string baud, bool getparams = true, bool showui = true)
         {
             bool skipconnectcheck = false;
-            //log.Info($"We are connecting to {portname} {baud}");
+            Console.WriteLine($"Connecting to {portname} {baud}");
+
             switch (portname)
             {
                 case "preset":
                     skipconnectcheck = true;
-                    /*this.BeginInvokeIfRequired(() =>
-                    {
-                        if (comPort.BaseStream is TcpSerial)
-                            _connectionControl.CMB_serialport.Text = "TCP";
-                        if (comPort.BaseStream is UdpSerial)
-                            _connectionControl.CMB_serialport.Text = "UDP";
-                        if (comPort.BaseStream is UdpSerialConnect)
-                            _connectionControl.CMB_serialport.Text = "UDPCl";
-                        if (comPort.BaseStream is SerialPort)
-                        {
-                            _connectionControl.CMB_serialport.Text = comPort.BaseStream.PortName;
-                            _connectionControl.CMB_baudrate.Text = comPort.BaseStream.BaudRate.ToString();
-                        }
-                    });*/
                     break;
                 case "TCP":
                     comPort.BaseStream = new TcpSerial();
-                    //_connectionControl.CMB_serialport.Text = "TCP";
                     break;
                 case "UDP":
                     comPort.BaseStream = new UdpSerial();
-                    //_connectionControl.CMB_serialport.Text = "UDP";
                     break;
                 case "WS":
                     comPort.BaseStream = new WebSocket();
-                    //_connectionControl.CMB_serialport.Text = "WS";
                     break;
                 case "UDPCl":
                     comPort.BaseStream = new UdpSerialConnect();
-                    //_connectionControl.CMB_serialport.Text = "UDPCl";
                     break;
                 case "AUTO":
                     // do autoscan
@@ -382,7 +216,6 @@ namespace MissionPlanner
 
                             if (DateTime.Now > deadline)
                             {
-                                //_connectionControl.IsConnected(false);
                                 throw new Exception(Strings.Timeout);
                             }
                         }
@@ -393,16 +226,6 @@ namespace MissionPlanner
                     comPort.BaseStream = new SerialPort();
                     break;
             }
-            /*
-            // Tell the connection UI that we are now connected.
-            this.BeginInvokeIfRequired(() =>
-            {
-                _connectionControl.IsConnected(true);
-
-                // Here we want to reset the connection stats counter etc.
-                this.ResetConnectionStats();
-            });
-            */
             comPort.MAV.cs.ResetInternals();
 
             //cleanup any log being played
@@ -413,12 +236,11 @@ namespace MissionPlanner
 
             try
             {
-                //log.Info("Set Portname");
-                // set port, then options
+                // Set port name, then options
                 if (portname.ToLower() != "preset")
                     comPort.BaseStream.PortName = portname;
 
-                //log.Info("Set Baudrate");
+                // Set baudrate
                 try
                 {
                     if (baud != "" && baud != "0" && baud.IsNumber())
@@ -426,14 +248,14 @@ namespace MissionPlanner
                 }
                 catch (Exception exp)
                 {
-                    //log.Error(exp);
+                    Console.WriteLine($"Error: {exp.Message}");
                 }
 
                 // prevent serialreader from doing anything
                 comPort.giveComport = true;
 
-                //log.Info("About to do dtr if needed");
-                /*// reset on connect logic.
+                // Do dtr if needed
+                // reset on connect logic.
                 if (Settings.Instance.GetBoolean("CHK_resetapmonconnect") == true)
                 {
                     //log.Info("set dtr rts to false");
@@ -442,51 +264,9 @@ namespace MissionPlanner
 
                     comPort.BaseStream.toggleDTR();
                 }
-                */
+
                 comPort.giveComport = false;
-                /*
-                // setup to record new logs
-                try
-                {
-                    Directory.CreateDirectory(Settings.Instance.LogDir);
-                    lock (this)
-                    {
-                        // create log names
-                        var dt = DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss");
-                        var tlog = Settings.Instance.LogDir + Path.DirectorySeparatorChar +
-                                   dt + ".tlog";
-                        var rlog = Settings.Instance.LogDir + Path.DirectorySeparatorChar +
-                                   dt + ".rlog";
 
-                        // check if this logname already exists
-                        int a = 1;
-                        while (File.Exists(tlog))
-                        {
-                            Thread.Sleep(1000);
-                            // create new names with a as an index
-                            dt = DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss") + "-" + a.ToString();
-                            tlog = Settings.Instance.LogDir + Path.DirectorySeparatorChar +
-                                   dt + ".tlog";
-                            rlog = Settings.Instance.LogDir + Path.DirectorySeparatorChar +
-                                   dt + ".rlog";
-                        }
-
-                        //open the logs for writing
-                        comPort.logfile =
-                            new BufferedStream(
-                                File.Open(tlog, FileMode.CreateNew, FileAccess.ReadWrite, FileShare.None));
-                        comPort.rawlogfile =
-                            new BufferedStream(
-                                File.Open(rlog, FileMode.CreateNew, FileAccess.ReadWrite, FileShare.None));
-                        log.Info($"creating logfile {dt}.tlog");
-                    }
-                }
-                catch (Exception exp2)
-                {
-                    log.Error(exp2);
-                    CustomMessageBox.Show(Strings.Failclog);
-                } // soft fail
-                */
                 // reset connect time - for timeout functions
                 connecttime = DateTime.Now;
 
@@ -512,7 +292,7 @@ namespace MissionPlanner
                 //158	MAV_COMP_ID_PERIPHERAL	Generic autopilot peripheral component ID. Meant for devices that do not implement the parameter microservice.
                 if (getparams && comPort.MAV.compid != (byte)MAVLink.MAV_COMPONENT.MAV_COMP_ID_PERIPHERAL)
                 {
-                    if (/*UseCachedParams && */File.Exists(comPort.MAV.ParamCachePath) &&
+                    if (File.Exists(comPort.MAV.ParamCachePath) &&
                         new FileInfo(comPort.MAV.ParamCachePath).LastWriteTime > DateTime.Now.AddHours(-1))
                     {
                         File.ReadAllText(comPort.MAV.ParamCachePath).FromJSON<MAVLink.MAVLinkParamList>()
@@ -542,7 +322,7 @@ namespace MissionPlanner
                     }
                 }
 
-                // check for newer firmware
+                // Check for newer firmware
                 if (showui)
                     Task.Run(() =>
                     {
@@ -554,7 +334,7 @@ namespace MissionPlanner
 
                             foreach (var item in softwares)
                             {
-                                // check primare firmware type. ie arudplane, arducopter
+                                // check primary firmware type. ie arudplane, arducopter
                                 if (fields1[0].ToLower().Contains(item.VehicleType.ToLower()))
                                 {
                                     Version ver1 = VersionDetection.GetVersion(comPort.MAV.VersionString);
@@ -575,102 +355,65 @@ namespace MissionPlanner
                         }
                         catch (Exception ex)
                         {
-                            //log.Error(ex);
+                            Console.WriteLine($"Error: {ex.Message}");
                         }
                     });
 
-                //_connectionControl.UpdateSysIDS();
-
-                //FlightData.CheckBatteryShow();
-
-                // save the baudrate for this port
-                //Settings.Instance[_connectionControl.CMB_serialport.Text.Replace(" ", "_") + "_BAUD"] =
-                //_connectionControl.CMB_baudrate.Text;
-
-                //this.Text = titlebar + " " + comPort.MAV.VersionString;
-                /*
-                // refresh config window if needed
-                if (MyView.current != null && showui)
-                {
-                    if (MyView.current.Name == "HWConfig")
-                        MyView.ShowScreen("HWConfig");
-                    if (MyView.current.Name == "SWConfig")
-                        MyView.ShowScreen("SWConfig");
-                }
-                */
-                /*// load wps on connect option.
-                if (Settings.Instance.GetBoolean("loadwpsonconnect") == true && showui)
-                {
-                    // only do it if we are connected.
-                    if (comPort.BaseStream.IsOpen)
-                    {
-                        //MenuFlightPlanner_Click(null, null);
-                        FlightPlanner.BUT_read_Click(null, null);
-                    }
-                }
-                */
-                // get any rallypoints
-                if (AFTGround.comPort.MAV.param.ContainsKey("RALLY_TOTAL") &&
-                    int.Parse(AFTGround.comPort.MAV.param["RALLY_TOTAL"].ToString()) > 0 && showui)
+                // Get any rallypoints
+                if (AFTController.comPort.MAV.param.ContainsKey("RALLY_TOTAL") &&
+                    int.Parse(AFTController.comPort.MAV.param["RALLY_TOTAL"].ToString()) > 0 && showui)
                 {
                     try
                     {
-                        if ((AFTGround.comPort.MAV.cs.capabilities & (uint)MAVLink.MAV_PROTOCOL_CAPABILITY.MISSION_RALLY) >= 0)
-                        {/*
-                            if (!MainV2.comPort.BaseStream.IsOpen)
-                            {
-                                CustomMessageBox.Show(Strings.PleaseConnect);
-                                return;
-                            }*/
-
-                            mav_mission.download(AFTGround.comPort, AFTGround.comPort.MAV.sysid, AFTGround.comPort.MAV.compid,
+                        if ((AFTController.comPort.MAV.cs.capabilities & (uint)MAVLink.MAV_PROTOCOL_CAPABILITY.MISSION_RALLY) >= 0)
+                        {
+                            mav_mission.download(AFTController.comPort, AFTController.comPort.MAV.sysid, AFTController.comPort.MAV.compid,
                                 MAVLink.MAV_MISSION_TYPE.RALLY).AwaitSync();
                             return;
                         }
 
-                        if (AFTGround.comPort.MAV.param["RALLY_TOTAL"] == null || int.Parse(AFTGround.comPort.MAV.param["RALLY_TOTAL"].ToString()) < 1)
+                        if (AFTController.comPort.MAV.param["RALLY_TOTAL"] == null || int.Parse(AFTController.comPort.MAV.param["RALLY_TOTAL"].ToString()) < 1)
                         {
-                            CustomMessageBox.Show("Not Supported or Nothing to Download");
+                            Console.WriteLine("Not Supported or Nothing to Download");
                             return;
                         }
 
-                        //rallypointoverlay.Markers.Clear();
+                        // Reset layers
                         aftGround._initializeMapChildren();
 
-                        int count = int.Parse(AFTGround.comPort.MAV.param["RALLY_TOTAL"].ToString());
+                        // Total # of rally points
+                        int count = int.Parse(AFTController.comPort.MAV.param["RALLY_TOTAL"].ToString());
 
                         for (int a = 0; a < (count); a++)
                         {
+                            // Update rally point, aka home location (only 1 is supported at this time)
+                            // It will overwrite the first polygon location with every rally point,
+                            // leaving the last rally point as the new home location
                             try
                             {
-                                var plla = AFTGround.comPort.getRallyPoint(a).AwaitSync();
+                                var plla = AFTController.comPort.getRallyPoint(a).AwaitSync();
                                 count = plla.total;
 
                                 Location pll = new Location(plla.plla.Lat, plla.plla.Lng);
                                 aftGround._updatePolygonBoundary(pll);
-                                /*rallypointoverlay.Markers.Add(new GMapMarkerRallyPt(new PointLatLng(plla.plla.Lat, plla.plla.Lng))
-                                {
-                                    Alt = (int)plla.plla.Alt,
-                                    ToolTipMode = MarkerTooltipMode.OnMouseOver,
-                                    ToolTipText = "Rally Point" + "\nAlt: " + (plla.plla.Alt * CurrentState.multiplieralt)
-                                });*/
+
+                                // Leave until more rally points supported
+                                Console.WriteLine("Only 1 rally point supported at this time; see doConnect() in AFTController.cs");
                             }
                             catch
                             {
-                                CustomMessageBox.Show("Failed to get rally point", Strings.ERROR);
+                                Console.WriteLine("Failed to get rally point", Strings.ERROR);
                                 return;
                             }
                         }
 
-                        //MainMap.UpdateMarkerLocalPosition(rallypointoverlay.Markers[0]);
+                        // Set home position
                         var newHomeLat = newPolygon.Locations[0].Latitude;
                         var newHomeLng = newPolygon.Locations[0].Longitude;
                         var newHomeAlt = newPolygon.Locations[0].Altitude;
 
                         PointLatLngAlt newDroneHome = new PointLatLngAlt(newHomeLat, newHomeLng, newHomeAlt);
-                        AFTGround.comPort.MAV.cs.PlannedHomeLocation = newDroneHome;
-
-                        //MainMap.Invalidate();
+                        AFTController.comPort.MAV.cs.PlannedHomeLocation = newDroneHome;
 
                         // Max distance between rally points
                         double maxdist = 0;
@@ -699,123 +442,81 @@ namespace MissionPlanner
                     }
                     catch (Exception ex)
                     {
-                        //log.Warn(ex);
+                        Console.WriteLine($"Error: {ex.Message}");
                     }
                 }
 
-                // get any fences
-                if (AFTGround.comPort.MAV.param.ContainsKey("FENCE_TOTAL") &&
-                    int.Parse(AFTGround.comPort.MAV.param["FENCE_TOTAL"].ToString()) > 1 &&
-                    AFTGround.comPort.MAV.param.ContainsKey("FENCE_ACTION") && showui)
+                // Get any fences
+                if (AFTController.comPort.MAV.param.ContainsKey("FENCE_TOTAL") &&
+                    int.Parse(AFTController.comPort.MAV.param["FENCE_TOTAL"].ToString()) > 1 &&
+                    AFTController.comPort.MAV.param.ContainsKey("FENCE_ACTION") && showui)
                 {
                     try
                     {
-                        bool polygongridmode = false;
+                        //bool polygongridmode = false;
                         int count = 1;
 
                         if ((MainV2.comPort.MAV.cs.capabilities & (uint)MAVLink.MAV_PROTOCOL_CAPABILITY.MISSION_FENCE) > 0)
-                        {/*
-                            if (!MainV2.comPort.BaseStream.IsOpen)
-                            {
-                                CustomMessageBox.Show(Strings.PleaseConnect);
-                                return;
-                            }*/
+                        {
                             mav_mission.download(MainV2.comPort, MainV2.comPort.MAV.sysid, MainV2.comPort.MAV.compid,
                                     MAVLink.MAV_MISSION_TYPE.FENCE).AwaitSync();
                         }
 
                         if (MainV2.comPort.MAV.param["FENCE_ACTION"] == null || MainV2.comPort.MAV.param["FENCE_TOTAL"] == null)
                         {
-                            CustomMessageBox.Show("Not Supported");
+                            Console.WriteLine("Not Supported");
                             return;
                         }
 
                         if (int.Parse(MainV2.comPort.MAV.param["FENCE_TOTAL"].ToString()) <= 1)
                         {
-                            CustomMessageBox.Show("Nothing to download");
+                            Console.WriteLine("Nothing to download");
                             return;
                         }
-                        /*
-                        geofenceoverlay.Polygons.Clear();
-                        geofenceoverlay.Markers.Clear();
-                        geofencepolygon.Points.Clear();
-                        */
+
+                        // Reset layers
                         aftGround._initializeMapChildren();
 
                         for (int a = 0; a < count; a++)
                         {
+                            // Update polygon with fence points
                             try
                             {
                                 var plla = MainV2.comPort.getFencePoint(a).AwaitSync();
                                 count = plla.total;
-                                //geofencepolygon.Points.Add(new PointLatLng(plla.plla.Lat, plla.plla.Lng));
 
                                 Location pll = new Location(plla.plla.Lat, plla.plla.Lng);
                                 aftGround._updatePolygonBoundary(pll);
                             }
                             catch
                             {
-                                CustomMessageBox.Show("Failed to get fence point", Strings.ERROR);
+                                Console.WriteLine("Failed to get fence point", Strings.ERROR);
                                 return;
                             }
                         }
 
-                        //MainMap.UpdateMarkerLocalPosition(rallypointoverlay.Markers[0]);
+                        // Set new home location
                         var newHomeLat = newPolygon.Locations[0].Latitude;
                         var newHomeLng = newPolygon.Locations[0].Longitude;
                         var newHomeAlt = newPolygon.Locations[0].Altitude;
 
                         PointLatLngAlt newDroneHome = new PointLatLngAlt(newHomeLat, newHomeLng, newHomeAlt);
-                        AFTGround.comPort.MAV.cs.PlannedHomeLocation = newDroneHome;
-                        /*
-                        // do return location
-                        geofenceoverlay.Markers.Add(
-                            new GMarkerGoogle(new PointLatLng(geofencepolygon.Points[0].Lat, geofencepolygon.Points[0].Lng),
-                                GMarkerGoogleType.red)
-                            {
-                                ToolTipMode = MarkerTooltipMode.OnMouseOver,
-                                ToolTipText = "GeoFence Return"
-                            });
-                        geofencepolygon.Points.RemoveAt(0);
-
-                        // add now - so local points are calced
-                        geofenceoverlay.Polygons.Add(geofencepolygon);*/
-                        /*
-                        // update flight data
-                        FlightData.geofence.Markers.Clear();
-                        FlightData.geofence.Polygons.Clear();
-                        FlightData.geofence.Polygons.Add(new GMapPolygon(geofencepolygon.Points, "gf fd")
-                        {
-                            Stroke = geofencepolygon.Stroke,
-                            Fill = Brushes.Transparent
-                        });
-                        FlightData.geofence.Markers.Add(
-                            new GMarkerGoogle(geofenceoverlay.Markers[0].Position, GMarkerGoogleType.red)
-                            {
-                                ToolTipText = geofenceoverlay.Markers[0].ToolTipText,
-                                ToolTipMode = geofenceoverlay.Markers[0].ToolTipMode
-                            });
-
-                        MainMap.UpdatePolygonLocalPosition(geofencepolygon);
-                        MainMap.UpdateMarkerLocalPosition(geofenceoverlay.Markers[0]);
-
-                        MainMap.Invalidate();*/
+                        AFTController.comPort.MAV.cs.PlannedHomeLocation = newDroneHome;
                     }
                     catch (Exception ex)
                     {
-                        //log.Warn(ex);
+                        Console.WriteLine($"Error: {ex.Message}");
                     }
                 }
 
-                //Add HUD custom items source
-                HUD.Custom.src = AFTGround.comPort.MAV.cs;
+                // Add HUD custom items source
+                HUD.Custom.src = AFTController.comPort.MAV.cs;
 
-                // set connected icon
-                //this.MenuConnect.Image = displayicons.disconnect;
+                // Drone should now be connected
             }
             catch (Exception ex)
             {
-                //log.Warn(ex);
+                Console.WriteLine($"Error: {ex.Message}");
                 try
                 {
                     //_connectionControl.IsConnected(false);
@@ -824,21 +525,21 @@ namespace MissionPlanner
                 }
                 catch (Exception ex2)
                 {
-                    //log.Warn(ex2);
+                    Console.WriteLine($"Error: {ex2.Message}");
                 }
 
-                CustomMessageBox.Show($"Can not establish a connection\n\n{ex.Message}");
+                Console.WriteLine($"Can not establish a connection\n\n{ex.Message}");
                 return;
             }
         }
-
+        /*
         public static void Connect()
         {
             comPort.giveComport = false;
 
-            //log.Info("MenuConnect Start");
+            Console.WriteLine("Starting to connect");
 
-            // sanity check
+            // Sanity check
             if (comPort.BaseStream.IsOpen && comPort.MAV.cs.groundspeed > 4)
             {
                 if ((int)DialogResult.No ==
@@ -847,41 +548,30 @@ namespace MissionPlanner
                     return;
                 }
             }
-            /*
-            try
-            {
-                //log.Info("Cleanup last logfiles");
-                // cleanup from any previous sessions
-                if (comPort.logfile != null)
-                    comPort.logfile.Close();
-
-                if (comPort.rawlogfile != null)
-                    comPort.rawlogfile.Close();
-            }
-            catch (Exception ex)
-            {
-                CustomMessageBox.Show(Strings.ErrorClosingLogFile + ex.Message, Strings.ERROR);
-            }
-
-            comPort.logfile = null;
-            comPort.rawlogfile = null;
-            */
-            // decide if this is a connect or disconnect
+            
+            // Decide if this is a connect or disconnect
             if (comPort.BaseStream.IsOpen)
             {
                 doDisconnect(comPort);
             }
             else
             {
-                doConnect(comPort, inputtedPortName, inputtedBaud);
+                // Decide if aftGround or aftAir
+                if (aftGround != null)
+                {
+                    AFTGround._doConnect(comPort, inputtedPortName, inputtedBaud);
+                }
+                else if (aftAir != null)
+                {
+                    AFTGround._doConnect(comPort, inputtedPortName, inputtedBaud);
+                }
             }
-
-            //_connectionControl.UpdateSysIDS();
 
             if (comPort.BaseStream.IsOpen)
                 loadph_serial();
         }
-
+        */
+        /*
         public static void loadph_serial()
         {
             try
@@ -944,35 +634,6 @@ namespace MissionPlanner
             {
             }
         }
-        /*
-        private void CMB_serialport_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (_connectionControl.CMB_serialport.SelectedItem == _connectionControl.CMB_serialport.Text)
-                return;
-
-            comPortName = _connectionControl.CMB_serialport.Text;
-            if (comPortName == "UDP" || comPortName == "UDPCl" || comPortName == "TCP" || comPortName == "AUTO")
-            {
-                _connectionControl.CMB_baudrate.Enabled = false;
-            }
-            else
-            {
-                _connectionControl.CMB_baudrate.Enabled = true;
-            }
-
-            try
-            {
-                // check for saved baud rate and restore
-                if (Settings.Instance[_connectionControl.CMB_serialport.Text.Replace(" ", "_") + "_BAUD"] != null)
-                {
-                    _connectionControl.CMB_baudrate.Text =
-                        Settings.Instance[_connectionControl.CMB_serialport.Text.Replace(" ", "_") + "_BAUD"];
-                }
-            }
-            catch
-            {
-            }
-        }
         */
         /// <summary>
         /// overriding the OnCLosing is a bit cleaner than handling the event, since it
@@ -987,37 +648,6 @@ namespace MissionPlanner
 
             //log.Info("MainV2_FormClosing");
 
-            //log.Info("GMaps write cache");
-            // speed up tile saving on exit
-            //GMap.NET.GMaps.Instance.CacheOnIdleRead = false;
-            //GMap.NET.GMaps.Instance.BoostCacheEngine = true;
-
-            //Settings.Instance["MainHeight"] = this.Height.ToString();
-            //Settings.Instance["MainWidth"] = this.Width.ToString();
-            //Settings.Instance["MainMaximised"] = this.WindowState.ToString();
-
-            //Settings.Instance["MainLocX"] = this.Location.X.ToString();
-            //Settings.Instance["MainLocY"] = this.Location.Y.ToString();
-
-            //log.Info("close logs");
-            /*
-            // close bases connection
-            try
-            {
-                comPort.logreadmode = false;
-                if (comPort.logfile != null)
-                    comPort.logfile.Close();
-
-                if (comPort.rawlogfile != null)
-                    comPort.rawlogfile.Close();
-
-                comPort.logfile = null;
-                comPort.rawlogfile = null;
-            }
-            catch
-            {
-            }
-            */
             //log.Info("close ports");
             /*// close all connections
             foreach (var port in Comports)
@@ -1039,16 +669,16 @@ namespace MissionPlanner
                 }
             }
             */
-            //log.Info("stop adsb");
+            // Stop adsb
             Utilities.adsb.Stop();
 
-            //log.Info("stop WarningEngine");
+            // Stop WarningEngine
             Warnings.WarningEngine.Stop();
 
-            //log.Info("stop GStreamer");
+            // Stop GStreamer
             GStreamer.StopAll();
 
-            //log.Info("closing vlcrender");
+            // Close vlcrender
             try
             {
                 while (vlcrender.store.Count > 0)
@@ -1058,8 +688,7 @@ namespace MissionPlanner
             {
             }
 
-            //log.Info("closing pluginthread");
-            /*
+            // Close pluginthread
             pluginthreadrun = false;
 
             if (pluginthread != null)
@@ -1074,42 +703,17 @@ namespace MissionPlanner
 
                 pluginthread.Join();
             }
-            */
-            //log.Info("closing serialthread");
+
+            // Close serialthread
 
             serialThread = false;
 
-            //log.Info("closing joystickthread");
-
-            //joystickthreadrun = false;
-
-            //log.Info("closing httpthread");
+            // Close httpthread
 
             // if we are waiting on a socket we need to force an abort
             httpserver.Stop();
 
-            //log.Info("sorting tlogs");
-            try
-            {
-                System.Threading.ThreadPool.QueueUserWorkItem((WaitCallback)delegate
-                {
-                    try
-                    {
-                        MissionPlanner.Log.LogSort.SortLogs(Directory.GetFiles(Settings.Instance.LogDir, "*.tlog"));
-                    }
-                    catch
-                    {
-                    }
-                }
-                );
-            }
-            catch
-            {
-            }
-
-            //log.Info("closing MyView");
-
-            // close all tabs
+            // Close all forms
             //MyView.Dispose();
 
             //log.Info("closing fd");
@@ -1152,57 +756,21 @@ namespace MissionPlanner
             //SaveConfig();
 
             //Console.WriteLine(httpthread?.IsAlive);
-            //Console.WriteLine(pluginthread?.IsAlive);
+            Console.WriteLine(pluginthread?.IsAlive);
 
-            //log.Info("MainV2_FormClosing done");
+            Console.WriteLine("AFTGround_FormClosing done");
 
             //if (MONO)
             //this.Dispose();
         }
-        /*
-        private void LoadConfig()
-        {
-            try
-            {
-                //log.Info("Loading config");
 
-                Settings.Instance.Load();
-
-                comPortName = Settings.Instance.ComPort;
-            }
-            catch (Exception ex)
-            {
-                //log.Error("Bad Config File", ex);
-            }
-        }*/
-        /*
-        private void SaveConfig()
-        {
-            try
-            {
-                //log.Info("Saving config");
-                Settings.Instance.ComPort = comPortName;
-
-                //if (_connectionControl != null)
-                    //Settings.Instance.BaudRate = _connectionControl.CMB_baudrate.Text;
-
-                Settings.Instance.APMFirmware = AFTGround.comPort.MAV.cs.firmware.ToString();
-
-                Settings.Instance.Save();
-            }
-            catch (Exception ex)
-            {
-                CustomMessageBox.Show(ex.ToString());
-            }
-        }
-        */
-        private async void SerialReader()
+        public static async void SerialReaderGround()
         {
             if (serialThread == true)
                 return;
             serialThread = true;
 
-            //SerialThreadrunner.Reset();
+            SerialThreadrunner.Reset();
 
             int minbytes = 10;
 
@@ -1237,57 +805,47 @@ namespace MissionPlanner
                     }
                     catch (Exception ex)
                     {
-                        //log.Error(ex);
+                        Console.WriteLine($"Error: {ex.Message}");
                     }
-                    /*
-                    // update connect/disconnect button and info stats
-                    try
-                    {
-                        //UpdateConnectIcon();
-                    }
-                    catch (Exception ex)
-                    {
-                        //log.Error(ex);
-                    }
-                    */
+
                     // 30 seconds interval speech options
                     if (speechEnabled() && speechEngine != null && (DateTime.Now - speechcustomtime).TotalSeconds > 30 &&
-                        (AFTGround.comPort.logreadmode || comPort.BaseStream.IsOpen))
+                        (AFTController.comPort.logreadmode || comPort.BaseStream.IsOpen))
                     {
-                        if (AFTGround.speechEngine.IsReady)
+                        if (AFTController.speechEngine.IsReady)
                         {
                             if (Settings.Instance.GetBoolean("speechcustomenabled"))
                             {
-                                AFTGround.speechEngine.SpeakAsync(ArduPilot.Common.speechConversion(comPort.MAV,
+                                AFTController.speechEngine.SpeakAsync(ArduPilot.Common.speechConversion(comPort.MAV,
                                     "" + Settings.Instance["speechcustom"]));
                             }
 
                             speechcustomtime = DateTime.Now;
                         }
 
-                        // speech for battery alerts
-                        //speechbatteryvolt
+                        // Speech for battery alerts
+                        // speechbatteryvolt
                         float warnvolt = Settings.Instance.GetFloat("speechbatteryvolt");
                         float warnpercent = Settings.Instance.GetFloat("speechbatterypercent");
 
                         if (Settings.Instance.GetBoolean("speechbatteryenabled") == true &&
-                            AFTGround.comPort.MAV.cs.battery_voltage <= warnvolt &&
-                            AFTGround.comPort.MAV.cs.battery_voltage >= 5.0)
+                            AFTController.comPort.MAV.cs.battery_voltage <= warnvolt &&
+                            AFTController.comPort.MAV.cs.battery_voltage >= 5.0)
                         {
-                            if (AFTGround.speechEngine.IsReady)
+                            if (AFTController.speechEngine.IsReady)
                             {
-                                AFTGround.speechEngine.SpeakAsync(ArduPilot.Common.speechConversion(comPort.MAV,
+                                AFTController.speechEngine.SpeakAsync(ArduPilot.Common.speechConversion(comPort.MAV,
                                     "" + Settings.Instance["speechbattery"]));
                             }
                         }
                         else if (Settings.Instance.GetBoolean("speechbatteryenabled") == true &&
-                                 (AFTGround.comPort.MAV.cs.battery_remaining) < warnpercent &&
-                                 AFTGround.comPort.MAV.cs.battery_voltage >= 5.0 &&
-                                 AFTGround.comPort.MAV.cs.battery_remaining != 0.0)
+                                 (AFTController.comPort.MAV.cs.battery_remaining) < warnpercent &&
+                                 AFTController.comPort.MAV.cs.battery_voltage >= 5.0 &&
+                                 AFTController.comPort.MAV.cs.battery_remaining != 0.0)
                         {
-                            if (AFTGround.speechEngine.IsReady)
+                            if (AFTController.speechEngine.IsReady)
                             {
-                                AFTGround.speechEngine.SpeakAsync(
+                                AFTController.speechEngine.SpeakAsync(
                                     ArduPilot.Common.speechConversion(comPort.MAV,
                                         "" + Settings.Instance["speechbattery"]));
                             }
@@ -1296,29 +854,29 @@ namespace MissionPlanner
 
                     // speech for airspeed alerts
                     if (speechEnabled() && speechEngine != null && (DateTime.Now - speechlowspeedtime).TotalSeconds > 10 &&
-                        (AFTGround.comPort.logreadmode || comPort.BaseStream.IsOpen))
+                        (AFTController.comPort.logreadmode || comPort.BaseStream.IsOpen))
                     {
                         if (Settings.Instance.GetBoolean("speechlowspeedenabled") == true &&
-                            AFTGround.comPort.MAV.cs.armed)
+                            AFTController.comPort.MAV.cs.armed)
                         {
                             float warngroundspeed = Settings.Instance.GetFloat("speechlowgroundspeedtrigger");
                             float warnairspeed = Settings.Instance.GetFloat("speechlowairspeedtrigger");
 
-                            if (AFTGround.comPort.MAV.cs.airspeed < warnairspeed)
+                            if (AFTController.comPort.MAV.cs.airspeed < warnairspeed)
                             {
-                                if (AFTGround.speechEngine.IsReady)
+                                if (AFTController.speechEngine.IsReady)
                                 {
-                                    AFTGround.speechEngine.SpeakAsync(
+                                    AFTController.speechEngine.SpeakAsync(
                                         ArduPilot.Common.speechConversion(comPort.MAV,
                                             "" + Settings.Instance["speechlowairspeed"]));
                                     speechlowspeedtime = DateTime.Now;
                                 }
                             }
-                            else if (AFTGround.comPort.MAV.cs.groundspeed < warngroundspeed)
+                            else if (AFTController.comPort.MAV.cs.groundspeed < warngroundspeed)
                             {
-                                if (AFTGround.speechEngine.IsReady)
+                                if (AFTController.speechEngine.IsReady)
                                 {
-                                    AFTGround.speechEngine.SpeakAsync(
+                                    AFTController.speechEngine.SpeakAsync(
                                         ArduPilot.Common.speechConversion(comPort.MAV,
                                             "" + Settings.Instance["speechlowgroundspeed"]));
                                     speechlowspeedtime = DateTime.Now;
@@ -1333,7 +891,7 @@ namespace MissionPlanner
 
                     // speech altitude warning - message high warning
                     if (speechEnabled() && speechEngine != null &&
-                        (AFTGround.comPort.logreadmode || comPort.BaseStream.IsOpen))
+                        (AFTController.comPort.logreadmode || comPort.BaseStream.IsOpen))
                     {
                         float warnalt = float.MaxValue;
                         if (Settings.Instance.ContainsKey("speechaltheight"))
@@ -1343,16 +901,16 @@ namespace MissionPlanner
 
                         try
                         {
-                            altwarningmax = (int)Math.Max(AFTGround.comPort.MAV.cs.alt, altwarningmax);
+                            altwarningmax = (int)Math.Max(AFTController.comPort.MAV.cs.alt, altwarningmax);
 
                             if (Settings.Instance.GetBoolean("speechaltenabled") == true &&
-                                AFTGround.comPort.MAV.cs.alt != 0.00 &&
-                                (AFTGround.comPort.MAV.cs.alt <= warnalt) && AFTGround.comPort.MAV.cs.armed)
+                                AFTController.comPort.MAV.cs.alt != 0.00 &&
+                                (AFTController.comPort.MAV.cs.alt <= warnalt) && AFTController.comPort.MAV.cs.armed)
                             {
                                 if (altwarningmax > warnalt)
                                 {
-                                    if (AFTGround.speechEngine.IsReady)
-                                        AFTGround.speechEngine.SpeakAsync(
+                                    if (AFTController.speechEngine.IsReady)
+                                        AFTController.speechEngine.SpeakAsync(
                                             ArduPilot.Common.speechConversion(comPort.MAV,
                                                 "" + Settings.Instance["speechalt"]));
                                 }
@@ -1366,15 +924,15 @@ namespace MissionPlanner
                         try
                         {
                             // say the latest high priority message
-                            if (AFTGround.speechEngine.IsReady &&
-                                lastmessagehigh != AFTGround.comPort.MAV.cs.messageHigh &&
-                                AFTGround.comPort.MAV.cs.messageHigh != null)
+                            if (AFTController.speechEngine.IsReady &&
+                                lastmessagehigh != AFTController.comPort.MAV.cs.messageHigh &&
+                                AFTController.comPort.MAV.cs.messageHigh != null)
                             {
-                                if (!AFTGround.comPort.MAV.cs.messageHigh.StartsWith("PX4v2 ") &&
-                                    !AFTGround.comPort.MAV.cs.messageHigh.StartsWith("PreArm:")) // Supress audibly repeating PreArm messages
+                                if (!AFTController.comPort.MAV.cs.messageHigh.StartsWith("PX4v2 ") &&
+                                    !AFTController.comPort.MAV.cs.messageHigh.StartsWith("PreArm:")) // Supress audibly repeating PreArm messages
                                 {
-                                    AFTGround.speechEngine.SpeakAsync(AFTGround.comPort.MAV.cs.messageHigh);
-                                    lastmessagehigh = AFTGround.comPort.MAV.cs.messageHigh;
+                                    AFTController.speechEngine.SpeakAsync(AFTController.comPort.MAV.cs.messageHigh);
+                                    lastmessagehigh = AFTController.comPort.MAV.cs.messageHigh;
                                 }
                             }
                         }
@@ -1384,54 +942,55 @@ namespace MissionPlanner
                     }
 
                     // not doing anything
-                    if (!AFTGround.comPort.logreadmode && !comPort.BaseStream.IsOpen)
+                    if (!AFTController.comPort.logreadmode && !comPort.BaseStream.IsOpen)
                     {
                         altwarningmax = 0;
                     }
 
                     // attenuate the link qualty over time
-                    if ((DateTime.Now - AFTGround.comPort.MAV.lastvalidpacket).TotalSeconds >= 1)
+                    if ((DateTime.Now - AFTController.comPort.MAV.lastvalidpacket).TotalSeconds >= 1)
                     {
                         if (linkqualitytime.Second != DateTime.Now.Second)
                         {
-                            AFTGround.comPort.MAV.cs.linkqualitygcs =
-                                (ushort)(AFTGround.comPort.MAV.cs.linkqualitygcs * 0.8f);
+                            AFTController.comPort.MAV.cs.linkqualitygcs =
+                                (ushort)(AFTController.comPort.MAV.cs.linkqualitygcs * 0.8f);
                             linkqualitytime = DateTime.Now;
 
                             // force redraw if there are no other packets are being read
-                            this.BeginInvokeIfRequired(
+                            // Is this needed for AFTGround?
+                            /*this.BeginInvokeIfRequired(
                                 (Action)
-                                delegate { GCSViews.FlightData.myhud.Invalidate(); });
+                                delegate { GCSViews.FlightData.myhud.Invalidate(); });*/
                         }
                     }
 
-                    // data loss warning - wait min of 3 seconds, ignore first 30 seconds of connect, repeat at 5 seconds interval
-                    if ((DateTime.Now - AFTGround.comPort.MAV.lastvalidpacket).TotalSeconds > 3
+                    // Data loss warning - wait min of 3 seconds, ignore first 30 seconds of connect, repeat at 5 seconds interval
+                    if ((DateTime.Now - AFTController.comPort.MAV.lastvalidpacket).TotalSeconds > 3
                         && (DateTime.Now - connecttime).TotalSeconds > 30
                         && (DateTime.Now - nodatawarning).TotalSeconds > 5
-                        && (AFTGround.comPort.logreadmode || comPort.BaseStream.IsOpen)
-                        && AFTGround.comPort.MAV.cs.armed)
+                        && (AFTController.comPort.logreadmode || comPort.BaseStream.IsOpen)
+                        && AFTController.comPort.MAV.cs.armed)
                     {
-                        var msg = "WARNING No Data for " + (int)(DateTime.Now - AFTGround.comPort.MAV.lastvalidpacket).TotalSeconds + " Seconds";
-                        AFTGround.comPort.MAV.cs.messageHigh = msg;
+                        var msg = "WARNING No Data for " + (int)(DateTime.Now - AFTController.comPort.MAV.lastvalidpacket).TotalSeconds + " Seconds";
+                        AFTController.comPort.MAV.cs.messageHigh = msg;
                         if (speechEnabled() && speechEngine != null)
                         {
-                            if (AFTGround.speechEngine.IsReady)
+                            if (AFTController.speechEngine.IsReady)
                             {
-                                AFTGround.speechEngine.SpeakAsync(msg);
+                                AFTController.speechEngine.SpeakAsync(msg);
                                 nodatawarning = DateTime.Now;
                             }
                         }
                     }
 
-                    // get home point on armed status change.
-                    if (armedstatus != AFTGround.comPort.MAV.cs.armed && comPort.BaseStream.IsOpen)
+                    // Get home point on armed status change
+                    if (armedstatus != AFTController.comPort.MAV.cs.armed && comPort.BaseStream.IsOpen)
                     {
-                        armedstatus = AFTGround.comPort.MAV.cs.armed;
+                        armedstatus = AFTController.comPort.MAV.cs.armed;
                         // status just changed to armed
-                        if (AFTGround.comPort.MAV.cs.armed == true &&
-                            AFTGround.comPort.MAV.apname != MAVLink.MAV_AUTOPILOT.INVALID &&
-                            AFTGround.comPort.MAV.aptype != MAVLink.MAV_TYPE.GIMBAL)
+                        if (AFTController.comPort.MAV.cs.armed == true &&
+                            AFTController.comPort.MAV.apname != MAVLink.MAV_AUTOPILOT.INVALID &&
+                            AFTController.comPort.MAV.aptype != MAVLink.MAV_TYPE.GIMBAL)
                         {
                             System.Threading.ThreadPool.QueueUserWorkItem(state =>
                             {
@@ -1441,12 +1000,11 @@ namespace MissionPlanner
                                     while (comPort.giveComport == true)
                                         Thread.Sleep(100);
 
-                                    AFTGround.comPort.MAV.cs.HomeLocation = new PointLatLngAlt(AFTGround.comPort.getWP(0));
-                                    if (aftGround != null)// && MyView.current.Name == "FlightPlanner")
+                                    AFTController.comPort.MAV.cs.HomeLocation = new PointLatLngAlt(AFTController.comPort.getWP(0));
+                                    if (aftGround != null)
                                     {
-                                        // MainV2: update home if we are on flight data tab
-                                        //aftGround: Update home location and pushpin; assumes that polygon is already created and has at least one point
-                                        newPolygon.Locations[0] = new Location(AFTGround.comPort.MAV.cs.HomeLocation.Lat, AFTGround.comPort.MAV.cs.HomeLocation.Lng);
+                                        // Update home location and pushpin; assumes that polygon is already created and has at least one point
+                                        newPolygon.Locations[0] = new Location(AFTController.comPort.MAV.cs.HomeLocation.Lat, AFTController.comPort.MAV.cs.HomeLocation.Lng);
                                         if (polygonPointLayer.Children[0] is Pushpin)
                                         {
                                             Pushpin p = (Pushpin)polygonPointLayer.Children[0];
@@ -1456,13 +1014,13 @@ namespace MissionPlanner
                                 }
                                 catch
                                 {
-                                    // dont hang this loop
-                                    this.BeginInvokeIfRequired(
+                                    // Don't hang this loop
+                                    aftGround.BeginInvokeIfRequired(
                                         (Action)
                                         delegate
                                         {
                                             CustomMessageBox.Show("Failed to update home location (" +
-                                                                  AFTGround.comPort.MAV.sysid + ")");
+                                                                  AFTController.comPort.MAV.sysid + ")");
                                         });
                                 }
                             });
@@ -1477,34 +1035,42 @@ namespace MissionPlanner
                                     : Settings.Instance["speechdisarm"];
                                 if (!string.IsNullOrEmpty(speech))
                                 {
-                                    AFTGround.speechEngine.SpeakAsync(
+                                    AFTController.speechEngine.SpeakAsync(
                                         ArduPilot.Common.speechConversion(comPort.MAV, speech));
                                 }
                             }
                         }
                     }
-                    /*
+
                     if (comPort.MAV.param.TotalReceived < comPort.MAV.param.TotalReported)
                     {
                         if (comPort.MAV.param.TotalReported > 0 && comPort.BaseStream.IsOpen)
                         {
-                            this.BeginInvokeIfRequired(() =>
+                            aftGround.BeginInvokeIfRequired(() =>
                             {
                                 try
                                 {
-                                    //aftGround.status1.Percent =
-                                    //(comPort.MAV.param.TotalReceived / (double)comPort.MAV.param.TotalReported) *
-                                    //100.0;
+                                    if (aftGround != null)
+                                    {
+                                        aftGround.status1.Percent =
+                                        (comPort.MAV.param.TotalReceived / (double)comPort.MAV.param.TotalReported) * 100.0;
+                                    }
+                                    else if (aftAir != null)
+                                    {
+                                        aftAir.status1.Percent =
+                                        (comPort.MAV.param.TotalReceived / (double)comPort.MAV.param.TotalReported) * 100.0;
+                                    }
+                                    else { }
                                 }
                                 catch (Exception e)
                                 {
-                                    //log.Error(e);
+                                    Console.WriteLine($"Error: {e.Message}");
                                 }
                             });
                         }
                     }
-                    */
-                    // send a hb every seconds from gcs to ap
+
+                    // Send a hb every seconds from gcs to ap
                     if (heatbeatSend.Second != DateTime.Now.Second)
                     {
                         MAVLink.mavlink_heartbeat_t htb = new MAVLink.mavlink_heartbeat_t()
@@ -1583,8 +1149,9 @@ namespace MissionPlanner
                                 }
                                 catch (Exception ex)
                                 {
-                                    //log.Error(ex);
-                                    // close the bad port
+                                    Console.WriteLine($"Error: {ex.Message}");
+
+                                    // Close the bad port
                                     try
                                     {
                                         port.Close();
@@ -1592,12 +1159,12 @@ namespace MissionPlanner
                                     catch
                                     {
                                     }
-
+                                    /*
                                     // refresh the screen if needed
-                                    if (port == AFTGround.comPort)
+                                    if (port == AFTController.comPort)
                                     {
                                         // refresh config window if needed
-                                        /*if (MyView.current != null)
+                                        if (MyView.current != null)
                                         {
                                             this.BeginInvoke((MethodInvoker)delegate ()
                                             {
@@ -1606,8 +1173,8 @@ namespace MissionPlanner
                                                 if (MyView.current.Name == "SWConfig")
                                                     MyView.ShowScreen("SWConfig");
                                             });
-                                        }*/
-                                    }
+                                        }
+                                    }*/
                                 }
                             }
                         }
@@ -1663,7 +1230,7 @@ namespace MissionPlanner
                             }
                             catch (Exception ex)
                             {
-                                //log.Error(ex);
+                                Console.WriteLine($"Error: {ex.Message}");
                             }
                         }
 
@@ -1676,7 +1243,7 @@ namespace MissionPlanner
                             }
                             catch (Exception ex)
                             {
-                                //log.Error(ex);
+                                Console.WriteLine($"Error: {ex.Message}");
                             }
                         }
                     }
@@ -1684,14 +1251,15 @@ namespace MissionPlanner
                 catch (Exception e)
                 {
                     Tracking.AddException(e);
-                    //log.Error("Serial Reader fail :" + e.ToString());
+                    Console.WriteLine("Serial Reader fail :" + e.ToString());
+
                     try
                     {
                         comPort.Close();
                     }
                     catch (Exception ex)
                     {
-                        //log.Error(ex);
+                        Console.WriteLine($"Error: {ex.Message}");
                     }
                 }
             }
@@ -1877,15 +1445,8 @@ namespace MissionPlanner
             comPort.BaseStream = new SerialPort();
             comPort.BaseStream.BaudRate = 57600;
 
-            var homeLat = newPolygon.Locations[0].Latitude;
-            var homeLng = newPolygon.Locations[0].Longitude;
-            var homeAlt = newPolygon.Locations[0].Altitude;
-
-            PointLatLngAlt droneHome = new PointLatLngAlt(homeLat, homeLng, homeAlt);
-            AFTGround.comPort.MAV.cs.PlannedHomeLocation = droneHome;
-
             Comports.Add(comPort);
-            AFTGround.comPort.MavChanged += comPort_MavChanged;
+            AFTController.comPort.MavChanged += comPort_MavChanged;
             Microsoft.Win32.SystemEvents.PowerModeChanged += SystemEvents_PowerModeChanged;
 
             InitializeComponent();
@@ -1910,7 +1471,7 @@ namespace MissionPlanner
 
         // MainV2
         protected override void OnLoad(EventArgs e)
-        {
+        {/*
             try
             {
                 // setup main serial reader
@@ -1981,40 +1542,31 @@ namespace MissionPlanner
                             if (seen.Contains(zeroconfHost.Id))
                                 return;
 
-                            if (CustomMessageBox.Show(
-                                    "A Mavlink stream has been detected, " + zeroconfHost.DisplayName + "(" +
-                                    zeroconfHost.Id + "). Would you like to connect to it?",
-                                    "Mavlink", System.Windows.Forms.MessageBoxButtons.YesNo) ==
-                                (int)System.Windows.Forms.DialogResult.Yes)
+                            // Connect to vehicle
+                            var mav = new MAVLinkInterface();
+
+                            if (!comPort.BaseStream.IsOpen)
+                                mav = comPort;
+
+                            var udc = new UdpSerialConnect();
+                            udc.Port = port.ToString();
+                            udc.client = new UdpClient(ip, port);
+                            udc.IsOpen = true;
+                            udc.hostEndPoint = new IPEndPoint(IPAddress.Parse(ip), port);
+                            mav.BaseStream = udc;
+
+                            aftGround.Invoke((Action)delegate
                             {
-                                var mav = new MAVLinkInterface();
+                                AFTGround.doConnect(mav, "preset", port.ToString());
 
-                                if (!comPort.BaseStream.IsOpen)
-                                    mav = comPort;
+                                AFTGround.Comports.Add(mav);
 
-                                var udc = new UdpSerialConnect();
-                                udc.Port = port.ToString();
-                                udc.client = new UdpClient(ip, port);
-                                udc.IsOpen = true;
-                                udc.hostEndPoint = new IPEndPoint(IPAddress.Parse(ip), port);
-                                mav.BaseStream = udc;
-
-                                aftGround.Invoke((Action)delegate
+                                try
                                 {
-                                    AFTGround.doConnect(mav, "preset", port.ToString());
-
-                                    AFTGround.Comports.Add(mav);
-
-                                    try
-                                    {
-                                        Comports = Comports.Distinct().ToList();
-                                    }
-                                    catch { }
-
-                                    //AFTGround._connectionControl.UpdateSysIDS();
-                                });
-
-                            }
+                                    Comports = Comports.Distinct().ToList();
+                                }
+                                catch { }
+                            });
 
                             // add to seen list, so we skip on next refresh
                             seen.Add(zeroconfHost.Id);
@@ -2069,7 +1621,7 @@ namespace MissionPlanner
                     }
                     catch { }
                 }
-            };
+            };*/
             /*
             var cmds = ProcessCommandLine(Program.args);
 
@@ -2138,7 +1690,7 @@ namespace MissionPlanner
             bingMapsUserControl1.myMap.AnimationLevel = AnimationLevel.Full;
 
             // Set firmware
-            AFTGround.comPort.MAV.cs.firmware = Firmwares.ArduRover;
+            AFTController.comPort.MAV.cs.firmware = Firmwares.ArduRover;
         }
 
         private void MyMap_Loaded(object sender, System.Windows.RoutedEventArgs e)
@@ -2171,6 +1723,14 @@ namespace MissionPlanner
 
             // Update polygon with new point
             _updatePolygonBoundary(polygonPointLocation);
+
+            // Set drone home location
+            var homeLat = newPolygon.Locations[0].Latitude;
+            var homeLng = newPolygon.Locations[0].Longitude;
+            var homeAlt = newPolygon.Locations[0].Altitude;
+
+            PointLatLngAlt droneHome = new PointLatLngAlt(homeLat, homeLng, homeAlt);
+            AFTController.comPort.MAV.cs.PlannedHomeLocation = droneHome;
         }
 
         void pin_MouseRightButtonDown(object sender, MouseButtonEventArgs e)

@@ -466,5 +466,6 @@
         private System.Windows.Forms.PictureBox vertLine2;
         private System.Windows.Forms.Integration.ElementHost elementHost1;
         private BingMapsUserControl bingMapsUserControl1;
+        public Controls.Status status1;
     }
 }

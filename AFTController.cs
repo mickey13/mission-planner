@@ -1,8 +1,13 @@
 ﻿using Microsoft.Maps.MapControl.WPF;
+using MissionPlanner.Utilities;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Runtime.InteropServices;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Media;
 
@@ -79,7 +84,7 @@ namespace MissionPlanner
 
         #endregion
 
-        #region Constants for form interactions
+        #region Constants and variables for form interactions
 
         // Pictures for selection buttons
         public static Bitmap emptyButton = MissionPlanner.Properties.Resources.circle_hollow;
@@ -91,7 +96,7 @@ namespace MissionPlanner
 
         #endregion
 
-        #region Constants for maps and mission boundary feature
+        #region Constants and objects for maps and mission boundary feature
 
         // Mission boundary color
         public static System.Windows.Media.Color missionBoundaryColor = System.Windows.Media.Colors.DeepSkyBlue;
@@ -110,13 +115,68 @@ namespace MissionPlanner
 
         #endregion
 
-        #region Constants for mission settings
+        #region Constants and objects for mission settings
 
         // Mission boundary
         public static LocationCollection missionBounds = null;
 
         // Mission settings loaded from file
         public static MissionSettings missionSettings = null;
+
+        #endregion
+
+        #region Constants, variables, and objects for MAVLink and peripherals
+
+        public static string inputtedPortName = "preset";
+        public static string inputtedBaud = "57600";
+
+        /// <summary>
+        /// passive comports
+        /// </summary>
+        public static List<MAVLinkInterface> Comports = new List<MAVLinkInterface>();
+
+        /// <summary>
+        /// store the time we first connect
+        /// </summary>
+        public static DateTime connecttime = DateTime.Now;
+
+        public static DateTime nodatawarning = DateTime.Now;
+
+        /// <summary>
+        /// track the last heartbeat sent
+        /// </summary>
+        public static DateTime heatbeatSend = DateTime.Now;
+
+        public static string titlebar;
+
+        /// <summary>
+        /// controls the main serial reader thread
+        /// </summary>
+        public static bool serialThread = false;
+
+        public static bool pluginthreadrun = false;
+
+        public static Thread pluginthread;
+
+        public static ManualResetEvent SerialThreadrunner = new ManualResetEvent(false);
+
+        /// <summary>
+        /// speech engine enable
+        /// </summary>
+        public static bool speechEnable
+        {
+            get { return speechEngine == null ? false : speechEngine.speechEnable; }
+            set
+            {
+                if (speechEngine != null) speechEngine.speechEnable = value;
+            }
+        }
+
+        public static bool speech_armed_only = false;
+
+        static MAVLinkInterface _comPort = new MAVLinkInterface();
+
+        public static ManualResetEvent PluginThreadrunner = new ManualResetEvent(false);
 
         #endregion
 
@@ -180,190 +240,40 @@ namespace MissionPlanner
 
         #endregion
 
-        #region General functions
-
-        /// <summary>
-        /// Initialize with a form for rounded corners
-        /// </summary>
-        /// <param name="nLeftRect"></X-coordinate of upper-left corner>
-        /// <param name="nTopRect"></Y-coordinate of upper-left corner>
-        /// <param name="nRightRect"></X-coordinate of lower-right corner>
-        /// <param name="nBottomRect"></Y-coordinate of lower-right corner>
-        /// <param name="nWidthEllipse"></Width of ellipse>
-        /// <param name="nHeightEllipse"></Height of ellipse>
-        /// <returns></Rectangular region that defines the edge of the form>
-        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
-        public static extern IntPtr CreateRoundRectRgn
-        (
-            int nLeftRect,
-            int nTopRect,
-            int nRightRect,
-            int nBottomRect,
-            int nWidthEllipse,
-            int nHeightEllipse
-        );
-
-
-        /// <summary>
-        /// Toggle a form between light and dark mode
-        /// </summary>
-        /// <param name="form"></Form to toggle color modes>
-        /// <returns></True if going to dark mode, false if going to light>
-        public static bool ToggleColorMode(Form form)
+        #region Classes for MAVLink and peripherals
+        public static MAVLinkInterface comPort
         {
-            // If in light mode
-            if (form.BackColor == lightColor)
+            get { return _comPort; }
+            set
             {
-                // Toggle back and foreground color
-                form.BackColor = darkColor;
-                form.ForeColor = lightColor;
-
-                foreach (Control c in form.Controls)
-                {
-                    if (c is Button || c is Label)
-                    {
-                        c.BackColor = darkColor;
-                        c.ForeColor = lightColor;
-                    }
-                    else
-                    {
-                        c.BackColor = darkColor;
-                    }
-                }
-                return true;
+                if (_comPort == value)
+                    return;
+                _comPort = value;
+                if (aftGround == null)
+                    return;
+                _comPort.MavChanged -= aftGround.comPort_MavChanged;
+                _comPort.MavChanged += aftGround.comPort_MavChanged;
+                aftGround.comPort_MavChanged(null, null);
             }
-            // If in dark mode
-            else
-            {
-                // Toggle back and foreground color
-                form.BackColor = lightColor;
-                form.ForeColor = darkColor;
+        }
 
-                foreach (Control c in form.Controls)
-                {
-                    if (c is Button || c is Label)
-                    {
-                        c.BackColor = lightColor;
-                        c.ForeColor = darkColor;
-                    }
-                    else
-                    {
-                        c.BackColor = lightColor;
-                    }
-                }
+        public static bool speechEnabled()
+        {
+            if (!speechEnable)
+            {
                 return false;
             }
-        }
-
-        /// <summary>
-        /// Sync color modes across forms
-        /// </summary>
-        /// <param name="formToSync"></Form to change color mode>
-        /// <param name="formToSyncWith"></Form to sync colors with>
-        public static void SyncColors(Form formToSync, Form formToSyncWith)
-        {
-            if (formToSync != null && formToSyncWith != null)
+            if (speech_armed_only)
             {
-                if (formToSync != null)
-                {
-                    formToSync.BackColor = formToSyncWith.BackColor;
-                    foreach (Control c in formToSync.Controls)
-                    {
-                        if (c is Button || c is Label)
-                        {
-                            c.BackColor = formToSyncWith.BackColor;
-                            c.ForeColor = formToSyncWith.ForeColor;
-                        }
-                        else
-                        {
-                            c.BackColor = formToSyncWith.BackColor;
-                        }
-                    }
-                }
+                return AFTController.comPort.MAV.cs.armed;
             }
+            return true;
         }
 
         /// <summary>
-        /// Provide function for selection buttons
+        /// spech engine static class
         /// </summary>
-        /// <param name="btn"></Button to select/deselect>
-        /// <param name="form"></Form that has multiple selection buttons>
-        public static void ToggleSelection(Button btn, Form form = null)
-        {
-            // If multiple buttons on form
-            if (form != null)
-            {
-                // List to hold all buttons in given form
-                List<Button> btnList = new List<Button>();
-
-                // If not selected
-                if (btn.Image == emptyButton)
-                {
-                    btn.Image = filledButton;
-
-                    // Add each control to btnList if it is a button
-                    foreach (Control control in form.Controls)
-                    {
-                        if (control is Button)
-                        {
-                            btnList.Add(control as Button);
-                        }
-                    }
-
-                    // Change selection status of all other selected buttons
-                    foreach (Button button in btnList)
-                    {
-                        if ((button != btn) && (button.Image == filledButton))
-                        {
-                            button.Image = emptyButton;
-                        }
-                    }
-                }
-                // If selected
-                else
-                {
-                    btn.Image = emptyButton;
-                }
-            }
-            // If single button on form
-            else
-            {
-                // If not selected
-                if (btn.Image == emptyButton)
-                {
-                    btn.Image = filledButton;
-                }
-                // If selected
-                else
-                {
-                    btn.Image = emptyButton;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Test if button is selected or not
-        /// </summary>
-        /// <param name="button"></Button to test>
-        /// <returns></True if button is selected, false if button is not selected>
-        public static bool IsSelected(Button button)
-        {
-            return button.Image == filledButton;
-        }
-
-        /// <summary>
-        /// Overwrite existing mission boundary polygon with a new one
-        /// </summary>
-        public static void SetUpNewPolygon()
-        {
-            newPolygon = new MapPolygon();
-
-            // Defines the polygon fill details
-            newPolygon.Locations = new LocationCollection();
-            newPolygon.Stroke = new SolidColorBrush(missionBoundaryColor);
-            newPolygon.StrokeThickness = 4;
-            newPolygon.Opacity = 0.8;
-        }
+        public static ISpeech speechEngine { get; set; }
 
         #endregion
 
@@ -501,6 +411,412 @@ namespace MissionPlanner
 
             aftSaveMission.Show();
             aftSaveMission.BringToFront();
+        }
+
+        #endregion
+
+        #region Functions for syncing colors
+
+        /// <summary>
+        /// Toggle a form between light and dark mode
+        /// </summary>
+        /// <param name="form"></Form to toggle color modes>
+        /// <returns></True if going to dark mode, false if going to light>
+        public static bool ToggleColorMode(Form form)
+        {
+            // If in light mode
+            if (form.BackColor == lightColor)
+            {
+                // Toggle back and foreground color
+                form.BackColor = darkColor;
+                form.ForeColor = lightColor;
+
+                foreach (Control c in form.Controls)
+                {
+                    if (c is Button || c is Label)
+                    {
+                        c.BackColor = darkColor;
+                        c.ForeColor = lightColor;
+                    }
+                    else
+                    {
+                        c.BackColor = darkColor;
+                    }
+                }
+                return true;
+            }
+            // If in dark mode
+            else
+            {
+                // Toggle back and foreground color
+                form.BackColor = lightColor;
+                form.ForeColor = darkColor;
+
+                foreach (Control c in form.Controls)
+                {
+                    if (c is Button || c is Label)
+                    {
+                        c.BackColor = lightColor;
+                        c.ForeColor = darkColor;
+                    }
+                    else
+                    {
+                        c.BackColor = lightColor;
+                    }
+                }
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Sync color modes across forms
+        /// </summary>
+        /// <param name="formToSync"></Form to change color mode>
+        /// <param name="formToSyncWith"></Form to sync colors with>
+        public static void SyncColors(Form formToSync, Form formToSyncWith)
+        {
+            if (formToSync != null && formToSyncWith != null)
+            {
+                if (formToSync != null)
+                {
+                    formToSync.BackColor = formToSyncWith.BackColor;
+                    foreach (Control c in formToSync.Controls)
+                    {
+                        if (c is Button || c is Label)
+                        {
+                            c.BackColor = formToSyncWith.BackColor;
+                            c.ForeColor = formToSyncWith.ForeColor;
+                        }
+                        else
+                        {
+                            c.BackColor = formToSyncWith.BackColor;
+                        }
+                    }
+                }
+            }
+        }
+
+        #endregion
+
+        #region General functions
+
+        /// <summary>
+        /// Initialize with a form for rounded corners
+        /// </summary>
+        /// <param name="nLeftRect"></X-coordinate of upper-left corner>
+        /// <param name="nTopRect"></Y-coordinate of upper-left corner>
+        /// <param name="nRightRect"></X-coordinate of lower-right corner>
+        /// <param name="nBottomRect"></Y-coordinate of lower-right corner>
+        /// <param name="nWidthEllipse"></Width of ellipse>
+        /// <param name="nHeightEllipse"></Height of ellipse>
+        /// <returns></Rectangular region that defines the edge of the form>
+        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+        public static extern IntPtr CreateRoundRectRgn
+        (
+            int nLeftRect,
+            int nTopRect,
+            int nRightRect,
+            int nBottomRect,
+            int nWidthEllipse,
+            int nHeightEllipse
+        );
+
+        /// <summary>
+        /// Provide function for selection buttons
+        /// </summary>
+        /// <param name="btn"></Button to select/deselect>
+        /// <param name="form"></Form that has multiple selection buttons>
+        public static void ToggleSelection(Button btn, Form form = null)
+        {
+            // If multiple buttons on form
+            if (form != null)
+            {
+                // List to hold all buttons in given form
+                List<Button> btnList = new List<Button>();
+
+                // If not selected
+                if (btn.Image == emptyButton)
+                {
+                    btn.Image = filledButton;
+
+                    // Add each control to btnList if it is a button
+                    foreach (Control control in form.Controls)
+                    {
+                        if (control is Button)
+                        {
+                            btnList.Add(control as Button);
+                        }
+                    }
+
+                    // Change selection status of all other selected buttons
+                    foreach (Button button in btnList)
+                    {
+                        if ((button != btn) && (button.Image == filledButton))
+                        {
+                            button.Image = emptyButton;
+                        }
+                    }
+                }
+                // If selected
+                else
+                {
+                    btn.Image = emptyButton;
+                }
+            }
+            // If single button on form
+            else
+            {
+                // If not selected
+                if (btn.Image == emptyButton)
+                {
+                    btn.Image = filledButton;
+                }
+                // If selected
+                else
+                {
+                    btn.Image = emptyButton;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Test if button is selected or not
+        /// </summary>
+        /// <param name="button"></Button to test>
+        /// <returns></True if button is selected, false if button is not selected>
+        public static bool IsSelected(Button button)
+        {
+            return button.Image == filledButton;
+        }
+
+        /// <summary>
+        /// Overwrite existing mission boundary polygon with a new one
+        /// </summary>
+        public static void SetUpNewPolygon()
+        {
+            newPolygon = new MapPolygon();
+
+            // Defines the polygon fill details
+            newPolygon.Locations = new LocationCollection();
+            newPolygon.Stroke = new SolidColorBrush(missionBoundaryColor);
+            newPolygon.StrokeThickness = 4;
+            newPolygon.Opacity = 0.8;
+        }
+
+        #endregion
+
+        #region Functions for MAVLink and peripherals
+
+        public static void doDisconnect(MAVLinkInterface comPort)
+        {
+            try
+            {
+                if (speechEngine != null) // cancel all pending speech
+                    speechEngine.SpeakAsyncCancelAll();
+
+                comPort.BaseStream.DtrEnable = false;
+                comPort.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+
+            try
+            {
+                System.Threading.ThreadPool.QueueUserWorkItem((WaitCallback)delegate
+                {
+                    try
+                    {
+                        MissionPlanner.Log.LogSort.SortLogs(Directory.GetFiles(Settings.Instance.LogDir, "*.tlog"));
+                    }
+                    catch
+                    {
+                    }
+                }
+                );
+            }
+            catch
+            {
+            }
+        }
+
+        public static void Connect()
+        {
+            comPort.giveComport = false;
+
+            Console.WriteLine("Starting to connect");
+
+            // Sanity check
+            if (comPort.BaseStream.IsOpen && comPort.MAV.cs.groundspeed > 4)
+            {
+                if ((int)DialogResult.No ==
+                    CustomMessageBox.Show(Strings.Stillmoving, Strings.Disconnect, MessageBoxButtons.YesNo))
+                {
+                    return;
+                }
+            }
+
+            // Decide if this is a connect or disconnect
+            if (comPort.BaseStream.IsOpen)
+            {
+                doDisconnect(comPort);
+            }
+            else
+            {
+                // Decide if aftGround or aftAir
+                if (aftGround != null)
+                {
+                    AFTGround._doConnect(comPort, inputtedPortName, inputtedBaud);
+                }
+                else if (aftAir != null)
+                {// Enable after updating aftAir; delete custom message box
+                    //AFTAir._doConnect(comPort, inputtedPortName, inputtedBaud);
+                    CustomMessageBox.Show("See Connect() in AFTController.cs");
+                }
+            }
+
+            if (comPort.BaseStream.IsOpen)
+                loadph_serial();
+        }
+
+        public static void loadph_serial()
+        {
+            try
+            {
+                if (comPort.MAV.SerialString == "")
+                    return;
+
+                if (comPort.MAV.SerialString.Contains("CubeBlack") &&
+                    !comPort.MAV.SerialString.Contains("CubeBlack+") &&
+                    comPort.MAV.param.ContainsKey("INS_ACC3_ID") && comPort.MAV.param["INS_ACC3_ID"].Value == 0 &&
+                    comPort.MAV.param.ContainsKey("INS_GYR3_ID") && comPort.MAV.param["INS_GYR3_ID"].Value == 0 &&
+                    comPort.MAV.param.ContainsKey("INS_ENABLE_MASK") && comPort.MAV.param["INS_ENABLE_MASK"].Value >= 7)
+                {
+                    MissionPlanner.Controls.SB.Show("Param Scan");
+                }
+            }
+            catch
+            {
+            }
+
+            try
+            {
+                if (comPort.MAV.SerialString == "")
+                    return;
+
+                // brd type should be 3
+                // devids show which sensor is not detected
+                // baro does not list a devid
+
+                //devop read spi lsm9ds0_ext_am 0 0 0x8f 1
+                if (comPort.MAV.SerialString.Contains("CubeBlack") && !comPort.MAV.SerialString.Contains("CubeBlack+"))
+                {
+                    Task.Run(() =>
+                    {
+                        bool bad1 = false;
+                        byte[] data = new byte[0];
+
+                        comPort.device_op(comPort.MAV.sysid, comPort.MAV.compid, out data,
+                            MAVLink.DEVICE_OP_BUSTYPE.SPI,
+                            "lsm9ds0_ext_g", 0, 0, 0x8f, 1);
+                        if (data.Length != 0 && (data[0] != 0xd4 && data[0] != 0xd7))
+                            bad1 = true;
+
+                        comPort.device_op(comPort.MAV.sysid, comPort.MAV.compid, out data,
+                            MAVLink.DEVICE_OP_BUSTYPE.SPI,
+                            "lsm9ds0_ext_am", 0, 0, 0x8f, 1);
+                        if (data.Length != 0 && data[0] != 0x49)
+                            bad1 = true;
+
+                        if (bad1)
+                            aftGround.BeginInvoke(method: (Action)delegate
+                            {
+                                MissionPlanner.Controls.SB.Show("SPI Scan");
+                            });
+                    });
+                }
+
+            }
+            catch
+            {
+            }
+        }
+
+        public static void PluginThread()
+        {
+            Hashtable nextrun = new Hashtable();
+
+            pluginthreadrun = true;
+
+            PluginThreadrunner.Reset();
+
+            while (pluginthreadrun)
+            {
+                DateTime minnextrun = DateTime.Now.AddMilliseconds(1000);
+                try
+                {
+                    foreach (var plugin in Plugin.PluginLoader.Plugins.ToArray())
+                    {
+                        if (!nextrun.ContainsKey(plugin))
+                            nextrun[plugin] = DateTime.MinValue;
+
+                        if ((DateTime.Now > plugin.NextRun) && (plugin.loopratehz > 0))
+                        {
+                            // get ms till next run
+                            int msnext = (int)(1000 / plugin.loopratehz);
+
+                            // allow the plug to modify this, if needed
+                            plugin.NextRun = DateTime.Now.AddMilliseconds(msnext);
+
+                            if (plugin.NextRun < minnextrun)
+                                minnextrun = plugin.NextRun;
+
+                            try
+                            {
+                                bool ans = plugin.Loop();
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine($"Error: {ex.Message}");
+                            }
+                        }
+                    }
+                }
+                catch
+                {
+                }
+
+                var sleepms = (int)((minnextrun - DateTime.Now).TotalMilliseconds);
+                // max rate is 100 hz - prevent massive cpu usage
+                if (sleepms > 0)
+                    System.Threading.Thread.Sleep(sleepms);
+            }
+
+            while (Plugin.PluginLoader.Plugins.Count > 0)
+            {
+                var plugin = Plugin.PluginLoader.Plugins[0];
+                try
+                {
+                    plugin.Exit();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error: {ex.Message}");
+                }
+
+                Plugin.PluginLoader.Plugins.Remove(plugin);
+            }
+
+            try
+            {
+                PluginThreadrunner.Set();
+            }
+            catch
+            {
+            }
+
+            return;
         }
 
         #endregion
