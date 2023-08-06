@@ -147,7 +147,7 @@ namespace MissionPlanner
         /// </summary>
         public static DateTime heatbeatSend = DateTime.Now;
 
-        public static string titlebar;
+        public static System.Threading.Timer telemetryUpdateTimer;
 
         /// <summary>
         /// controls the main serial reader thread

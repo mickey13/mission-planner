@@ -20,6 +20,7 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using static MissionPlanner.AFTController;
+using Timer = System.Windows.Forms.Timer;
 
 namespace MissionPlanner
 {
@@ -752,9 +753,6 @@ namespace MissionPlanner
             {
             } // i get alot of these errors, the port is still open, but not valid - user has unpluged usb
 
-            // save config
-            //SaveConfig();
-
             //Console.WriteLine(httpthread?.IsAlive);
             Console.WriteLine(pluginthread?.IsAlive);
 
@@ -1270,6 +1268,116 @@ namespace MissionPlanner
 
         #endregion
 
+        private Timer updateTimer;
+
+        private void UpdateTelemetryData()
+        {
+            // Get the latest telemetry values from MAVLinkInterface
+            double altitude = comPort.MAV.cs.alt;
+            double groundSpeed = comPort.MAV.cs.groundspeed;
+            double distanceToWaypoint = comPort.MAV.cs.wp_dist;
+            double yaw = comPort.MAV.cs.yaw;
+            double verticalSpeed = comPort.MAV.cs.climbrate;
+            double distanceToMAV = comPort.MAV.cs.DistToHome;
+
+            // Update the UI controls with telemetry data
+            lblAltDisplay.Text = altitude.ToString("F2");
+            lblGSpdDisplay.Text = groundSpeed.ToString("F2");
+            lblWPDistDisplay.Text = distanceToWaypoint.ToString("F2");
+            lblYawDisplay.Text = yaw.ToString("F2");
+            lblVSpdDisplay.Text = verticalSpeed.ToString("F2");
+            lblMAVDistDisplay.Text = distanceToMAV.ToString("F2");
+        }
+        /*Haversine formula
+        private const double EarthRadius = 6371000; // Earth's radius in meters
+
+        public static double HaversineDistance(double lat1, double lon1, double lat2, double lon2)
+        {
+            double dLat = DegreesToRadians(lat2 - lat1);
+            double dLon = DegreesToRadians(lon2 - lon1);
+
+            double a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
+                       Math.Cos(DegreesToRadians(lat1)) * Math.Cos(DegreesToRadians(lat2)) *
+                       Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
+
+            double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+            return EarthRadius * c;
+        }
+
+        private static double DegreesToRadians(double degrees)
+        {
+            return degrees * Math.PI / 180;
+        }
+
+        private UdpClient udpClient;
+        private int udpPort = 14550; // Customize the port number if needed
+        */
+        /* Update telem
+        private void ReceiveCallback(IAsyncResult result)
+        {
+            IPEndPoint source = new IPEndPoint(IPAddress.Any, udpPort);
+            byte[] receivedBytes = udpClient.EndReceive(result, ref source);
+
+            // Handle the MAVLink packet
+            HandleMavlinkPacket(receivedBytes);
+
+            // Continue listening for the next packet
+            udpClient.BeginReceive(new AsyncCallback(ReceiveCallback), null);
+        }
+
+        private void HandleMavlinkPacket(byte[] packet)
+        {
+            // Parse the MAVLink packet
+            MAVLink.MAVLinkMessage msg = MAVLink.MAVLinkMessage.Deserialize(packet);
+
+            // Current drone location, default to home location
+            Location mavLoc = new Location(comPort.MAV.cs.HomeLocation.Lat, comPort.MAV.cs.HomeLocation.Lng);
+
+            // Interpret the MAVLink message based on the message ID
+            switch (msg.msgid)
+            {
+                case (byte)MAVLink.MAVLINK_MSG_ID.GLOBAL_POSITION_INT:
+                    // Cast the message payload to the global position message type
+                    var position = msg.ToStructure<MAVLink.mavlink_global_position_int_t>();
+
+                    // Ground speed vector, m/s
+                    var speedNorth = position.vx / 100;
+                    var speedEast = position.vy / 100;
+                    var speedVector = Math.Sqrt(Math.Pow(speedNorth, 2) + Math.Pow(speedEast, 2));
+
+                    // Current drone location
+                    mavLoc = new Location(position.lat, position.lon);
+
+                    // Display the type and autopilot values
+                    Console.WriteLine($"Altitude (m): {position.relative_alt / 1000}, " +
+                        $"Ground speed (m/s): {speedVector}, " +
+                        $"Vertical speed (m/s): {position.vz / 100}, " +
+                        $"Yaw: {position.hdg}, " +
+                        $"Dist to MAV: {AFTController.comPort.MAV.cs.DistToHome}");
+                    break;
+
+                case (byte)MAVLink.MAVLINK_MSG_ID.MISSION_ITEM:
+                    // Cast the message payload to the mission item message type
+                    var missionItem = msg.ToStructure<MAVLink.mavlink_mission_item_t>();
+
+                    // Waypoint location
+                    Location wpLoc = new Location(missionItem.x, missionItem.y);
+
+                    // Distance to next WP
+                    var distanceToWP = HaversineDistance(mavLoc.Latitude, mavLoc.Longitude, wpLoc.Latitude, wpLoc.Longitude);
+
+                    // Display the type and autopilot values
+                    Console.WriteLine($"Distance to WP: {distanceToWP}");
+                    break;
+
+                // Handle other message types as needed
+
+                default:
+                    // Handle unknown message IDs or ignore them
+                    break;
+            }
+        }
+        */
         #region Custom bitmap showing shortest distance
 
         private const string RoutesApiUrl = "http://dev.virtualearth.net/REST/v1/Routes/Driving";
@@ -1440,6 +1548,8 @@ namespace MissionPlanner
 
         public AFTGround()
         {
+            InitializeComponent();
+
             // MainV2
             // define default basestream
             comPort.BaseStream = new SerialPort();
@@ -1449,7 +1559,11 @@ namespace MissionPlanner
             AFTController.comPort.MavChanged += comPort_MavChanged;
             Microsoft.Win32.SystemEvents.PowerModeChanged += SystemEvents_PowerModeChanged;
 
-            InitializeComponent();
+            // Initialize the timer
+            updateTimer = new Timer();
+            updateTimer.Interval = 500; // Update every 500 milliseconds (adjust as needed)
+            updateTimer.Tick += UpdateTimer_Tick;
+            updateTimer.Start();
 
             // Send menu panel and compass button to correct starting location
             sideMenuPanel.Dock = DockStyle.None;
@@ -1467,6 +1581,11 @@ namespace MissionPlanner
             bingMapsUserControl1.myMap.MouseMove += new System.Windows.Input.MouseEventHandler(myMap_MouseMove);
             bingMapsUserControl1.myMap.Loaded += MyMap_Loaded;
             aftNewMission.GroundPolygonEditRequested += aftNewMission_GroundPolygonEditRequested;
+        }
+
+        private void UpdateTimer_Tick(object sender, EventArgs e)
+        {
+            UpdateTelemetryData();
         }
 
         // MainV2
@@ -1691,6 +1810,10 @@ namespace MissionPlanner
 
             // Set firmware
             AFTController.comPort.MAV.cs.firmware = Firmwares.ArduRover;
+            /* update telem
+            // Start the UDP listener to receive MAVLink packets
+            udpClient = new UdpClient(udpPort);
+            udpClient.BeginReceive(new AsyncCallback(ReceiveCallback), null);*/
         }
 
         private void MyMap_Loaded(object sender, System.Windows.RoutedEventArgs e)
@@ -1782,13 +1905,13 @@ namespace MissionPlanner
 
         private void menuButton_Click(object sender, EventArgs e)
         {
-            // Show menu panel
+            // Hide menu panel
             if (this.Controls.GetChildIndex(sideMenuPanel) == 0)
             {
                 sideMenuPanel.Dock = DockStyle.None;
                 sideMenuPanel.SendToBack();
             }
-            // Hide menu panel
+            // Show menu panel
             else
             {
                 sideMenuPanel.Dock = DockStyle.Left;
