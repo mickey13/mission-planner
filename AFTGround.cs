@@ -1583,9 +1583,41 @@ namespace MissionPlanner
             aftNewMission.GroundPolygonEditRequested += aftNewMission_GroundPolygonEditRequested;
         }
 
+        // Layer for current drone location
+        MapLayer droneLocationLayer = null;
+
         private void UpdateTimer_Tick(object sender, EventArgs e)
         {
             UpdateTelemetryData();
+
+            if (comPort.MAV.cs.Location != null)
+            {
+                // Current drone location
+                var currentDroneLoc = new Location(comPort.MAV.cs.lat, comPort.MAV.cs.lng);
+
+                // Lazy way to set map location once to initial flight controller location
+                if (bingMapsUserControl1.myMap.Center == locationStart)
+                {
+                    bingMapsUserControl1.myMap.Center = currentDroneLoc;
+                }
+
+                // Display pushpin representing drone location
+                if (droneLocationLayer != null)
+                {
+                    bingMapsUserControl1.myMap.Children.Remove(droneLocationLayer);
+                }
+
+                droneLocationLayer = new MapLayer();
+                bingMapsUserControl1.myMap.Children.Add(droneLocationLayer);
+
+                Pushpin dronePushPin = new Pushpin();
+                dronePushPin.Width = 16;
+                dronePushPin.Height = 16;
+                dronePushPin.Background = new SolidColorBrush(System.Windows.Media.Colors.ForestGreen);
+
+                polygonPointLayer.AddChild(dronePushPin, currentDroneLoc);
+
+            }
         }
 
         // MainV2
