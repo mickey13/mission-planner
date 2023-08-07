@@ -20,12 +20,14 @@ namespace MissionPlanner
 
         private void btnBack_Click(object sender, EventArgs e)
         {
+            this.Dispose();
             ShowCamSettings();
             //this.Hide();
         }
 
         private void btnNext_Click(object sender, EventArgs e)
         {
+            this.Dispose();
             ShowOriSettings();
             //this.Hide();
         }

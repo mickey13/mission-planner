@@ -13,6 +13,7 @@ namespace MissionPlanner
 
         private void btnNext_Click(object sender, EventArgs e)
         {
+            this.Dispose();
             ShowAltSettings();
         }
 

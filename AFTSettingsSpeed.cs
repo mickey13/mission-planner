@@ -19,13 +19,13 @@ namespace MissionPlanner
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            //this.Dispose();
+            this.Dispose();
             ShowOriSettings();
         }
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            //this.Dispose();
+            this.Dispose();
             ShowBatSettings();
         }
 

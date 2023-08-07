@@ -33,6 +33,7 @@ namespace MissionPlanner
         {
             if (btnNewMission.Image == filledButton)
             {
+                this.Hide();
                 ShowCamSettings();
             }
             else if (btnLoadMission.Image == filledButton)
@@ -112,11 +113,11 @@ namespace MissionPlanner
                         AirPolygonEditRequested?.Invoke(this, new AFTAir.PolygonEventArgs(missionSettings.MissionBoundarySet.MissionBoundary));
                     }
                 }
+
+                // Hide from view, keep instance until user saves settings
+                this.Hide();
             }
             else { }
-
-            // Hide from view, keep instance until user saves settings
-            this.Hide();
         }
     }
 }

@@ -13,14 +13,14 @@ namespace MissionPlanner
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            //this.Dispose();
+            this.Dispose();
             ShowAltSettings();
             //this.Hide();
         }
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            //this.Dispose();
+            this.Dispose();
             ShowSpeedSettings();
             //this.Hide();
         }

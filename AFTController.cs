@@ -289,8 +289,8 @@ namespace MissionPlanner
                 aftSetCam = new AFTSettingsCam();
             }
 
-            aftSetCam.Show();
-            aftSetCam.BringToFront();
+            aftSetCam.ShowDialog();
+            //aftSetCam.BringToFront();
         }
 
         /// <summary>
@@ -303,8 +303,8 @@ namespace MissionPlanner
                 aftSetAlt = new AFTSettingsAlt();
             }
 
-            aftSetAlt.Show();
-            aftSetAlt.BringToFront();
+            aftSetAlt.ShowDialog();
+            //aftSetAlt.BringToFront();
         }
 
         /// <summary>
@@ -317,8 +317,8 @@ namespace MissionPlanner
                 aftSetOri = new AFTSettingsOri();
             }
 
-            aftSetOri.Show();
-            aftSetOri.BringToFront();
+            aftSetOri.ShowDialog();
+            //aftSetOri.BringToFront();
         }
 
         /// <summary>
@@ -331,8 +331,8 @@ namespace MissionPlanner
                 aftSetSpeed = new AFTSettingsSpeed();
             }
 
-            aftSetSpeed.Show();
-            aftSetSpeed.BringToFront();
+            aftSetSpeed.ShowDialog();
+            //aftSetSpeed.BringToFront();
         }
 
         /// <summary>
@@ -345,8 +345,8 @@ namespace MissionPlanner
                 aftSetBat = new AFTSettingsBat();
             }
 
-            aftSetBat.Show();
-            aftSetBat.BringToFront();
+            aftSetBat.ShowDialog();
+            //aftSetBat.BringToFront();
         }
 
         /// <summary>
@@ -359,8 +359,8 @@ namespace MissionPlanner
                 aftSetGrid = new AFTSettingsGrid();
             }
 
-            aftSetGrid.Show();
-            aftSetGrid.BringToFront();
+            aftSetGrid.ShowDialog();
+            //aftSetGrid.BringToFront();
         }
 
         /// <summary>
