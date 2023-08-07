@@ -65,7 +65,6 @@
             this.btnVidDownlink = new System.Windows.Forms.Button();
             this.btnFlightLines = new System.Windows.Forms.Button();
             this.btnCreateMission = new System.Windows.Forms.Button();
-            this.picFlightLines = new System.Windows.Forms.PictureBox();
             this.elementHost1 = new System.Windows.Forms.Integration.ElementHost();
             this.bingMapsUserControl1 = new MissionPlanner.BingMapsUserControl();
             this.topPanel.SuspendLayout();
@@ -81,7 +80,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.vertLine2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.sideMenuPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picFlightLines)).BeginInit();
             this.SuspendLayout();
             // 
             // topPanel
@@ -524,14 +522,6 @@
             this.btnCreateMission.UseVisualStyleBackColor = true;
             this.btnCreateMission.Click += new System.EventHandler(this.btnCreateMission_Click);
             // 
-            // picFlightLines
-            // 
-            this.picFlightLines.Location = new System.Drawing.Point(542, 545);
-            this.picFlightLines.Name = "picFlightLines";
-            this.picFlightLines.Size = new System.Drawing.Size(316, 177);
-            this.picFlightLines.TabIndex = 23;
-            this.picFlightLines.TabStop = false;
-            // 
             // elementHost1
             // 
             this.elementHost1.Location = new System.Drawing.Point(0, 0);
@@ -553,7 +543,6 @@
             this.Controls.Add(this.sideMenuPanel);
             this.Controls.Add(this.topPanel);
             this.Controls.Add(this.elementHost1);
-            this.Controls.Add(this.picFlightLines);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -575,7 +564,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.sideMenuPanel.ResumeLayout(false);
             this.sideMenuPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picFlightLines)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -619,7 +607,6 @@
         private System.Windows.Forms.Label lblWPDistDisplay;
         private System.Windows.Forms.Label lblGSpdDisplay;
         private System.Windows.Forms.Label lblAltDisplay;
-        private System.Windows.Forms.PictureBox picFlightLines;
         public Controls.Status status1;
     }
 }

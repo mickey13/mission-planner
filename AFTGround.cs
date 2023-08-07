@@ -5,11 +5,10 @@ using MissionPlanner.Controls;
 using MissionPlanner.GCSViews.ConfigurationView;
 using MissionPlanner.Utilities;
 using MissionPlanner.Warnings;
-using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -20,6 +19,7 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using static MissionPlanner.AFTController;
+using Location = Microsoft.Maps.MapControl.WPF.Location;
 using Timer = System.Windows.Forms.Timer;
 
 namespace MissionPlanner
@@ -1380,77 +1380,44 @@ namespace MissionPlanner
         */
         #region Custom bitmap showing shortest distance
 
-        private const string RoutesApiUrl = "http://dev.virtualearth.net/REST/v1/Routes/Driving";
-
-        public async Task<double> GetDistanceAsync(Location loc1, Location loc2)
+        // Function to calculate the shortest path using Bing Maps API routing
+        // Function to calculate the shortest path using Bing Maps API routing
+        private async Task<LocationCollection> CalculateShortestPath()
         {
-            var lat1 = loc1.Latitude;
-            var lon1 = loc1.Longitude;
-            var lat2 = loc2.Latitude;
-            var lon2 = loc2.Longitude;
-
+            // Create a HTTP client
             using (HttpClient httpClient = new HttpClient())
             {
-                string requestUrl = $"{RoutesApiUrl}?wp.0={lat1},{lon1}&wp.1={lat2},{lon2}&key={bingMapsKey}";
+                LocationCollection shortestPath = new LocationCollection();
 
-                try
+                if (comPort.BaseStream.IsOpen && comPort.MAV.cs.HomeLocation != null)
                 {
-                    HttpResponseMessage response = await httpClient.GetAsync(requestUrl);
+                    // Specify the route request URL
+                    string routeRequestUrl = $"https://dev.virtualearth.net/REST/v1/Routes/Walking?" +
+                        $"wp.0={comPort.MAV.cs.lat},{comPort.MAV.cs.lng}" +
+                        $"&wp.1={comPort.MAV.cs.HomeLocation.Lat},{comPort.MAV.cs.HomeLocation.Lng}&key={bingMapsKey}";
 
-                    if (response.IsSuccessStatusCode)
+                    // Send the request and get the response
+                    HttpResponseMessage response = await httpClient.GetAsync(routeRequestUrl);
+                    string responseContent = await response.Content.ReadAsStringAsync();
+
+                    // Parse the JSON response
+                    dynamic jsonResponse = JsonConvert.DeserializeObject(responseContent);
+
+                    if (jsonResponse != null && jsonResponse.resourceSets != null && jsonResponse.resourceSets.Count > 0 &&
+                        jsonResponse.resourceSets[0].resources != null && jsonResponse.resourceSets[0].resources.Count > 0)
                     {
-                        string responseContent = await response.Content.ReadAsStringAsync();
-                        JObject jsonResponse = JObject.Parse(responseContent);
-
-                        double distanceInMeters = (double)jsonResponse["resourceSets"][0]["resources"][0]["travelDistance"];
-                        double distanceInKilometers = distanceInMeters / 1000.0;
-
-                        return distanceInKilometers;
-                    }
-                    else
-                    {
-                        // Handle API error here
-                        Console.WriteLine("Bing Maps API request failed.");
-                        return -1; // Or throw an exception, depending on your error handling strategy
+                        // Extract the points from the route path and convert them to Location objects
+                        var routePath = jsonResponse.resourceSets[0].resources[0].routePath.line.coordinates;
+                        foreach (var coord in routePath)
+                        {
+                            double latitude = coord[0];
+                            double longitude = coord[1];
+                            shortestPath.Add(new Location(latitude, longitude));
+                        }
                     }
                 }
-                catch (Exception ex)
-                {
-                    // Handle exception here
-                    Console.WriteLine($"Error: {ex.Message}");
-                    return -1; // Or throw an exception, depending on your error handling strategy
-                }
+                return shortestPath;
             }
-        }
-
-        // Draw a bitmap with the shortest distance and display it on the form
-        private async Task DrawDistanceBitmap()
-        {
-            if (newPolygon.Locations.Count < 2)
-            {
-                // Not enough locations to calculate distance
-                return;
-            }
-
-            // Calculate the shortest distance between the first and last pushpins
-            double shortestDistance = await GetDistanceAsync(newPolygon.Locations[0], newPolygon.Locations[newPolygon.Locations.Count - 1]);
-
-            // Create a new bitmap
-            Bitmap bitmap = new Bitmap(1284, 781);
-            using (Graphics graphics = Graphics.FromImage(bitmap))
-            {
-                // Fill the background
-                graphics.Clear(System.Drawing.Color.White);
-
-                // Draw the shortest distance on the bitmap
-                string distanceText = $"Shortest Distance Home: {shortestDistance:F2} km";
-                Font font = new Font(System.Drawing.FontFamily.GenericSansSerif, 12, System.Drawing.FontStyle.Regular);
-                System.Drawing.Brush brush = System.Drawing.Brushes.Black;
-                graphics.DrawString(distanceText, font, brush, new PointF(500, 500));
-            }
-
-            // Display the bitmap on the form
-            picFlightLines.Image = bitmap;
         }
 
         #endregion
@@ -1460,6 +1427,9 @@ namespace MissionPlanner
 
         // Private field to track if current pushpin is being dragged or not
         private bool _IsPinDragging;
+
+        // Polyline for flight lines button
+        public static MapPolyline pathPolyline = null;
 
         /// <summary>
         /// Custom EventArgs for updating polygon coords
@@ -1500,7 +1470,7 @@ namespace MissionPlanner
             polygonPushPin.Height = 16;
 
             // Leave first location (home location) as default color
-            if (newPolygon.Locations.Count() > 1)
+            if (newPolygon.Locations.Count() > 0)
             {
                 polygonPushPin.Background = new SolidColorBrush(missionBoundaryColor);
             }
@@ -2008,25 +1978,33 @@ namespace MissionPlanner
             aftNewMission.BringToFront();
         }
 
-        private async void btnFlightLines_Click(object sender, EventArgs e)
+        private void btnFlightLines_Click(object sender, EventArgs e)
         {
-            var mapIdx = aftGround.Controls.GetChildIndex(elementHost1);
-            var bmapIdx = aftGround.Controls.GetChildIndex(picFlightLines);
-
-            if (mapIdx < bmapIdx)
+            if (pathPolyline == null)
             {
-                await DrawDistanceBitmap();
+                LocationCollection shortestPath = CalculateShortestPath().Result;
 
-                picFlightLines.Dock = DockStyle.Fill;
+                pathPolyline = new MapPolyline();
+                pathPolyline.Locations = shortestPath;
 
-                elementHost1.SendToBack();
-                aftGround.Controls.SetChildIndex(picFlightLines, mapIdx);
+                // Customize the polyline appearance (color and thickness)
+                pathPolyline.Stroke = new SolidColorBrush(missionBoundaryColor);
+                pathPolyline.StrokeThickness = 3;
+
+                // Add the polyline to the map
+                bingMapsUserControl1.myMap.Children.Add(pathPolyline);
+
+                // Set the map view to include the MAV and home locations
+                LocationRect rect = new LocationRect(shortestPath);
+                //bingMapsUserControl1.myMap.SetView(rect);
             }
             else
             {
-                picFlightLines.SendToBack();
-                aftGround.Controls.SetChildIndex(elementHost1, bmapIdx);
+                bingMapsUserControl1.myMap.Children.Remove(pathPolyline);
+                pathPolyline = null;
+                //bingMapsUserControl1.myMap.SetView(previousView);
             }
+
         }
 
         private void btnVidDownlink_Click(object sender, EventArgs e)
