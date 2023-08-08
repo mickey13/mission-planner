@@ -65,6 +65,7 @@
             this.btnVidDownlink = new System.Windows.Forms.Button();
             this.btnFlightLines = new System.Windows.Forms.Button();
             this.btnCreateMission = new System.Windows.Forms.Button();
+            this.picVidDownlink = new System.Windows.Forms.PictureBox();
             this.elementHost1 = new System.Windows.Forms.Integration.ElementHost();
             this.bingMapsUserControl1 = new MissionPlanner.BingMapsUserControl();
             this.topPanel.SuspendLayout();
@@ -80,6 +81,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.vertLine2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.sideMenuPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picVidDownlink)).BeginInit();
             this.SuspendLayout();
             // 
             // topPanel
@@ -522,6 +524,14 @@
             this.btnCreateMission.UseVisualStyleBackColor = true;
             this.btnCreateMission.Click += new System.EventHandler(this.btnCreateMission_Click);
             // 
+            // picVidDownlink
+            // 
+            this.picVidDownlink.Location = new System.Drawing.Point(506, 557);
+            this.picVidDownlink.Name = "picVidDownlink";
+            this.picVidDownlink.Size = new System.Drawing.Size(330, 134);
+            this.picVidDownlink.TabIndex = 23;
+            this.picVidDownlink.TabStop = false;
+            // 
             // elementHost1
             // 
             this.elementHost1.Location = new System.Drawing.Point(0, 0);
@@ -543,6 +553,7 @@
             this.Controls.Add(this.sideMenuPanel);
             this.Controls.Add(this.topPanel);
             this.Controls.Add(this.elementHost1);
+            this.Controls.Add(this.picVidDownlink);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -564,6 +575,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.sideMenuPanel.ResumeLayout(false);
             this.sideMenuPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picVidDownlink)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -608,5 +620,6 @@
         private System.Windows.Forms.Label lblGSpdDisplay;
         private System.Windows.Forms.Label lblAltDisplay;
         public Controls.Status status1;
+        private System.Windows.Forms.PictureBox picVidDownlink;
     }
 }

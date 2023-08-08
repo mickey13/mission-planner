@@ -113,6 +113,7 @@ namespace MissionPlanner
                     Console.WriteLine($"Error: {ex.Message}");
                 }
             };
+            AutoConnect.Start();
 
             try
             {

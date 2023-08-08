@@ -1,14 +1,17 @@
 ﻿using Microsoft.Maps.MapControl.WPF;
 using MissionPlanner.ArduPilot;
+using MissionPlanner.ArduPilot.Mavlink;
 using MissionPlanner.Comms;
 using MissionPlanner.Controls;
 using MissionPlanner.GCSViews.ConfigurationView;
 using MissionPlanner.Utilities;
 using MissionPlanner.Warnings;
 using Newtonsoft.Json;
+using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -1908,7 +1911,7 @@ namespace MissionPlanner
         private void menuButton_Click(object sender, EventArgs e)
         {
             // Hide menu panel
-            if (this.Controls.GetChildIndex(sideMenuPanel) == 0)
+            if (aftGround.Controls.GetChildIndex(sideMenuPanel) == 0)
             {
                 sideMenuPanel.Dock = DockStyle.None;
                 sideMenuPanel.SendToBack();
@@ -1917,7 +1920,7 @@ namespace MissionPlanner
             else
             {
                 sideMenuPanel.Dock = DockStyle.Left;
-                this.Controls.SetChildIndex(sideMenuPanel, 0);
+                aftGround.Controls.SetChildIndex(sideMenuPanel, 0);
             }
         }
 
@@ -2007,9 +2010,163 @@ namespace MissionPlanner
 
         }
 
+        public static bool isHerelink = false;
+
         private void btnVidDownlink_Click(object sender, EventArgs e)
         {
-            /*Switch to video downlink*/
+            var mapIdx = aftGround.Controls.GetChildIndex(elementHost1);
+            var vidIdx = aftGround.Controls.GetChildIndex(picVidDownlink);
+
+            if (mapIdx < vidIdx)
+            {
+                AutoConnect.NewVideoStream += (send, gststring) =>
+                {
+                    try
+                    {
+                        Console.WriteLine("AutoConnect.NewVideoStream " + gststring);
+                        GStreamer.gstlaunch = GStreamer.LookForGstreamer();
+
+                        if (!GStreamer.gstlaunchexists)
+                        {
+                            GStreamerUI.DownloadGStreamer();
+                            if (!GStreamer.gstlaunchexists)
+                            {
+                                return;
+                            }
+                        }
+
+                        GStreamer.StartA(gststring);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error: {ex}");
+                    }
+                };
+                AutoConnect.Start();
+
+                // debound based on url
+                List<string> videourlseen = new List<string>();
+                // prevent spaming the ui
+                SemaphoreSlim videodetect = new SemaphoreSlim(1);
+
+                CameraProtocol.OnRTSPDetected += (send, s) =>
+                {
+                    if (isHerelink)
+                    {
+                        return;
+                    }
+
+                    if (!videourlseen.Contains(s) && videodetect.Wait(0))
+                    {
+                        videourlseen.Add(s);
+                        AutoConnect.RaiseNewVideoStream(sender,
+                                String.Format(
+                                    "rtspsrc location={0} latency=41 udp-reconnect=1 timeout=0 do-retransmission=false ! application/x-rtp ! decodebin3 ! queue leaky=2 ! videoconvert ! video/x-raw,format=BGRA ! appsink name=outsink sync=false",
+                                    s));
+
+                        videodetect.Release();
+                    }
+                };
+                // When receive a new frame from GStreamer
+                GStreamer.onNewImage += (send, image) =>
+                {
+                    try
+                    {
+                        if (image == null)
+                        {
+                            picVidDownlink.Image = null;
+                            return;
+                        }
+
+                        var old = picVidDownlink.Image;
+                        picVidDownlink.Image = new Bitmap(image.Width, image.Height, 4 * image.Width,
+                            System.Drawing.Imaging.PixelFormat.Format32bppPArgb,
+                            image.LockBits(Rectangle.Empty, null, SKColorType.Bgra8888)
+                                .Scan0);
+                        if (old != null)
+                            old.Dispose();
+                    }
+                    catch
+                    {
+                    }
+                };
+                // When receive a new frame from video rendered with VLC (VideoLAN Client)
+                vlcrender.onNewImage += (send, image) =>
+                {
+                    try
+                    {
+                        if (image == null)
+                        {
+                            picVidDownlink.Image = null;
+                            return;
+                        }
+
+                        var old = picVidDownlink.Image;
+                        picVidDownlink.Image = new Bitmap(image.Width,
+                            image.Height,
+                            4 * image.Width,
+                            System.Drawing.Imaging.PixelFormat.Format32bppPArgb,
+                            image.LockBits(Rectangle.Empty, null, SKColorType.Bgra8888).Scan0);
+                        if (old != null)
+                            old.Dispose();
+                    }
+                    catch
+                    {
+                    }
+                };
+                // When receive a new frame from video captured using MJPEG (Motion JPEG) format
+                CaptureMJPEG.onNewImage += (send, image) =>
+                {
+                    try
+                    {
+                        if (image == null)
+                        {
+                            picVidDownlink.Image = null;
+                            return;
+                        }
+
+                        var old = picVidDownlink.Image;
+                        picVidDownlink.Image = new Bitmap(image.Width, image.Height, 4 * image.Width,
+                            System.Drawing.Imaging.PixelFormat.Format32bppPArgb,
+                            image.LockBits(Rectangle.Empty, null, SKColorType.Bgra8888).Scan0);
+                        if (old != null)
+                            old.Dispose();
+                    }
+                    catch
+                    {
+                    }
+                };
+
+                // Switch views
+                elementHost1.Dock = DockStyle.None;
+                elementHost1.SendToBack();
+
+                aftGround.Controls.SetChildIndex(picVidDownlink, mapIdx);
+                picVidDownlink.Dock = DockStyle.Fill;
+            }
+            else
+            {
+                // Switch views
+                picVidDownlink.Dock = DockStyle.None;
+                picVidDownlink.SendToBack();
+
+                aftGround.Controls.SetChildIndex(elementHost1, vidIdx);
+                elementHost1.Dock = DockStyle.Fill;
+
+                // Stop video downlink
+                Console.WriteLine("Stopping GStreamer");
+                GStreamer.StopAll();
+
+                Console.WriteLine("Closing vlcrender");
+                try
+                {
+                    while (vlcrender.store.Count > 0)
+                        vlcrender.store[0].Stop();
+                }
+                catch
+                {
+                }
+            }
         }
     }
 }
