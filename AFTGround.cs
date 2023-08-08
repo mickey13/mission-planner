@@ -5,8 +5,6 @@ using MissionPlanner.Comms;
 using MissionPlanner.Controls;
 using MissionPlanner.GCSViews.ConfigurationView;
 using MissionPlanner.Utilities;
-using MissionPlanner.Warnings;
-using Newtonsoft.Json;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
@@ -14,7 +12,6 @@ using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -29,153 +26,25 @@ namespace MissionPlanner
 {
     public partial class AFTGround : Form
     {
+        // Vector from mouse to selected pushpin
+        Vector _mouseToMarker;
 
-        #region From MainV2, for MAVLink
+        // Private field to track if current pushpin is being dragged or not
+        private bool _IsPinDragging;
 
-        /*/// <summary>
-        /// Active Comport interface
+        /// <summary>
+        /// Custom EventArgs for updating polygon coords
         /// </summary>
-        public static MAVLinkInterface comPort
+        public class PolygonEventArgs : EventArgs
         {
-            get { return _comPort; }
-            set
+            public LocationCollection PolygonCoordinates { get; }
+
+            public PolygonEventArgs(LocationCollection coordinates)
             {
-                if (_comPort == value)
-                    return;
-                _comPort = value;
-                if (aftGround == null)
-                    return;
-                _comPort.MavChanged -= aftGround.comPort_MavChanged;
-                _comPort.MavChanged += aftGround.comPort_MavChanged;
-                aftGround.comPort_MavChanged(null, null);
+                PolygonCoordinates = coordinates;
             }
         }
 
-        static MAVLinkInterface _comPort = new MAVLinkInterface();
-        */
-        /// <summary>
-        /// passive comports
-        /// </summary>
-        //public static List<MAVLinkInterface> Comports = new List<MAVLinkInterface>();
-
-        /*
-        public static string inputtedPortName = "preset";
-        public static string inputtedBaud = "57600";
-        */
-        /*
-        /// <summary>
-        /// store the time we first connect
-        /// </summary>
-        public static DateTime connecttime = DateTime.Now;
-
-        public static DateTime nodatawarning = DateTime.Now;
-
-        /// <summary>
-        /// track the last heartbeat sent
-        /// </summary>
-        public static DateTime heatbeatSend = DateTime.Now;
-        */
-        /*
-        public static string titlebar;
-
-        /// <summary>
-        /// controls the main serial reader thread
-        /// </summary>
-        public static bool serialThread = false;
-
-        public static bool pluginthreadrun = false;
-
-        public static Thread pluginthread;
-
-        public static ManualResetEvent SerialThreadrunner = new ManualResetEvent(false);
-        */
-        /*
-        /// <summary>
-        /// speech engine enable
-        /// </summary>
-        public static bool speechEnable
-        {
-            get { return speechEngine == null ? false : speechEngine.speechEnable; }
-            set
-            {
-                if (speechEngine != null) speechEngine.speechEnable = value;
-            }
-        }
-
-        public static bool speech_armed_only = false;
-        public static bool speechEnabled()
-        {
-            if (!speechEnable)
-            {
-                return false;
-            }
-            if (speech_armed_only)
-            {
-                return AFTGround.comPort.MAV.cs.armed;
-            }
-            return true;
-        }
-
-        /// <summary>
-        /// spech engine static class
-        /// </summary>
-        public static ISpeech speechEngine { get; set; }
-        */
-
-        public void comPort_MavChanged(object sender, EventArgs e)
-        {
-            Console.WriteLine($"Mav Changed {AFTController.comPort.MAV.sysid}");
-
-            HUD.Custom.src = AFTController.comPort.MAV.cs;
-
-            CustomWarning.defaultsrc = AFTController.comPort.MAV.cs;
-
-            MissionPlanner.Controls.PreFlight.CheckListItem.defaultsrc = AFTController.comPort.MAV.cs;
-        }
-
-        void SystemEvents_PowerModeChanged(object sender, Microsoft.Win32.PowerModeChangedEventArgs e)
-        {
-            // try prevent crash on resume
-            if (e.Mode == Microsoft.Win32.PowerModes.Suspend)
-            {
-                doDisconnect(AFTController.comPort);
-            }
-        }
-        /*
-        public static void doDisconnect(MAVLinkInterface comPort)
-        {
-            try
-            {
-                if (speechEngine != null) // cancel all pending speech
-                    speechEngine.SpeakAsyncCancelAll();
-
-                comPort.BaseStream.DtrEnable = false;
-                comPort.Close();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
-            try
-            {
-                System.Threading.ThreadPool.QueueUserWorkItem((WaitCallback)delegate
-                {
-                    try
-                    {
-                        MissionPlanner.Log.LogSort.SortLogs(Directory.GetFiles(Settings.Instance.LogDir, "*.tlog"));
-                    }
-                    catch
-                    {
-                    }
-                }
-                );
-            }
-            catch
-            {
-            }
-        }
-        */
         // Keep here since it references private functions
         public static void _doConnect(MAVLinkInterface comPort, string portname, string baud, bool getparams = true, bool showui = true)
         {
@@ -513,9 +382,6 @@ namespace MissionPlanner
                     }
                 }
 
-                // Add HUD custom items source
-                HUD.Custom.src = AFTController.comPort.MAV.cs;
-
                 // Drone should now be connected
             }
             catch (Exception ex)
@@ -535,234 +401,6 @@ namespace MissionPlanner
                 Console.WriteLine($"Can not establish a connection\n\n{ex.Message}");
                 return;
             }
-        }
-        /*
-        public static void Connect()
-        {
-            comPort.giveComport = false;
-
-            Console.WriteLine("Starting to connect");
-
-            // Sanity check
-            if (comPort.BaseStream.IsOpen && comPort.MAV.cs.groundspeed > 4)
-            {
-                if ((int)DialogResult.No ==
-                    CustomMessageBox.Show(Strings.Stillmoving, Strings.Disconnect, MessageBoxButtons.YesNo))
-                {
-                    return;
-                }
-            }
-            
-            // Decide if this is a connect or disconnect
-            if (comPort.BaseStream.IsOpen)
-            {
-                doDisconnect(comPort);
-            }
-            else
-            {
-                // Decide if aftGround or aftAir
-                if (aftGround != null)
-                {
-                    AFTGround._doConnect(comPort, inputtedPortName, inputtedBaud);
-                }
-                else if (aftAir != null)
-                {
-                    AFTGround._doConnect(comPort, inputtedPortName, inputtedBaud);
-                }
-            }
-
-            if (comPort.BaseStream.IsOpen)
-                loadph_serial();
-        }
-        */
-        /*
-        public static void loadph_serial()
-        {
-            try
-            {
-                if (comPort.MAV.SerialString == "")
-                    return;
-
-                if (comPort.MAV.SerialString.Contains("CubeBlack") &&
-                    !comPort.MAV.SerialString.Contains("CubeBlack+") &&
-                    comPort.MAV.param.ContainsKey("INS_ACC3_ID") && comPort.MAV.param["INS_ACC3_ID"].Value == 0 &&
-                    comPort.MAV.param.ContainsKey("INS_GYR3_ID") && comPort.MAV.param["INS_GYR3_ID"].Value == 0 &&
-                    comPort.MAV.param.ContainsKey("INS_ENABLE_MASK") && comPort.MAV.param["INS_ENABLE_MASK"].Value >= 7)
-                {
-                    MissionPlanner.Controls.SB.Show("Param Scan");
-                }
-            }
-            catch
-            {
-            }
-
-            try
-            {
-                if (comPort.MAV.SerialString == "")
-                    return;
-
-                // brd type should be 3
-                // devids show which sensor is not detected
-                // baro does not list a devid
-
-                //devop read spi lsm9ds0_ext_am 0 0 0x8f 1
-                if (comPort.MAV.SerialString.Contains("CubeBlack") && !comPort.MAV.SerialString.Contains("CubeBlack+"))
-                {
-                    Task.Run(() =>
-                    {
-                        bool bad1 = false;
-                        byte[] data = new byte[0];
-
-                        comPort.device_op(comPort.MAV.sysid, comPort.MAV.compid, out data,
-                            MAVLink.DEVICE_OP_BUSTYPE.SPI,
-                            "lsm9ds0_ext_g", 0, 0, 0x8f, 1);
-                        if (data.Length != 0 && (data[0] != 0xd4 && data[0] != 0xd7))
-                            bad1 = true;
-
-                        comPort.device_op(comPort.MAV.sysid, comPort.MAV.compid, out data,
-                            MAVLink.DEVICE_OP_BUSTYPE.SPI,
-                            "lsm9ds0_ext_am", 0, 0, 0x8f, 1);
-                        if (data.Length != 0 && data[0] != 0x49)
-                            bad1 = true;
-
-                        if (bad1)
-                            aftGround.BeginInvoke(method: (Action)delegate
-                            {
-                                MissionPlanner.Controls.SB.Show("SPI Scan");
-                            });
-                    });
-                }
-
-            }
-            catch
-            {
-            }
-        }
-        */
-        /// <summary>
-        /// overriding the OnCLosing is a bit cleaner than handling the event, since it
-        /// is this object.
-        ///
-        /// This happens before FormClosed
-        /// </summary>
-        /// <param name="e"></param>
-        protected override void OnClosing(CancelEventArgs e)
-        {
-            base.OnClosing(e);
-
-            //log.Info("MainV2_FormClosing");
-
-            //log.Info("close ports");
-            /*// close all connections
-            foreach (var port in Comports)
-            {
-                try
-                {
-                    port.logreadmode = false;
-                    if (port.logfile != null)
-                        port.logfile.Close();
-
-                    if (port.rawlogfile != null)
-                        port.rawlogfile.Close();
-
-                    port.logfile = null;
-                    port.rawlogfile = null;
-                }
-                catch
-                {
-                }
-            }
-            */
-            // Stop adsb
-            Utilities.adsb.Stop();
-
-            // Stop WarningEngine
-            Warnings.WarningEngine.Stop();
-
-            // Stop GStreamer
-            GStreamer.StopAll();
-
-            // Close vlcrender
-            try
-            {
-                while (vlcrender.store.Count > 0)
-                    vlcrender.store[0].Stop();
-            }
-            catch
-            {
-            }
-
-            // Close pluginthread
-            pluginthreadrun = false;
-
-            if (pluginthread != null)
-            {
-                try
-                {
-                    while (!PluginThreadrunner.WaitOne(100)) System.Windows.Forms.Application.DoEvents();
-                }
-                catch
-                {
-                }
-
-                pluginthread.Join();
-            }
-
-            // Close serialthread
-
-            serialThread = false;
-
-            // Close httpthread
-
-            // if we are waiting on a socket we need to force an abort
-            httpserver.Stop();
-
-            // Close all forms
-            //MyView.Dispose();
-
-            //log.Info("closing fd");
-            try
-            {
-                //FlightData.Dispose();
-            }
-            catch
-            {
-            }
-
-            //log.Info("closing fp");
-            try
-            {
-                //FlightPlanner.Dispose();
-            }
-            catch
-            {
-            }
-
-            //log.Info("closing sim");
-            try
-            {
-                //Simulation.Dispose();
-            }
-            catch
-            {
-            }
-
-            try
-            {
-                if (comPort.BaseStream.IsOpen)
-                    comPort.Close();
-            }
-            catch
-            {
-            } // i get alot of these errors, the port is still open, but not valid - user has unpluged usb
-
-            //Console.WriteLine(httpthread?.IsAlive);
-            Console.WriteLine(pluginthread?.IsAlive);
-
-            Console.WriteLine("AFTGround_FormClosing done");
-
-            //if (MONO)
-            //this.Dispose();
         }
 
         public static async void SerialReaderGround()
@@ -1269,11 +907,10 @@ namespace MissionPlanner
             SerialThreadrunner.Set();
         }
 
-        #endregion
-
-        private Timer updateTimer;
-
-        private void UpdateTelemetryData()
+        /// <summary>
+        /// Update telemetry display with new values
+        /// </summary>
+        private void _updateTelemetryData()
         {
             // Get the latest telemetry values from MAVLinkInterface
             double altitude = comPort.MAV.cs.alt;
@@ -1290,161 +927,6 @@ namespace MissionPlanner
             lblYawDisplay.Text = yaw.ToString("F2");
             lblVSpdDisplay.Text = verticalSpeed.ToString("F2");
             lblMAVDistDisplay.Text = distanceToMAV.ToString("F2");
-        }
-        /*Haversine formula
-        private const double EarthRadius = 6371000; // Earth's radius in meters
-
-        public static double HaversineDistance(double lat1, double lon1, double lat2, double lon2)
-        {
-            double dLat = DegreesToRadians(lat2 - lat1);
-            double dLon = DegreesToRadians(lon2 - lon1);
-
-            double a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
-                       Math.Cos(DegreesToRadians(lat1)) * Math.Cos(DegreesToRadians(lat2)) *
-                       Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
-
-            double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
-            return EarthRadius * c;
-        }
-
-        private static double DegreesToRadians(double degrees)
-        {
-            return degrees * Math.PI / 180;
-        }
-
-        private UdpClient udpClient;
-        private int udpPort = 14550; // Customize the port number if needed
-        */
-        /* Update telem
-        private void ReceiveCallback(IAsyncResult result)
-        {
-            IPEndPoint source = new IPEndPoint(IPAddress.Any, udpPort);
-            byte[] receivedBytes = udpClient.EndReceive(result, ref source);
-
-            // Handle the MAVLink packet
-            HandleMavlinkPacket(receivedBytes);
-
-            // Continue listening for the next packet
-            udpClient.BeginReceive(new AsyncCallback(ReceiveCallback), null);
-        }
-
-        private void HandleMavlinkPacket(byte[] packet)
-        {
-            // Parse the MAVLink packet
-            MAVLink.MAVLinkMessage msg = MAVLink.MAVLinkMessage.Deserialize(packet);
-
-            // Current drone location, default to home location
-            Location mavLoc = new Location(comPort.MAV.cs.HomeLocation.Lat, comPort.MAV.cs.HomeLocation.Lng);
-
-            // Interpret the MAVLink message based on the message ID
-            switch (msg.msgid)
-            {
-                case (byte)MAVLink.MAVLINK_MSG_ID.GLOBAL_POSITION_INT:
-                    // Cast the message payload to the global position message type
-                    var position = msg.ToStructure<MAVLink.mavlink_global_position_int_t>();
-
-                    // Ground speed vector, m/s
-                    var speedNorth = position.vx / 100;
-                    var speedEast = position.vy / 100;
-                    var speedVector = Math.Sqrt(Math.Pow(speedNorth, 2) + Math.Pow(speedEast, 2));
-
-                    // Current drone location
-                    mavLoc = new Location(position.lat, position.lon);
-
-                    // Display the type and autopilot values
-                    Console.WriteLine($"Altitude (m): {position.relative_alt / 1000}, " +
-                        $"Ground speed (m/s): {speedVector}, " +
-                        $"Vertical speed (m/s): {position.vz / 100}, " +
-                        $"Yaw: {position.hdg}, " +
-                        $"Dist to MAV: {AFTController.comPort.MAV.cs.DistToHome}");
-                    break;
-
-                case (byte)MAVLink.MAVLINK_MSG_ID.MISSION_ITEM:
-                    // Cast the message payload to the mission item message type
-                    var missionItem = msg.ToStructure<MAVLink.mavlink_mission_item_t>();
-
-                    // Waypoint location
-                    Location wpLoc = new Location(missionItem.x, missionItem.y);
-
-                    // Distance to next WP
-                    var distanceToWP = HaversineDistance(mavLoc.Latitude, mavLoc.Longitude, wpLoc.Latitude, wpLoc.Longitude);
-
-                    // Display the type and autopilot values
-                    Console.WriteLine($"Distance to WP: {distanceToWP}");
-                    break;
-
-                // Handle other message types as needed
-
-                default:
-                    // Handle unknown message IDs or ignore them
-                    break;
-            }
-        }
-        */
-        #region Custom bitmap showing shortest distance
-
-        // Function to calculate the shortest path using Bing Maps API routing
-        // Function to calculate the shortest path using Bing Maps API routing
-        private async Task<LocationCollection> CalculateShortestPath()
-        {
-            // Create a HTTP client
-            using (HttpClient httpClient = new HttpClient())
-            {
-                LocationCollection shortestPath = new LocationCollection();
-
-                if (comPort.BaseStream.IsOpen && comPort.MAV.cs.HomeLocation != null)
-                {
-                    // Specify the route request URL
-                    string routeRequestUrl = $"https://dev.virtualearth.net/REST/v1/Routes/Walking?" +
-                        $"wp.0={comPort.MAV.cs.lat},{comPort.MAV.cs.lng}" +
-                        $"&wp.1={comPort.MAV.cs.HomeLocation.Lat},{comPort.MAV.cs.HomeLocation.Lng}&key={bingMapsKey}";
-
-                    // Send the request and get the response
-                    HttpResponseMessage response = await httpClient.GetAsync(routeRequestUrl);
-                    string responseContent = await response.Content.ReadAsStringAsync();
-
-                    // Parse the JSON response
-                    dynamic jsonResponse = JsonConvert.DeserializeObject(responseContent);
-
-                    if (jsonResponse != null && jsonResponse.resourceSets != null && jsonResponse.resourceSets.Count > 0 &&
-                        jsonResponse.resourceSets[0].resources != null && jsonResponse.resourceSets[0].resources.Count > 0)
-                    {
-                        // Extract the points from the route path and convert them to Location objects
-                        var routePath = jsonResponse.resourceSets[0].resources[0].routePath.line.coordinates;
-                        foreach (var coord in routePath)
-                        {
-                            double latitude = coord[0];
-                            double longitude = coord[1];
-                            shortestPath.Add(new Location(latitude, longitude));
-                        }
-                    }
-                }
-                return shortestPath;
-            }
-        }
-
-        #endregion
-
-        // Vector from mouse to selected pushpin
-        Vector _mouseToMarker;
-
-        // Private field to track if current pushpin is being dragged or not
-        private bool _IsPinDragging;
-
-        // Polyline for flight lines button
-        public static MapPolyline pathPolyline = null;
-
-        /// <summary>
-        /// Custom EventArgs for updating polygon coords
-        /// </summary>
-        public class PolygonEventArgs : EventArgs
-        {
-            public LocationCollection PolygonCoordinates { get; }
-
-            public PolygonEventArgs(LocationCollection coordinates)
-            {
-                PolygonCoordinates = coordinates;
-            }
         }
 
         /// <summary>
@@ -1523,16 +1005,14 @@ namespace MissionPlanner
         {
             InitializeComponent();
 
-            // MainV2
-            // define default basestream
+            // Define default basestream
             comPort.BaseStream = new SerialPort();
             comPort.BaseStream.BaudRate = 57600;
 
             Comports.Add(comPort);
-            AFTController.comPort.MavChanged += comPort_MavChanged;
             Microsoft.Win32.SystemEvents.PowerModeChanged += SystemEvents_PowerModeChanged;
 
-            // Initialize the timer
+            // Initialize timer
             updateTimer = new Timer();
             updateTimer.Interval = 500; // Update every 500 milliseconds (adjust as needed)
             updateTimer.Tick += UpdateTimer_Tick;
@@ -1556,12 +1036,9 @@ namespace MissionPlanner
             aftNewMission.GroundPolygonEditRequested += aftNewMission_GroundPolygonEditRequested;
         }
 
-        // Layer for current drone location
-        MapLayer droneLocationLayer = null;
-
         private void UpdateTimer_Tick(object sender, EventArgs e)
         {
-            UpdateTelemetryData();
+            _updateTelemetryData();
 
             if (comPort.MAV.cs.Location != null)
             {
@@ -1593,228 +1070,13 @@ namespace MissionPlanner
             }
         }
 
-        // MainV2
-        protected override void OnLoad(EventArgs e)
-        {/*
-            try
-            {
-                // setup main serial reader
-                SerialReader();
-            }
-            catch (NotSupportedException ex)
-            {
-                //log.Error(ex);
-            }
-
-            //log.Info("start AutoConnect");
-            AutoConnect.NewMavlinkConnection += (sender, serial) =>
-            {
-                try
-                {
-                    //log.Info("AutoConnect.NewMavlinkConnection " + serial.PortName);
-                    aftGround.BeginInvoke((Action)delegate
-                    {
-                        if (AFTGround.comPort.BaseStream.IsOpen)
-                        {
-                            var mav = new MAVLinkInterface();
-                            mav.BaseStream = serial;
-                            AFTGround.doConnect(mav, "preset", serial.PortName);
-
-                            AFTGround.Comports.Add(mav);
-
-                            try
-                            {
-                                Comports = Comports.Distinct().ToList();
-                            }
-                            catch { }
-                        }
-                        else
-                        {
-                            AFTGround.comPort.BaseStream = serial;
-                            AFTGround.doConnect(AFTGround.comPort, "preset", serial.PortName);
-                        }
-                    });
-                }
-                catch (Exception ex)
-                {
-                    //log.Error(ex);
-                }
-            };
-
-            try
-            {
-                object locker = new object();
-                List<string> seen = new List<string>();
-
-                ZeroConf.StartUDPMavlink += (zeroconfHost) =>
-                {
-                    try
-                    {
-                        var ip = zeroconfHost.IPAddress;
-                        var service = zeroconfHost.Services.Where(a => a.Key == "_mavlink._udp.local.");
-                        var port = service.First().Value.Port;
-
-                        lock (locker)
-                        {
-                            if (Comports.Any((a) =>
-                            {
-                                return a.BaseStream.PortName == "UDPCl" + port.ToString() && a.BaseStream.IsOpen;
-                            }
-                            ))
-                                return;
-
-                            if (seen.Contains(zeroconfHost.Id))
-                                return;
-
-                            // Connect to vehicle
-                            var mav = new MAVLinkInterface();
-
-                            if (!comPort.BaseStream.IsOpen)
-                                mav = comPort;
-
-                            var udc = new UdpSerialConnect();
-                            udc.Port = port.ToString();
-                            udc.client = new UdpClient(ip, port);
-                            udc.IsOpen = true;
-                            udc.hostEndPoint = new IPEndPoint(IPAddress.Parse(ip), port);
-                            mav.BaseStream = udc;
-
-                            aftGround.Invoke((Action)delegate
-                            {
-                                AFTGround.doConnect(mav, "preset", port.ToString());
-
-                                AFTGround.Comports.Add(mav);
-
-                                try
-                                {
-                                    Comports = Comports.Distinct().ToList();
-                                }
-                                catch { }
-                            });
-
-                            // add to seen list, so we skip on next refresh
-                            seen.Add(zeroconfHost.Id);
-                        }
-                    }
-                    catch (Exception)
-                    {
-
-                    }
-                };
-
-                ZeroConf.ProbeForMavlink();
-
-                ZeroConf.ProbeForRTSP();
-            }
-            catch
-            {
-            }
-
-            CommsSerialScan.doConnect += port =>
-            {
-                if (aftGround.InvokeRequired)
-                {
-                    //log.Info("CommsSerialScan.doConnect invoke");
-                    aftGround.BeginInvoke(
-                        (Action)delegate ()
-                        {
-                            MAVLinkInterface mav = new MAVLinkInterface();
-                            mav.BaseStream = port;
-                            AFTGround.doConnect(mav, "preset", "0");
-                            AFTGround.Comports.Add(mav);
-
-                            try
-                            {
-                                Comports = Comports.Distinct().ToList();
-                            }
-                            catch { }
-                        });
-                }
-                else
-                {
-
-                    //log.Info("CommsSerialScan.doConnect NO invoke");
-                    MAVLinkInterface mav = new MAVLinkInterface();
-                    mav.BaseStream = port;
-                    AFTGround.doConnect(mav, "preset", "0");
-                    AFTGround.Comports.Add(mav);
-
-                    try
-                    {
-                        Comports = Comports.Distinct().ToList();
-                    }
-                    catch { }
-                }
-            };*/
-            /*
-            var cmds = ProcessCommandLine(Program.args);
-
-            if (cmds.ContainsKey("rtk"))
-            {
-                var inject = new ConfigSerialInjectGPS();
-                if (cmds["rtk"].ToLower().Contains("http"))
-                {
-                    inject.CMB_serialport.Text = "NTRIP";
-                    var nt = new CommsNTRIP();
-                    ConfigSerialInjectGPS.comPort = nt;
-                    Task.Run(() =>
-                    {
-                        try
-                        {
-                            nt.Open(cmds["rtk"]);
-                            nt.lat = AFTGround.comPort.MAV.cs.PlannedHomeLocation.Lat;
-                            nt.lng = AFTGround.comPort.MAV.cs.PlannedHomeLocation.Lng;
-                            nt.alt = AFTGround.comPort.MAV.cs.PlannedHomeLocation.Alt;
-                            this.BeginInvokeIfRequired(() => { inject.DoConnect(); });
-                        }
-                        catch (Exception ex)
-                        {
-                            this.BeginInvokeIfRequired(() => { CustomMessageBox.Show(ex.ToString()); });
-                        }
-                    });
-                }
-            }*/
-        }
-        /*
-        private void CMB_baudrate_TextChanged(object sender, EventArgs e)
-        {
-            if (!int.TryParse(_connectionControl.CMB_baudrate.Text, out comPortBaud))
-            {
-                CustomMessageBox.Show(Strings.InvalidBaudRate, Strings.ERROR);
-                return;
-            }
-
-            var sb = new StringBuilder();
-            int baud = 0;
-            for (int i = 0; i < _connectionControl.CMB_baudrate.Text.Length; i++)
-                if (char.IsDigit(_connectionControl.CMB_baudrate.Text[i]))
-                {
-                    sb.Append(_connectionControl.CMB_baudrate.Text[i]);
-                    baud = baud * 10 + _connectionControl.CMB_baudrate.Text[i] - '0';
-                }
-
-            if (_connectionControl.CMB_baudrate.Text != sb.ToString())
-            {
-                _connectionControl.CMB_baudrate.Text = sb.ToString();
-            }
-
-            try
-            {
-                if (baud > 0 && comPort.BaseStream.BaudRate != baud)
-                    comPort.BaseStream.BaudRate = baud;
-            }
-            catch (Exception)
-            {
-            }
-        }
-        */
         private void AFTGround_Load(object sender, EventArgs e)
         {
             // Set animation level of Bing map
             bingMapsUserControl1.myMap.AnimationLevel = AnimationLevel.Full;
 
             // Set firmware
-            AFTController.comPort.MAV.cs.firmware = Firmwares.ArduRover;
+            comPort.MAV.cs.firmware = Firmwares.ArduRover;
             /* update telem
             // Start the UDP listener to receive MAVLink packets
             udpClient = new UdpClient(udpPort);
@@ -1858,7 +1120,7 @@ namespace MissionPlanner
             var homeAlt = newPolygon.Locations[0].Altitude;
 
             PointLatLngAlt droneHome = new PointLatLngAlt(homeLat, homeLng, homeAlt);
-            AFTController.comPort.MAV.cs.PlannedHomeLocation = droneHome;
+            comPort.MAV.cs.PlannedHomeLocation = droneHome;
         }
 
         void pin_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
@@ -1905,6 +1167,15 @@ namespace MissionPlanner
                     SelectedPushpin.Location = bingMapsUserControl1.myMap.ViewportPointToLocation(System.Windows.Point.Add(e.GetPosition(bingMapsUserControl1.myMap), _mouseToMarker));
                     e.Handled = true;
                 }
+            }
+        }
+
+        void SystemEvents_PowerModeChanged(object sender, Microsoft.Win32.PowerModeChangedEventArgs e)
+        {
+            // try prevent crash on resume
+            if (e.Mode == Microsoft.Win32.PowerModes.Suspend)
+            {
+                doDisconnect(AFTController.comPort);
             }
         }
 
@@ -1985,7 +1256,7 @@ namespace MissionPlanner
         {
             if (pathPolyline == null)
             {
-                LocationCollection shortestPath = CalculateShortestPath().Result;
+                LocationCollection shortestPath = CalculateShortestPathHome().Result;
 
                 pathPolyline = new MapPolyline();
                 pathPolyline.Locations = shortestPath;
@@ -2009,8 +1280,6 @@ namespace MissionPlanner
             }
 
         }
-
-        public static bool isHerelink = false;
 
         private void btnVidDownlink_Click(object sender, EventArgs e)
         {
@@ -2167,6 +1436,81 @@ namespace MissionPlanner
                 {
                 }
             }
+        }
+
+        /// <summary>
+        /// overriding the OnCLosing is a bit cleaner than handling the event, since it
+        /// is this object.
+        ///
+        /// This happens before FormClosed
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+
+            // Stop adsb
+            Utilities.adsb.Stop();
+
+            // Stop WarningEngine
+            Warnings.WarningEngine.Stop();
+
+            // Stop GStreamer
+            GStreamer.StopAll();
+
+            // Close vlcrender
+            try
+            {
+                while (vlcrender.store.Count > 0)
+                    vlcrender.store[0].Stop();
+            }
+            catch
+            {
+            }
+
+            // Close pluginthread
+            pluginthreadrun = false;
+
+            if (pluginthread != null)
+            {
+                try
+                {
+                    while (!PluginThreadrunner.WaitOne(100)) System.Windows.Forms.Application.DoEvents();
+                }
+                catch
+                {
+                }
+
+                pluginthread.Join();
+            }
+
+            // Close serialthread
+            serialThread = false;
+
+            // Close httpthread
+
+            // if we are waiting on a socket we need to force an abort
+            httpserver.Stop();
+
+            // Close all forms
+            //MyView.Dispose();
+
+            try
+            {
+                if (comPort.BaseStream.IsOpen)
+                    comPort.Close();
+            }
+            catch
+            {
+            } // i get alot of these errors, the port is still open, but not valid - user has unpluged usb
+
+            //Console.WriteLine(httpthread?.IsAlive);
+            Console.WriteLine(pluginthread?.IsAlive);
+
+            Console.WriteLine("AFTGround_FormClosing done");
+
+            //if (MONO)
+            //this.Dispose();
         }
     }
 }

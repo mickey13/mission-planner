@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Windows.Forms;
+using static MissionPlanner.AFTAir;
 using static MissionPlanner.AFTController;
 using static MissionPlanner.AFTGround;
 
@@ -33,7 +34,7 @@ namespace MissionPlanner
                 else if (aftAir != null)
                 {
                     // setup main serial reader
-                    //SerialReaderAir();
+                    SerialReaderAir();
                 }
                 else { }
 
@@ -79,7 +80,7 @@ namespace MissionPlanner
                             }
                             else if (aftAir != null)
                             {
-                                //AFTAir._doConnect(mav, "preset", serial.PortName);
+                                AFTAir._doConnect(mav, "preset", serial.PortName);
                             }
                             else { }
 
@@ -102,7 +103,7 @@ namespace MissionPlanner
                             }
                             else if (aftAir != null)
                             {
-                                //AFTAir._doConnect(AFTController.comPort, "preset", serial.PortName);
+                                AFTAir._doConnect(AFTController.comPort, "preset", serial.PortName);
                             }
                             else { }
                         }

@@ -5,11 +5,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Net.Http;
 using System.Runtime.InteropServices;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Media;
+using Timer = System.Windows.Forms.Timer;
 
 namespace MissionPlanner
 {
@@ -23,6 +26,9 @@ namespace MissionPlanner
         // Starting map location and zoom level
         public static Location locationStart = new Location(37.19912, -80.40813);
         public static int zoomStart = 16;
+
+        public static string inputtedPortName = "preset";
+        public static string inputtedBaud = "57600";
 
         #endregion
 
@@ -107,6 +113,12 @@ namespace MissionPlanner
         // Map layer containing the polygon points defined by the user
         public static MapLayer polygonPointLayer = null;
 
+        // Map layer for current drone location
+        public static MapLayer droneLocationLayer = null;
+
+        // Polyline for flight lines button
+        public static MapPolyline pathPolyline = null;
+
         // Create list to hold pushpins
         public static List<Pushpin> pushPinList { get; set; }
 
@@ -127,8 +139,9 @@ namespace MissionPlanner
 
         #region Constants, variables, and objects for MAVLink and peripherals
 
-        public static string inputtedPortName = "preset";
-        public static string inputtedBaud = "57600";
+        public static bool isHerelink = false;
+
+        public static Timer updateTimer;
 
         /// <summary>
         /// passive comports
@@ -251,9 +264,9 @@ namespace MissionPlanner
                 _comPort = value;
                 if (aftGround == null)
                     return;
-                _comPort.MavChanged -= aftGround.comPort_MavChanged;
+                /*_comPort.MavChanged -= aftGround.comPort_MavChanged;
                 _comPort.MavChanged += aftGround.comPort_MavChanged;
-                aftGround.comPort_MavChanged(null, null);
+                aftGround.comPort_MavChanged(null, null);*/
             }
         }
 
@@ -366,8 +379,8 @@ namespace MissionPlanner
         /// <summary>
         /// Instantiate and show advanced settings
         /// </summary>
-        /// <param name="saveMission"></Set to true if calling from settings window, false if calling from side menu panel>
-        /// <param name="showForm"></Set to true if showing the form immediately, false if otherwise>
+        /// <param name="saveMission">Set to true if calling from settings window, false if calling from side menu panel</param>
+        /// <param name="showForm">Set to true if showing the form immediately, false if otherwise</param>
         public static void ShowAdvSettings(bool saveMission, bool showForm)
         {
             if ((aftSetAdv == null) || aftSetAdv.IsDisposed)
@@ -420,8 +433,8 @@ namespace MissionPlanner
         /// <summary>
         /// Toggle a form between light and dark mode
         /// </summary>
-        /// <param name="form"></Form to toggle color modes>
-        /// <returns></True if going to dark mode, false if going to light>
+        /// <param name="form">Form to toggle color modes</param>
+        /// <returns>True if going to dark mode, false if going to light</returns>
         public static bool ToggleColorMode(Form form)
         {
             // If in light mode
@@ -471,8 +484,8 @@ namespace MissionPlanner
         /// <summary>
         /// Sync color modes across forms
         /// </summary>
-        /// <param name="formToSync"></Form to change color mode>
-        /// <param name="formToSyncWith"></Form to sync colors with>
+        /// <param name="formToSync">Form to change color mode</param>
+        /// <param name="formToSyncWith">Form to sync colors with</param>
         public static void SyncColors(Form formToSync, Form formToSyncWith)
         {
             if (formToSync != null && formToSyncWith != null)
@@ -503,13 +516,13 @@ namespace MissionPlanner
         /// <summary>
         /// Initialize with a form for rounded corners
         /// </summary>
-        /// <param name="nLeftRect"></X-coordinate of upper-left corner>
-        /// <param name="nTopRect"></Y-coordinate of upper-left corner>
-        /// <param name="nRightRect"></X-coordinate of lower-right corner>
-        /// <param name="nBottomRect"></Y-coordinate of lower-right corner>
-        /// <param name="nWidthEllipse"></Width of ellipse>
-        /// <param name="nHeightEllipse"></Height of ellipse>
-        /// <returns></Rectangular region that defines the edge of the form>
+        /// <param name="nLeftRect">X-coordinate of upper-left corner</param>
+        /// <param name="nTopRect">Y-coordinate of upper-left corner</param>
+        /// <param name="nRightRect">X-coordinate of lower-right corner</param>
+        /// <param name="nBottomRect">Y-coordinate of lower-right corner</param>
+        /// <param name="nWidthEllipse">Width of ellipse</param>
+        /// <param name="nHeightEllipse">Height of ellipse</param>
+        /// <returns>Rectangular region that defines the edge of the form</returns>
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         public static extern IntPtr CreateRoundRectRgn
         (
@@ -524,8 +537,8 @@ namespace MissionPlanner
         /// <summary>
         /// Provide function for selection buttons
         /// </summary>
-        /// <param name="btn"></Button to select/deselect>
-        /// <param name="form"></Form that has multiple selection buttons>
+        /// <param name="btn">Button to select/deselect</param>
+        /// <param name="form">Form that has multiple selection buttons</param>
         public static void ToggleSelection(Button btn, Form form = null)
         {
             // If multiple buttons on form
@@ -582,8 +595,8 @@ namespace MissionPlanner
         /// <summary>
         /// Test if button is selected or not
         /// </summary>
-        /// <param name="button"></Button to test>
-        /// <returns></True if button is selected, false if button is not selected>
+        /// <param name="button">Button to test</param>
+        /// <returns>True if button is selected, false if button is not selected</returns>
         public static bool IsSelected(Button button)
         {
             return button.Image == filledButton;
@@ -817,6 +830,48 @@ namespace MissionPlanner
             }
 
             return;
+        }
+
+        /// <summary>
+        /// Function to calculate the shortest path from the MAV to home using Bing Maps API routing
+        /// </summary>
+        /// <returns>LocationCollection representing the shortest path</returns>
+        public static async Task<LocationCollection> CalculateShortestPathHome()
+        {
+            // Create a HTTP client
+            using (HttpClient httpClient = new HttpClient())
+            {
+                LocationCollection shortestPath = new LocationCollection();
+
+                if (comPort.BaseStream.IsOpen && comPort.MAV.cs.HomeLocation != null)
+                {
+                    // Specify the route request URL
+                    string routeRequestUrl = $"https://dev.virtualearth.net/REST/v1/Routes/Walking?" +
+                        $"wp.0={comPort.MAV.cs.lat},{comPort.MAV.cs.lng}" +
+                        $"&wp.1={comPort.MAV.cs.HomeLocation.Lat},{comPort.MAV.cs.HomeLocation.Lng}&key={bingMapsKey}";
+
+                    // Send the request and get the response
+                    HttpResponseMessage response = await httpClient.GetAsync(routeRequestUrl);
+                    string responseContent = await response.Content.ReadAsStringAsync();
+
+                    // Parse the JSON response
+                    dynamic jsonResponse = JsonSerializer.Deserialize<dynamic>(responseContent);
+
+                    if (jsonResponse != null && jsonResponse.resourceSets != null && jsonResponse.resourceSets.Count > 0 &&
+                        jsonResponse.resourceSets[0].resources != null && jsonResponse.resourceSets[0].resources.Count > 0)
+                    {
+                        // Extract the points from the route path and convert them to Location objects
+                        var routePath = jsonResponse.resourceSets[0].resources[0].routePath.line.coordinates;
+                        foreach (var coord in routePath)
+                        {
+                            double latitude = coord[0];
+                            double longitude = coord[1];
+                            shortestPath.Add(new Location(latitude, longitude));
+                        }
+                    }
+                }
+                return shortestPath;
+            }
         }
 
         #endregion
