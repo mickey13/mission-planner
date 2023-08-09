@@ -49,8 +49,8 @@ namespace MissionPlanner
             this.panel5 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
-            this.panel4 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.line2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.line1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -204,11 +204,6 @@ namespace MissionPlanner
             this.panel6.Name = "panel6";
             this.tableLayoutPanel1.SetRowSpan(this.panel6, 2);
             // 
-            // panel4
-            // 
-            resources.ApplyResources(this.panel4, "panel4");
-            this.panel4.Name = "panel4";
-            // 
             // panel7
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.panel7, 6);
@@ -217,6 +212,11 @@ namespace MissionPlanner
             this.panel7.Controls.Add(this.line1);
             resources.ApplyResources(this.panel7, "panel7");
             this.panel7.Name = "panel7";
+            // 
+            // panel4
+            // 
+            resources.ApplyResources(this.panel4, "panel4");
+            this.panel4.Name = "panel4";
             // 
             // MainAFT
             // 

@@ -49,7 +49,7 @@ namespace MissionPlanner
         public static void _doConnect(MAVLinkInterface comPort, string portname, string baud, bool getparams = true, bool showui = true)
         {
             bool skipconnectcheck = false;
-            Console.WriteLine($"Connecting to {portname} {baud}");
+            Console.WriteLine($"Connecting with the following parameters...\nPort: {portname}\nBaud: {baud}\n");
 
             switch (portname)
             {
@@ -100,12 +100,12 @@ namespace MissionPlanner
                     break;
             }
             comPort.MAV.cs.ResetInternals();
-
+            /*
             //cleanup any log being played
             comPort.logreadmode = false;
             if (comPort.logplaybackfile != null)
                 comPort.logplaybackfile.Close();
-            comPort.logplaybackfile = null;
+            comPort.logplaybackfile = null;*/
 
             try
             {
@@ -143,12 +143,12 @@ namespace MissionPlanner
                 // reset connect time - for timeout functions
                 connecttime = DateTime.Now;
 
-                // do the connect
+                // Do the connect
                 comPort.Open(false, skipconnectcheck, showui);
 
                 if (!comPort.BaseStream.IsOpen)
                 {
-                    //log.Info("comport is closed. existing connect");
+                    Console.WriteLine("\nComport is closed; exiting connection sequence\n");
                     try
                     {
                         //_connectionControl.IsConnected(false);
@@ -383,6 +383,7 @@ namespace MissionPlanner
                 }
 
                 // Drone should now be connected
+                Console.WriteLine($"Connected to drone? {comPort.BaseStream.IsOpen}");
             }
             catch (Exception ex)
             {
@@ -398,7 +399,7 @@ namespace MissionPlanner
                     Console.WriteLine($"Error: {ex2.Message}");
                 }
 
-                Console.WriteLine($"Can not establish a connection\n\n{ex.Message}");
+                Console.WriteLine($"\nCould not establish a connection\n\n{ex.Message}");
                 return;
             }
         }

@@ -1,15 +1,6 @@
-﻿using MissionPlanner.Comms;
-using MissionPlanner.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Sockets;
-using System.Threading;
+﻿using System;
 using System.Windows.Forms;
-using static MissionPlanner.AFTAir;
 using static MissionPlanner.AFTController;
-using static MissionPlanner.AFTGround;
 
 namespace MissionPlanner
 {
@@ -22,6 +13,8 @@ namespace MissionPlanner
 
         private void AFTVehicleConnecting_Load(object sender, EventArgs e)
         {
+            Connect();
+            /*
             //Connect drone
             try
             {
@@ -124,7 +117,7 @@ namespace MissionPlanner
                 {
                     Console.WriteLine($"Error: {ex.Message}");
                 }
-            };/*
+            };*//*
             AutoConnect.NewVideoStream += (send, gststring) =>
             {
                 try
@@ -147,7 +140,7 @@ namespace MissionPlanner
                 {
                     Console.WriteLine($"Error: {ex}");
                 }
-            };*/
+            };*//*
             AutoConnect.Start();
 
             try
@@ -320,6 +313,8 @@ namespace MissionPlanner
                     }
                 }
             };
+            */
+            Console.WriteLine($"Connected to drone? {comPort.BaseStream.IsOpen}");
 
             // Show pre-flight checklist
             if ((checklist == null) || checklist.IsDisposed)

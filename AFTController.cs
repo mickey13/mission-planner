@@ -27,7 +27,7 @@ namespace MissionPlanner
         public static Location locationStart = new Location(37.19912, -80.40813);
         public static int zoomStart = 16;
 
-        public static string inputtedPortName = "preset";
+        public static string inputtedPortName = "AUTO";
         public static string inputtedBaud = "57600";
 
         #endregion
@@ -658,7 +658,7 @@ namespace MissionPlanner
         {
             comPort.giveComport = false;
 
-            Console.WriteLine("Starting to connect");
+            Console.WriteLine("\nStarting to connect\n");
 
             // Sanity check
             if (comPort.BaseStream.IsOpen && comPort.MAV.cs.groundspeed > 4)
@@ -683,9 +683,8 @@ namespace MissionPlanner
                     AFTGround._doConnect(comPort, inputtedPortName, inputtedBaud);
                 }
                 else if (aftAir != null)
-                {// Enable after updating aftAir; delete custom message box
-                    //AFTAir._doConnect(comPort, inputtedPortName, inputtedBaud);
-                    CustomMessageBox.Show("See Connect() in AFTController.cs");
+                {
+                    AFTAir._doConnect(comPort, inputtedPortName, inputtedBaud);
                 }
             }
 
