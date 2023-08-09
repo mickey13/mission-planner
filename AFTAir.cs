@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -639,14 +640,25 @@ namespace MissionPlanner
                                         Thread.Sleep(100);
 
                                     AFTController.comPort.MAV.cs.HomeLocation = new PointLatLngAlt(AFTController.comPort.getWP(0));
-                                    if (aftAir != null)
+
+                                    // Update polygon locations
+                                    if (aftAir != null && newPolygon.Locations.Count > 0 &&
+                                    new Location(newPolygon.Locations[0].Latitude, newPolygon.Locations[0].Longitude) !=
+                                    new Location(comPort.MAV.cs.HomeLocation.Lat, comPort.MAV.cs.HomeLocation.Lng))
                                     {
-                                        // Update home location and pushpin; assumes that polygon is already created and has at least one point
-                                        newPolygon.Locations[0] = new Location(AFTController.comPort.MAV.cs.HomeLocation.Lat, AFTController.comPort.MAV.cs.HomeLocation.Lng);
+                                        newPolygon.Locations[0] = new Location(comPort.MAV.cs.HomeLocation.Lat, comPort.MAV.cs.HomeLocation.Lng);
+
+                                        // Update home pushpin
                                         if (polygonPointLayer.Children[0] is Pushpin)
                                         {
                                             Pushpin p = (Pushpin)polygonPointLayer.Children[0];
+
                                             p.Location = newPolygon.Locations[0];
+                                            p.Width = 16;
+                                            p.Height = 16;
+                                            p.Cursor = System.Windows.Input.Cursors.Hand;
+
+                                            polygonPointLayer.Children[0] = p;
                                         }
                                     }
                                 }
@@ -952,7 +964,13 @@ namespace MissionPlanner
             //polygonPt.StrokeThickness = 3;
             polygonPushPin.Width = 16;
             polygonPushPin.Height = 16;
-            polygonPushPin.Background = new SolidColorBrush(missionBoundaryColor);
+            polygonPushPin.Cursor = System.Windows.Input.Cursors.Hand;
+
+            // Leave first location (home location) as default color
+            if (newPolygon.Locations.Count() > 0)
+            {
+                polygonPushPin.Background = new SolidColorBrush(missionBoundaryColor);
+            }
 
             // Add handlers to the pushpin
             polygonPushPin.MouseRightButtonDown += new MouseButtonEventHandler(pin_MouseRightButtonDown);
@@ -1119,22 +1137,6 @@ namespace MissionPlanner
 
         void pin_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
-            // Save updated pushpin locations
-            LocationCollection locCol = new LocationCollection();
-            foreach (Pushpin p in pushPinList)
-            {
-                locCol.Add(p.Location);
-            }
-
-            // Create new polygon and set focus back to the map so that +/- work for zoom in/out
-            bingMapsUserControl1.myMap.Children.Remove(newPolygon);
-            SetUpNewPolygon();
-            bingMapsUserControl1.myMap.Focus();
-
-            // Add updated locations to new polygon
-            newPolygon.Locations = locCol;
-            bingMapsUserControl1.myMap.Children.Add(newPolygon);
-
             // Update fields/properties
             _IsPinDragging = false;
             SelectedPushpin = null;
@@ -1147,6 +1149,24 @@ namespace MissionPlanner
                 if (_IsPinDragging && SelectedPushpin != null)
                 {
                     SelectedPushpin.Location = bingMapsUserControl1.myMap.ViewportPointToLocation(System.Windows.Point.Add(e.GetPosition(bingMapsUserControl1.myMap), _mouseToMarker));
+
+                    // Update polygon border while dragging pushpin
+                    // Save updated pushpin locations
+                    LocationCollection locCol = new LocationCollection();
+                    foreach (Pushpin p in pushPinList)
+                    {
+                        locCol.Add(p.Location);
+                    }
+
+                    // Create new polygon and set focus back to the map so that +/- work for zoom in/out
+                    bingMapsUserControl1.myMap.Children.Remove(newPolygon);
+                    SetUpNewPolygon();
+                    bingMapsUserControl1.myMap.Focus();
+
+                    // Add updated locations to new polygon
+                    newPolygon.Locations = locCol;
+                    bingMapsUserControl1.myMap.Children.Add(newPolygon);
+
                     e.Handled = true;
                 }
             }
