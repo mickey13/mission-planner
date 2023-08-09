@@ -912,21 +912,24 @@ namespace MissionPlanner
         /// </summary>
         private void _updateTelemetryData()
         {
-            // Get the latest telemetry values from MAVLinkInterface
-            double altitude = comPort.MAV.cs.alt;
-            double groundSpeed = comPort.MAV.cs.groundspeed;
-            double distanceToWaypoint = comPort.MAV.cs.wp_dist;
-            double yaw = comPort.MAV.cs.yaw;
-            double verticalSpeed = comPort.MAV.cs.climbrate;
-            double distanceToMAV = comPort.MAV.cs.DistToHome;
+            if (comPort.BaseStream.IsOpen)
+            {
+                // Get the latest telemetry values from MAVLinkInterface
+                double altitude = comPort.MAV.cs.alt;
+                double groundSpeed = comPort.MAV.cs.groundspeed;
+                double distanceToWaypoint = comPort.MAV.cs.wp_dist;
+                double yaw = comPort.MAV.cs.yaw;
+                double verticalSpeed = comPort.MAV.cs.climbrate;
+                double distanceToMAV = comPort.MAV.cs.DistToHome;
 
-            // Update the UI controls with telemetry data
-            lblAltDisplay.Text = altitude.ToString("F2");
-            lblGSpdDisplay.Text = groundSpeed.ToString("F2");
-            lblWPDistDisplay.Text = distanceToWaypoint.ToString("F2");
-            lblYawDisplay.Text = yaw.ToString("F2");
-            lblVSpdDisplay.Text = verticalSpeed.ToString("F2");
-            lblMAVDistDisplay.Text = distanceToMAV.ToString("F2");
+                // Update the UI controls with telemetry data
+                lblAltDisplay.Text = altitude.ToString("F2");
+                lblGSpdDisplay.Text = groundSpeed.ToString("F2");
+                lblWPDistDisplay.Text = distanceToWaypoint.ToString("F2");
+                lblYawDisplay.Text = yaw.ToString("F2");
+                lblVSpdDisplay.Text = verticalSpeed.ToString("F2");
+                lblMAVDistDisplay.Text = distanceToMAV.ToString("F2");
+            }
         }
 
         /// <summary>
@@ -1040,7 +1043,7 @@ namespace MissionPlanner
         {
             _updateTelemetryData();
 
-            if (comPort.MAV.cs.Location != null)
+            if (comPort.BaseStream.IsOpen && comPort.MAV.cs.Location != null)
             {
                 // Current drone location
                 var currentDroneLoc = new Location(comPort.MAV.cs.lat, comPort.MAV.cs.lng);

@@ -18,6 +18,7 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using static MissionPlanner.AFTController;
+using Location = Microsoft.Maps.MapControl.WPF.Location;
 using Timer = System.Windows.Forms.Timer;
 
 namespace MissionPlanner
@@ -1235,9 +1236,12 @@ namespace MissionPlanner
 
         private void btnFlightLines_Click(object sender, EventArgs e)
         {
+            // Quickest route for aerial drone is straight line
             if (pathPolyline == null)
             {
-                LocationCollection shortestPath = CalculateShortestPathHome().Result;
+                LocationCollection shortestPath = new LocationCollection();
+                shortestPath.Add(new Location(comPort.MAV.cs.lat, comPort.MAV.cs.lng));
+                shortestPath.Add(new Location(comPort.MAV.cs.HomeLocation.Lat, comPort.MAV.cs.HomeLocation.Lng));
 
                 pathPolyline = new MapPolyline();
                 pathPolyline.Locations = shortestPath;

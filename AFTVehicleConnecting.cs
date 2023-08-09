@@ -65,55 +65,89 @@ namespace MissionPlanner
             {
                 try
                 {
-                    // AutoConnect.NewMavlinkConnection serial.PortName
-                    aftGround.BeginInvoke((Action)delegate
+                    Console.WriteLine($"AutoConnect.NewMavlinkConnection {serial.PortName}");
+
+                    // Check if ground or air
+                    if (aftGround != null)
                     {
-                        if (AFTController.comPort.BaseStream.IsOpen)
+                        aftGround.BeginInvoke((Action)delegate
                         {
-                            var mav = new MAVLinkInterface();
-                            mav.BaseStream = serial;
-
-                            // Check if ground or air
-                            if (aftGround != null)
+                            if (AFTController.comPort.BaseStream.IsOpen)
                             {
+                                var mav = new MAVLinkInterface();
+                                mav.BaseStream = serial;
                                 AFTGround._doConnect(mav, "preset", serial.PortName);
-                            }
-                            else if (aftAir != null)
-                            {
-                                AFTAir._doConnect(mav, "preset", serial.PortName);
-                            }
-                            else { }
 
-                            AFTController.Comports.Add(mav);
+                                AFTController.Comports.Add(mav);
 
-                            try
-                            {
-                                Comports = Comports.Distinct().ToList();
+                                try
+                                {
+                                    Comports = Comports.Distinct().ToList();
+                                }
+                                catch { }
                             }
-                            catch { }
-                        }
-                        else
-                        {
-                            AFTController.comPort.BaseStream = serial;
-
-                            // Check if ground or air
-                            if (aftGround != null)
+                            else
                             {
+                                AFTController.comPort.BaseStream = serial;
                                 AFTGround._doConnect(AFTController.comPort, "preset", serial.PortName);
                             }
-                            else if (aftAir != null)
+                        });
+                    }
+                    // Same action for air
+                    else if (aftAir != null)
+                    {
+                        aftAir.BeginInvoke((Action)delegate
+                        {
+                            if (AFTController.comPort.BaseStream.IsOpen)
                             {
+                                var mav = new MAVLinkInterface();
+                                mav.BaseStream = serial;
+                                AFTAir._doConnect(mav, "preset", serial.PortName);
+
+                                AFTController.Comports.Add(mav);
+
+                                try
+                                {
+                                    Comports = Comports.Distinct().ToList();
+                                }
+                                catch { }
+                            }
+                            else
+                            {
+                                AFTController.comPort.BaseStream = serial;
                                 AFTAir._doConnect(AFTController.comPort, "preset", serial.PortName);
                             }
-                            else { }
-                        }
-                    });
+                        });
+                    }
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Error: {ex.Message}");
                 }
-            };
+            };/*
+            AutoConnect.NewVideoStream += (send, gststring) =>
+            {
+                try
+                {
+                    Console.WriteLine("AutoConnect.NewVideoStream " + gststring);
+                    GStreamer.gstlaunch = GStreamer.LookForGstreamer();
+
+                    if (!GStreamer.gstlaunchexists)
+                    {
+                        GStreamerUI.DownloadGStreamer();
+                        if (!GStreamer.gstlaunchexists)
+                        {
+                            return;
+                        }
+                    }
+
+                    GStreamer.StartA(gststring);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error: {ex}");
+                }
+            };*/
             AutoConnect.Start();
 
             try
@@ -154,27 +188,38 @@ namespace MissionPlanner
                             udc.hostEndPoint = new IPEndPoint(IPAddress.Parse(ip), port);
                             mav.BaseStream = udc;
 
-                            aftGround.Invoke((Action)delegate
+                            // Check if ground or air
+                            if (aftGround != null)
                             {
-                                // Check if ground or air
-                                if (aftGround != null)
+                                aftGround.Invoke((Action)delegate
                                 {
                                     AFTGround._doConnect(mav, "preset", port.ToString());
-                                }
-                                else if (aftAir != null)
-                                {
-                                    //AFTAir._doConnect(mav, "preset", port.ToString());
-                                }
-                                else { }
 
-                                AFTController.Comports.Add(mav);
+                                    AFTController.Comports.Add(mav);
 
-                                try
+                                    try
+                                    {
+                                        Comports = Comports.Distinct().ToList();
+                                    }
+                                    catch { }
+                                });
+                            }
+                            // Same action for air
+                            else if (aftAir != null)
+                            {
+                                aftAir.Invoke((Action)delegate
                                 {
-                                    Comports = Comports.Distinct().ToList();
-                                }
-                                catch { }
-                            });
+                                    AFTAir._doConnect(mav, "preset", port.ToString());
+
+                                    AFTController.Comports.Add(mav);
+
+                                    try
+                                    {
+                                        Comports = Comports.Distinct().ToList();
+                                    }
+                                    catch { }
+                                });
+                            }
 
                             // add to seen list, so we skip on next refresh
                             seen.Add(zeroconfHost.Id);
@@ -196,60 +241,83 @@ namespace MissionPlanner
 
             CommsSerialScan.doConnect += port =>
             {
-                if (aftGround.InvokeRequired)
+                // Check if ground or air
+                if (aftGround != null)
                 {
-                    // CommsSerialScan.doConnect invoke
-                    aftGround.BeginInvoke(
-                        (Action)delegate ()
-                        {
-                            MAVLinkInterface mav = new MAVLinkInterface();
-                            mav.BaseStream = port;
-
-                            // Check if ground or air
-                            if (aftGround != null)
+                    if (aftGround.InvokeRequired)
+                    {
+                        Console.WriteLine("CommsSerialScan.doConnect invoke");
+                        aftGround.BeginInvoke(
+                            (Action)delegate ()
                             {
+                                MAVLinkInterface mav = new MAVLinkInterface();
+                                mav.BaseStream = port;
                                 AFTGround._doConnect(mav, "preset", "0");
-                            }
-                            else if (aftAir != null)
-                            {
-                                //AFTAir._doConnect(mav, "preset", "0");
-                            }
-                            else { }
 
-                            AFTController.Comports.Add(mav);
+                                AFTController.Comports.Add(mav);
 
-                            try
-                            {
-                                Comports = Comports.Distinct().ToList();
-                            }
-                            catch { }
-                        });
-                }
-                else
-                {
-
-                    // CommsSerialScan.doConnect NO invoke
-                    MAVLinkInterface mav = new MAVLinkInterface();
-                    mav.BaseStream = port;
-
-                    // Check if ground or air
-                    if (aftGround != null)
+                                try
+                                {
+                                    Comports = Comports.Distinct().ToList();
+                                }
+                                catch { }
+                            });
+                    }
+                    else
                     {
+
+                        // CommsSerialScan.doConnect NO invoke
+                        MAVLinkInterface mav = new MAVLinkInterface();
+                        mav.BaseStream = port;
                         AFTGround._doConnect(mav, "preset", "0");
-                    }
-                    else if (aftAir != null)
-                    {
-                        //AFTAir._doConnect(mav, "preset", "0");
-                    }
-                    else { }
 
-                    AFTController.Comports.Add(mav);
+                        AFTController.Comports.Add(mav);
 
-                    try
-                    {
-                        Comports = Comports.Distinct().ToList();
+                        try
+                        {
+                            Comports = Comports.Distinct().ToList();
+                        }
+                        catch { }
                     }
-                    catch { }
+                }
+                // Same action for air
+                else if (aftAir != null)
+                {
+                    if (aftAir.InvokeRequired)
+                    {
+                        Console.WriteLine("CommsSerialScan.doConnect invoke");
+                        aftAir.BeginInvoke(
+                            (Action)delegate ()
+                            {
+                                MAVLinkInterface mav = new MAVLinkInterface();
+                                mav.BaseStream = port;
+                                AFTAir._doConnect(mav, "preset", "0");
+
+                                AFTController.Comports.Add(mav);
+
+                                try
+                                {
+                                    Comports = Comports.Distinct().ToList();
+                                }
+                                catch { }
+                            });
+                    }
+                    else
+                    {
+
+                        // CommsSerialScan.doConnect NO invoke
+                        MAVLinkInterface mav = new MAVLinkInterface();
+                        mav.BaseStream = port;
+                        AFTAir._doConnect(mav, "preset", "0");
+
+                        AFTController.Comports.Add(mav);
+
+                        try
+                        {
+                            Comports = Comports.Distinct().ToList();
+                        }
+                        catch { }
+                    }
                 }
             };
 
