@@ -249,7 +249,6 @@
             // 
             // btnNewMission
             // 
-            this.btnNewMission.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.btnNewMission.FlatAppearance.BorderSize = 0;
             this.btnNewMission.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNewMission.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
@@ -263,7 +262,6 @@
             // 
             // btnSettings
             // 
-            this.btnSettings.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.btnSettings.FlatAppearance.BorderSize = 0;
             this.btnSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
@@ -277,7 +275,6 @@
             // 
             // btnVehicleSettings
             // 
-            this.btnVehicleSettings.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.btnVehicleSettings.FlatAppearance.BorderSize = 0;
             this.btnVehicleSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVehicleSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
@@ -290,7 +287,6 @@
             // 
             // btnFirmUpdate
             // 
-            this.btnFirmUpdate.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.btnFirmUpdate.FlatAppearance.BorderSize = 0;
             this.btnFirmUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFirmUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
@@ -303,7 +299,6 @@
             // 
             // btnPreFlightCheck
             // 
-            this.btnPreFlightCheck.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.btnPreFlightCheck.FlatAppearance.BorderSize = 0;
             this.btnPreFlightCheck.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPreFlightCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
@@ -317,7 +312,6 @@
             // 
             // btnLoadMission
             // 
-            this.btnLoadMission.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.btnLoadMission.FlatAppearance.BorderSize = 0;
             this.btnLoadMission.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLoadMission.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
@@ -330,7 +324,6 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.pictureBox1.Image = global::MissionPlanner.Properties.Resources.line_black_long;
             this.pictureBox1.Location = new System.Drawing.Point(39, 346);
             this.pictureBox1.Name = "pictureBox1";
@@ -368,7 +361,6 @@
             // 
             // lblMAVDistDisplay
             // 
-            this.lblMAVDistDisplay.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblMAVDistDisplay.AutoSize = true;
             this.lblMAVDistDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 26F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMAVDistDisplay.Location = new System.Drawing.Point(168, 635);
@@ -379,7 +371,6 @@
             // 
             // lblVSpdDisplay
             // 
-            this.lblVSpdDisplay.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblVSpdDisplay.AutoSize = true;
             this.lblVSpdDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 26F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblVSpdDisplay.Location = new System.Drawing.Point(32, 635);
@@ -390,7 +381,6 @@
             // 
             // lblYawDisplay
             // 
-            this.lblYawDisplay.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblYawDisplay.AutoSize = true;
             this.lblYawDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 26F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblYawDisplay.Location = new System.Drawing.Point(168, 519);
@@ -401,7 +391,6 @@
             // 
             // lblWPDistDisplay
             // 
-            this.lblWPDistDisplay.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblWPDistDisplay.AutoSize = true;
             this.lblWPDistDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 26F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblWPDistDisplay.Location = new System.Drawing.Point(32, 519);
@@ -412,7 +401,6 @@
             // 
             // lblGSpdDisplay
             // 
-            this.lblGSpdDisplay.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblGSpdDisplay.AutoSize = true;
             this.lblGSpdDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 26F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblGSpdDisplay.Location = new System.Drawing.Point(168, 416);
@@ -423,7 +411,6 @@
             // 
             // lblAltDisplay
             // 
-            this.lblAltDisplay.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblAltDisplay.AutoSize = true;
             this.lblAltDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 26F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAltDisplay.Location = new System.Drawing.Point(32, 416);
@@ -434,10 +421,9 @@
             // 
             // lblMAVDist
             // 
-            this.lblMAVDist.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblMAVDist.AutoSize = true;
             this.lblMAVDist.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMAVDist.Location = new System.Drawing.Point(157, 588);
+            this.lblMAVDist.Location = new System.Drawing.Point(153, 588);
             this.lblMAVDist.Name = "lblMAVDist";
             this.lblMAVDist.Size = new System.Drawing.Size(106, 17);
             this.lblMAVDist.TabIndex = 12;
@@ -445,10 +431,9 @@
             // 
             // lblVSpeed
             // 
-            this.lblVSpeed.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblVSpeed.AutoSize = true;
             this.lblVSpeed.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblVSpeed.Location = new System.Drawing.Point(6, 588);
+            this.lblVSpeed.Location = new System.Drawing.Point(11, 588);
             this.lblVSpeed.Name = "lblVSpeed";
             this.lblVSpeed.Size = new System.Drawing.Size(136, 17);
             this.lblVSpeed.TabIndex = 11;
@@ -456,10 +441,9 @@
             // 
             // lblYaw
             // 
-            this.lblYaw.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblYaw.AutoSize = true;
             this.lblYaw.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblYaw.Location = new System.Drawing.Point(174, 479);
+            this.lblYaw.Location = new System.Drawing.Point(172, 479);
             this.lblYaw.Name = "lblYaw";
             this.lblYaw.Size = new System.Drawing.Size(72, 17);
             this.lblYaw.TabIndex = 10;
@@ -467,10 +451,9 @@
             // 
             // lblWPDist
             // 
-            this.lblWPDist.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblWPDist.AutoSize = true;
             this.lblWPDist.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblWPDist.Location = new System.Drawing.Point(25, 479);
+            this.lblWPDist.Location = new System.Drawing.Point(32, 479);
             this.lblWPDist.Name = "lblWPDist";
             this.lblWPDist.Size = new System.Drawing.Size(99, 17);
             this.lblWPDist.TabIndex = 9;
@@ -478,10 +461,9 @@
             // 
             // lblGSpeed
             // 
-            this.lblGSpeed.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblGSpeed.AutoSize = true;
             this.lblGSpeed.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblGSpeed.Location = new System.Drawing.Point(142, 373);
+            this.lblGSpeed.Location = new System.Drawing.Point(137, 373);
             this.lblGSpeed.Name = "lblGSpeed";
             this.lblGSpeed.Size = new System.Drawing.Size(137, 17);
             this.lblGSpeed.TabIndex = 8;
@@ -489,10 +471,9 @@
             // 
             // lblAltitude
             // 
-            this.lblAltitude.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblAltitude.AutoSize = true;
             this.lblAltitude.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAltitude.Location = new System.Drawing.Point(34, 373);
+            this.lblAltitude.Location = new System.Drawing.Point(32, 373);
             this.lblAltitude.Name = "lblAltitude";
             this.lblAltitude.Size = new System.Drawing.Size(80, 17);
             this.lblAltitude.TabIndex = 7;

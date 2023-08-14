@@ -117,8 +117,7 @@ namespace MissionPlanner
                 {
                     Console.WriteLine($"Error: {ex.Message}");
                 }
-            };*/
-            /*
+            };*//*
             AutoConnect.NewVideoStream += (send, gststring) =>
             {
                 try
@@ -141,8 +140,7 @@ namespace MissionPlanner
                 {
                     Console.WriteLine($"Error: {ex}");
                 }
-            };*/
-            /*
+            };*//*
             AutoConnect.Start();
 
             try
