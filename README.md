@@ -44,7 +44,7 @@ By following these steps, you'll have the necessary components installed and rea
 The AFT software has only been tested on Windows using Visual Studio 2022. Support for other systems does not currently exist.
 
 ##### To-do before compiling
-1. Open 'AFTController.cs' and set the following objects that are at the top of the file:
+1. Open `AFTController.cs` and set the following objects that are at the top of the file:
    - 'bingMapsKey'
      - This is a Bing Maps API key
    - 'locationStart'
