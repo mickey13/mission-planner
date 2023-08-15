@@ -46,6 +46,15 @@ namespace MissionPlanner
         }
 
         // Keep here since it references private functions
+        /// <summary>
+        /// Connect to drone with ground interface
+        /// </summary>
+        /// <param name="comPort">Comport to connect to</param>
+        /// <param name="portname">Type of port to use</param>
+        /// <param name="baud">baudrate to use</param>
+        /// <param name="getparams"></param>
+        /// <param name="showui"></param>
+        /// <exception cref=" "></exception>
         public static void _doConnect(MAVLinkInterface comPort, string portname, string baud, bool getparams = true, bool showui = true)
         {
             bool skipconnectcheck = false;
@@ -404,6 +413,9 @@ namespace MissionPlanner
             }
         }
 
+        /// <summary>
+        /// Communicate through serial port
+        /// </summary>
         public static async void SerialReaderGround()
         {
             if (serialThread == true)
