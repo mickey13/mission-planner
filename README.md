@@ -45,7 +45,7 @@ The AFT software has only been tested on Windows using Visual Studio 2022. Suppo
 
 ##### To-do before compiling
 1. Open `AFTController.cs` and set the following objects that are at the top of the file:
-   - `bingMapsKey`
+   - `bingMapsKey``bingMapsKey`
      - This is a Bing Maps API key
    - `locationStart`
      - This is a (Latitude, Longitude) pair
