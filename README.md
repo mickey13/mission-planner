@@ -67,7 +67,7 @@ The AFT software has only been tested on Windows using Visual Studio 2022. Suppo
      - This is a Bing Maps API key
    - `locationStart`
      - This is a (Latitude, Longitude) pair
-  a.  The following objects in `AFTController.cs` are optional to change:
+   - The following objects in `AFTController.cs` are optional to change:
      - `zoomStart`
        - This is the zoom level that the map will start at
      - `inputtedPortName`
