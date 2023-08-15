@@ -40,6 +40,53 @@ To simplify this selection process, we have provided a configuration file that s
 
 By following these steps, you'll have the necessary components installed and ready for Mission Planner development.
 
+#### AFT Specific Information
+The AFT software has only been tested on Windows using Visual Studio 2022. Support for other systems does not currently exist.
+
+##### To-do before compiling
+1. Open 'AFTController.cs' and set the following objects that are at the top of the file:
+   - 'bingMapsKey'
+     - This is a Bing Maps API key
+   - 'locationStart'
+     - This is a (Latitude, Longitude) pair
+  a.  The following objects in 'AFTController.cs' are optional to change:
+     - 'zoomStart'
+       - This is the zoom level that the map will start at
+     - 'inputtedPortName'
+       - This is the port name that will be used in MAV connection
+       - Options for this are 'preset', 'TCP', 'UDP', 'WS', 'UDPCl', and 'AUTO'
+     - 'inputtedBaud'
+       - This is the baudrate that will be used in MAV connection
+
+##### How to use this software
+1. Upon running this application, the user will have the option to choose between using the AFT software or booting into the complete, original MissionPlanner software.       The 'Ground' and 'Air' buttons will launch the same software, but will each assume a different MAV firmware; 'ArduRover' and 'ArduCopter2', respectively.
+2. Mouse click controls for Bing Maps control
+   - Double click on the map to create a pushpin and add the clicked position to the mission boundary. This first point that is added to the mission boundary will be set        as the drone's home position and its pushpin will have a different color.
+   - Left click and drag to move the map around
+   - Right click on a pushpin and drag to move a pushpin and edit the mission boundary. Release the right mouse button to stop editing the pushpin location and missoin          boundary
+3. To initiate the MAV connection sequence, click the button in the top right.
+4. To add a polyline to the map that represents the shortest safe path between the MAV and the home location, click the compass button in the bottom left.
+5. To switch to a video downlink from the MAV, click the button in the bottom right.
+6. Saving/loading missions
+   - Missions are saved to .json files using a custom format. See the 'MissionSettings' class in 'AFTController.cs' to see the structure of this format.
+
+##### Known/common issues & quirks
+1. Forms that contain circular selection buttons
+   - When one of these forms are created, two clicks are required to select any one selection button. The current belief is that the first click gives focus to the button,      and the second click is what is registered and triggers the button click event.
+2. Child form control boxes
+   - Child form control boxes appear in the software. This can be fixed by docking a menustrip to the parent form and settings its visibility to false (see                      'AFTMDIContainer.cs'). But, the addition of this menustrip causes the top menu bar in 'MainV2' to not render when it ('MainV2') is instantiated.
+3. Map polygon boundary and pushpins
+   - The default anchor point for Bing Maps control pushpins are not at the point of the pushpin, where one would expect. This causes the pushpin and polygon boundary to        intersect in the upper left part of the pushpin and not at the point. It is believed that this cannot be fixed with out creating a custom pushpin.
+4. The image of the button in the top right is supposed to change based on the MAV connection status, but this is not functional.
+5. The base class System.Void cannot be designed
+   - This has been a recurring error that has blocked the ability to view/edit form designs. This is believed to be an internal VS issue. Sometimes, but not always, the following steps work to fix this:
+     1. Close all files
+     2. Clean solution
+     3. Close and reopen Visual Studio
+     4. Open solution
+     5. Rebuild Solution
+     6. Build solution
+
 ###### VSCode
 Currently VSCode with C# plugin is able to parse the code but cannot build.
 
